@@ -44,6 +44,8 @@
  * linear interpolator object is generated with this data. A model lightcurve is then interpolated on
  * to the data's time grid, the data normalised to its own mean and the interpolated model is subtracted.
  *
+ * Then the model lightcurve is added in a similar process. 
+ *
  *
  * \section dependencies Software dependencies
  *
@@ -60,7 +62,6 @@
  * \section notes Notes for the creator
  *
  *
- * \todo See if the interpolation needs to be sorted or not
  * \todo Package all external requirements in another directory
  * \todo Check if glog is used at all
  *
