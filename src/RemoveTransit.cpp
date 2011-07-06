@@ -68,7 +68,7 @@ Lightcurve RemoveTransit(Lightcurve &data, Lightcurve &model)
     /*  now interpolate onto the data's phase grid */
     vector<double> dataPhase = data.phase();
     /*  create the output array */
-    vector<double> LCWithFluxRemoved(data.size());
+    //vector<double> LCWithFluxRemoved(data.size());
     for (size_t i=0; i<dataPhase.size(); ++i)
     {
         double InterpolatedModelValue = interpolator.interp(dataPhase[i]);
@@ -78,7 +78,7 @@ Lightcurve RemoveTransit(Lightcurve &data, Lightcurve &model)
         if (isnan(dataPhaseValue))
         {
             /*  phase is null so ignore for now */
-            LCWithFluxRemoved[i] = dataPhaseValue;
+            output.flux[i] = dataPhaseValue;
         }
         else
         {
@@ -87,13 +87,13 @@ Lightcurve RemoveTransit(Lightcurve &data, Lightcurve &model)
             if (isnan(dataFluxValue))
             {
                 /*  flux is null so put a null in the output array */
-                LCWithFluxRemoved[i] = dataFluxValue;
+                output.flux[i] = dataFluxValue;
             }
             else
             {
                 /*  both data and phase are well behaved */
                 double NormalisedFluxValue = dataFluxValue / dataAv;
-                LCWithFluxRemoved[i] = ((NormalisedFluxValue - InterpolatedModelValue) + 1.0) * dataAv;
+                output.flux[i] = ((NormalisedFluxValue - InterpolatedModelValue) + 1.0) * dataAv;
             }
         }
 
