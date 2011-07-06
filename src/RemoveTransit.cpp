@@ -20,6 +20,9 @@ Lightcurve RemoveTransit(Lightcurve &data, Lightcurve &model)
      * \bug Code does not take into account nans 
      * */
 
+    /*  set up an output file for debugging */
+    ofstream debugoutfile("debug.dat");
+    debugoutfile.precision(15);
 
     /*  get the phase values */
     vector<double> modelPhase = model.phase();
@@ -38,9 +41,6 @@ Lightcurve RemoveTransit(Lightcurve &data, Lightcurve &model)
         dataAv += *i / data.size();
     }
 
-    /*  set up an output file for debugging */
-    ofstream debugoutfile("debug.dat");
-    debugoutfile.precision(15);
 
     /*  now interpolate onto the data's phase grid */
     vector<double> dataPhase = data.phase();
