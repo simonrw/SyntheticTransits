@@ -69,7 +69,7 @@ Lightcurve RemoveTransit(Lightcurve &data, Lightcurve &model)
     {
         double InterpolatedModelValue = interpolator.interp(dataPhase[i]);
 
-        //debugoutfile << dataPhase[i] << " " << InterpolatedModelValue <<  " " << data.flux[i] << endl;
+        debugoutfile << dataPhase[i] << " " << InterpolatedModelValue <<  " " << data.flux[i] << endl;
     }
     
     /*
