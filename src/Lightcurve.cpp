@@ -1,4 +1,5 @@
 #include "Lightcurve.h"
+#include "isnan.h"
 #include "constants.h"
 #include <cmath>
 
@@ -34,19 +35,27 @@ vector<double> Lightcurve::phase()
     
     for (unsigned int i=0; i<N; ++i)
     {
-        double phaseval = (this->jd[i] - this->epoch) / double(this->period / secondsInDay);
-        double nperiods = 0;
-        double remainder = fabs(modf(phaseval, &nperiods));
-        
-        if (remainder > 0.5)
+        /*  if the jd value is nan then put nan into the array */
+        if (isnan(this->jd[i]))
         {
-            ReturnPhaseVal[i] = remainder - 1.0;
+            ReturnPhaseVal[i] = this->jd[i];
         }
         else
         {
-            ReturnPhaseVal[i] = remainder;
-        }
+            double phaseval = (this->jd[i] - this->epoch) / double(this->period / secondsInDay);
+            double nperiods = 0;
+            double remainder = fabs(modf(phaseval, &nperiods));
+            
+            if (remainder > 0.5)
+            {
+                ReturnPhaseVal[i] = remainder - 1.0;
+            }
+            else
+            {
+                ReturnPhaseVal[i] = remainder;
+            }
         
+        }
     }
     
     
