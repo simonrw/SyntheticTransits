@@ -20,8 +20,6 @@ Lightcurve RemoveTransit(Lightcurve &data, Lightcurve &model)
      * \bug Code does not take into account nans 
      * */
 
-//    ofstream interpFile("interp.dat");
-//    interpFile.precision(15);
 
     /*  first sort the model by phase */
     vector<pair<double, int> > SortedModelPhase = SortedIndex(model.phase());
@@ -36,10 +34,6 @@ Lightcurve RemoveTransit(Lightcurve &data, Lightcurve &model)
         phase[i] = row.first;
         modelflux[i] = model.flux[SortedModelPhase[i].second];
         
-//        LOG(INFO) << SortedModelPhase[i].first << " " << SortedModelPhase[i].second;
-        
-        
-//        interpFile << i << " " << phase[i] << " " << modelflux[i] << endl;
         
     }
     Linear_interp interpolator(phase, modelflux);
