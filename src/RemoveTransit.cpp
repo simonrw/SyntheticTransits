@@ -97,29 +97,9 @@ Lightcurve RemoveTransit(Lightcurve &data, Lightcurve &model)
             }
         }
 
-        //debugoutfile << i << " " << LCWithFluxRemoved[i] << endl;
 
     }
     
-    /*
-     *[>  need to sort the data by phase as well <]
-     *[> do not need to sort <]
-     *vector<pair<double, int> > SortedDataPhase = SortedIndex(data.phase());
-     *vector<double> LCWithFluxRemoved(SortedDataPhase.size());
-     *for (size_t i=0; i<SortedDataPhase.size(); ++i)
-     *{
-     *    [>  get the interpolated value <]
-     *    double interpValue = interpolator.interp(SortedDataPhase[i].first);
-     *    double fluxval = data.flux[SortedDataPhase[i].second];
-     *    
-     *    [>  normalise the flux val <]
-     *    fluxval /= dataAv;
-     *    
-     *    debugoutfile << SortedDataPhase[i].first << " " << interpValue << " " << fluxval << " " << setprecision(20) << ((fluxval - interpValue) + 1.0) * dataAv <<  endl;
-     *    LCWithFluxRemoved[i] = ((fluxval - interpValue) + 1.0) * dataAv;
-     *    
-     *}
-     */
 
     debugoutfile.close();
     
