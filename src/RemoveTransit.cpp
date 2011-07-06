@@ -52,6 +52,10 @@ Lightcurve RemoveTransit(Lightcurve &data, Lightcurve &model)
     {
         dataAv += *i / data.size();
     }
+
+    /*  set up an output file for debugging */
+    ofstream debugoutfile("debug.dat");
+    debugoutfile.precision(15);
     
     /*  need to sort the data by phase as well */
     /* do not need to sort */
@@ -66,10 +70,12 @@ Lightcurve RemoveTransit(Lightcurve &data, Lightcurve &model)
         /*  normalise the flux val */
         fluxval /= dataAv;
         
-//        LOG(INFO) << SortedDataPhase[i].first << " " << interpValue << " " << fluxval << " " << setprecision(20) << ((fluxval - interpValue) + 1.0) * dataAv <<  endl;
+        debugoutfile << SortedDataPhase[i].first << " " << interpValue << " " << fluxval << " " << setprecision(20) << ((fluxval - interpValue) + 1.0) * dataAv <<  endl;
         LCWithFluxRemoved[i] = ((fluxval - interpValue) + 1.0) * dataAv;
         
     }
+
+    debugoutfile.close();
     
 //    interpFile.close();
         
