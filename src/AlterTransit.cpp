@@ -195,3 +195,13 @@ Lightcurve AddTransit(Lightcurve &data, Lightcurve &model)
     return output;
         
 }
+
+Lightcurve AlterTransit(Lightcurve &data, Lightcurve &subModel, Lightcurve &addModel)
+{
+    /*  first subtract... */
+    Lightcurve LCRemoved = RemoveTransit(data, subModel);
+
+    /*  then add */
+    return AddTransit(LCRemoved, addModel);
+
+}

@@ -109,14 +109,16 @@ int Application::go(int argc, char *argv[])
     ChosenObject.epoch = SubModel.epoch;
     
     /*  create the interpolated values */
-    Lightcurve TransitRemovedLC = RemoveTransit(ChosenObject, SubModel);
+    //Lightcurve TransitRemovedLC = RemoveTransit(ChosenObject, SubModel);
     
 
-    /*  now add the transit back in */
-    Lightcurve TransitAddedLC = AddTransit(TransitRemovedLC, AddModel);
+    //[>  now add the transit back in <]
+    //Lightcurve TransitAddedLC = AddTransit(TransitRemovedLC, AddModel);
+
+    Lightcurve NewLightcurve = AlterTransit(ChosenObject, SubModel, AddModel);
 
     /*  finally update the file */
-    UpdateFile(TransitAddedLC);
+    UpdateFile(NewLightcurve);
 
 
 
