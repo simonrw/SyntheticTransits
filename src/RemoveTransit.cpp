@@ -26,11 +26,23 @@ Lightcurve RemoveTransit(Lightcurve &data, Lightcurve &model)
 
     /*  get the phase values */
     vector<double> modelPhase = model.phase();
+
+    /*  must sort the input to the interpolator */
+    vector<pair<double, int> > SortedModelPhase = SortedIndex(modelPhase);
+    vector<double> SortedPhaseOnly(modelPhase.size()), SortedModelOnly(modelPhase.size());
+    for (int i=0; i<modelPhase.size(); ++i)
+    {
+        SortedPhaseOnly[i] = SortedModelPhase[i].first;
+        SortedModelOnly[i] = model.flux[SortedModelPhase[i].second];
+    }
+
+
     
     /*  set up the output values initially as a copy of the input data */
     Lightcurve output = data;
     
-    Linear_interp interpolator(modelPhase, model.flux);
+    Linear_interp interpolator(SortedPhaseOnly, SortedModelOnly);
+
     
     /*  calculate the average of the data */
     double dataAv = 0;
@@ -57,7 +69,7 @@ Lightcurve RemoveTransit(Lightcurve &data, Lightcurve &model)
     {
         double InterpolatedModelValue = interpolator.interp(dataPhase[i]);
 
-        debugoutfile << dataPhase[i] << " " << InterpolatedModelValue <<  " " << data.flux[i] << endl;
+        //debugoutfile << dataPhase[i] << " " << InterpolatedModelValue <<  " " << data.flux[i] << endl;
     }
     
     /*
