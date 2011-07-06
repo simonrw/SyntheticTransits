@@ -41,6 +41,9 @@ Lightcurve RemoveTransit(Lightcurve &data, Lightcurve &model)
     /*  set up an output file for debugging */
     ofstream debugoutfile("debug.dat");
     debugoutfile.precision(15);
+
+    /*  now interpolate onto the data's phase grid */
+    vector<double> dataPhase = data.phase();
     
     /*
      *[>  need to sort the data by phase as well <]
