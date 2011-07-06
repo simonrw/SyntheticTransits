@@ -18,8 +18,7 @@
 #include "Lightcurve.h"
 #include "Application.h"
 #include "Exceptions.h"
-#include "RemoveTransit.h"
-#include "AddTransit.h"
+#include "AlterTransit.h"
 
 
 
@@ -112,8 +111,13 @@ int Application::go(int argc, char *argv[])
     /*  create the interpolated values */
     Lightcurve TransitRemovedLC = RemoveTransit(ChosenObject, SubModel);
     
-    /*  now write back to the file */
-    UpdateFile(TransitRemovedLC);
+
+    /*  now add the transit back in */
+    Lightcurve TransitAddedLC = AddTransit(TransitRemovedLC, AddModel);
+
+    /*  finally update the file */
+    UpdateFile(TransitAddedLC);
+
 
 
     return 0;

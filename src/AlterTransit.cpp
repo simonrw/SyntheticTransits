@@ -180,7 +180,7 @@ Lightcurve AddTransit(Lightcurve &data, Lightcurve &model)
             {
                 /*  both data and phase are well behaved */
                 double NormalisedFluxValue = dataFluxValue / dataAv;
-                output.flux[i] = ((NormalisedFluxValue - InterpolatedModelValue) + 1.0) * dataAv;
+                output.flux[i] = ((NormalisedFluxValue + InterpolatedModelValue) - 1.0) * dataAv;
             }
         }
 
