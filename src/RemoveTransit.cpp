@@ -1,4 +1,5 @@
 #include "RemoveTransit.h"
+#include "isnan.h"
 #include <vector>
 
 #define _USESTDVECTOR_
@@ -51,7 +52,7 @@ Lightcurve RemoveTransit(Lightcurve &data, Lightcurve &model)
          i!=data.flux.end();
          ++i)
     {
-        if (*i == *i)
+        if (isnan(*i))
         {
             /*  not nan */
             dataAv += *i;
