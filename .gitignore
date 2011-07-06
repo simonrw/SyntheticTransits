@@ -1,0 +1,4 @@
+.DS_Store
+.kdev4
+doc
+include/config.h
