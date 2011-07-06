@@ -109,10 +109,10 @@ int Application::go(int argc, char *argv[])
     ChosenObject.epoch = SubModel.epoch;
     
     /*  create the interpolated values */
-    Lightcurve InterpolatedModel = RemoveTransit(ChosenObject, SubModel);
+    Lightcurve TransitRemovedLC = RemoveTransit(ChosenObject, SubModel);
     
     /*  now write back to the file */
-    UpdateFile(InterpolatedModel);
+    UpdateFile(TransitRemovedLC);
 
 
     return 0;
