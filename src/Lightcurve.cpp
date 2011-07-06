@@ -1,5 +1,4 @@
 #include "Lightcurve.h"
-#include "isnan.h"
 #include "constants.h"
 #include <cmath>
 

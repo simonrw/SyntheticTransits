@@ -1,5 +1,4 @@
 #include "RemoveTransit.h"
-#include "isnan.h"
 #include <vector>
 
 #define _USESTDVECTOR_
