@@ -44,6 +44,12 @@ Lightcurve RemoveTransit(Lightcurve &data, Lightcurve &model)
 
     /*  now interpolate onto the data's phase grid */
     vector<double> dataPhase = data.phase();
+    for (size_t i=0; i<dataPhase.size(); ++i)
+    {
+        double InterpolatedModelValue = interpolator.interp(dataPhase[i]);
+
+        debugoutfile << dataPhase[i] << " " << InterpolatedModelValue <<  " " << data.flux[i] << endl;
+    }
     
     /*
      *[>  need to sort the data by phase as well <]
