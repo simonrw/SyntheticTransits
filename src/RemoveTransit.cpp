@@ -53,7 +53,7 @@ Lightcurve RemoveTransit(Lightcurve &data, Lightcurve &model)
          i!=data.flux.end();
          ++i)
     {
-        if (isnan(*i))
+        if (!isnan(*i))
         {
             /*  not nan */
             dataAv += *i;
