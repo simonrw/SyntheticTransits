@@ -19,6 +19,7 @@
 #include "Application.h"
 #include "Exceptions.h"
 #include "RemoveTransit.h"
+#include "AddTransit.h"
 
 
 

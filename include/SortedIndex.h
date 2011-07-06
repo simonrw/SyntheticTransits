@@ -1,13 +1,22 @@
 #pragma once
-#ifndef REMOVETRANSIT_H
+#ifndef SORTEDINDEX_H
 
-#define REMOVETRANSIT_H
+#define SORTEDINDEX_H
 
-#include "Lightcurve.h"
+
 #include <algorithm>
 
+#define _USESTDVECTOR_
+#include <nr/nr3.h>
+#include <nr/interp_1d.h>
+#include <nr/interp_linear.h>
 
-bool PairComparitor(const std::pair<double, int> &val1, const std::pair<double, int> &val2);
+
+
+bool PairComparitor(const pair<double, int> &val1, const pair<double, int> &val2)
+{
+    return (val1.first < val2.first);
+}
 
 template <typename T>
 std::vector<std::pair<double, int> > SortedIndex(const std::vector<T> &data)
@@ -28,8 +37,5 @@ std::vector<std::pair<double, int> > SortedIndex(const std::vector<T> &data)
 
 }
 
+#endif /* end of include guard: SORTEDINDEX_H */
 
-Lightcurve RemoveTransit(Lightcurve &data, Lightcurve &model);
-
-
-#endif /* end of include guard: REMOVETRANSIT_H */
