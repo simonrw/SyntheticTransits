@@ -34,12 +34,21 @@ Lightcurve RemoveTransit(Lightcurve &data, Lightcurve &model)
     
     /*  calculate the average of the data */
     double dataAv = 0;
+    int dataCounter = 0;
     for (vector<double>::const_iterator i=data.flux.begin();
          i!=data.flux.end();
          ++i)
     {
-        dataAv += *i / data.size();
+        if (*i == *i)
+        {
+            /*  not nan */
+            dataAv += *i;
+            ++dataCounter;
+        }
     }
+
+    dataAv /= (double)dataCounter;
+
 
 
     /*  now interpolate onto the data's phase grid */
