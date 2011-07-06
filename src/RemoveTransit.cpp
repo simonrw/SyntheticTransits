@@ -26,6 +26,7 @@ Lightcurve RemoveTransit(Lightcurve &data, Lightcurve &model)
     debugoutfile.precision(15);
 
     /*  get the phase values */
+    /*  the model SHOULD NOT contain nans */
     vector<double> modelPhase = model.phase();
 
     /*  must sort the input to the interpolator */
