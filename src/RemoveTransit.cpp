@@ -26,6 +26,7 @@ Lightcurve RemoveTransit(Lightcurve &data, Lightcurve &model)
     /*  first sort the model by phase */
     vector<pair<double, int> > SortedModelPhase = SortedIndex(model.phase());
     
+    /*  set up the output values initially as a copy of the input data */
     Lightcurve output = data;
     
     /*  now set up the interpolator */
