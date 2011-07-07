@@ -47,3 +47,14 @@ target_link_libraries(
 #    ${QT_LIBRARIES}
    )
 
+# add the unit testing code
+add_executable(
+    TestLightcurve
+    ${CMAKE_SOURCE_DIR}/tests/TestLightcurve.cpp
+    ${CMAKE_SOURCE_DIR}/src/Lightcurve.cpp
+    )
+
+target_link_libraries(
+    TestLightcurve
+    ${UNITTESTPP_LIBRARIES}
+    )

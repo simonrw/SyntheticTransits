@@ -22,6 +22,7 @@ void Lightcurve::clear()
     jd.clear();
     flux.clear();
     fluxerr.clear();
+    npts = flux.size();
 }
 
 vector<double> Lightcurve::phase()
