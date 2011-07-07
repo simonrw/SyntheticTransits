@@ -199,9 +199,13 @@ Lightcurve AddTransit(Lightcurve &data, Lightcurve &model)
 Lightcurve AlterTransit(Lightcurve &data, Lightcurve &subModel, Lightcurve &addModel)
 {
     /*  first subtract... */
+    data.period = subModel.period;
+    data.epoch = subModel.epoch;
     Lightcurve LCRemoved = RemoveTransit(data, subModel);
 
     /*  then add */
+    LCRemoved.period = addModel.period;
+    LCRemoved.epoch = addModel.epoch;
     return AddTransit(LCRemoved, addModel);
 
 }
