@@ -206,6 +206,12 @@ Lightcurve AlterTransit(Lightcurve &data, Lightcurve &subModel, Lightcurve &addM
     /*  then add */
     LCRemoved.period = addModel.period;
     LCRemoved.epoch = addModel.epoch;
-    return AddTransit(LCRemoved, addModel);
+    Lightcurve LCAdded = AddTransit(LCRemoved, addModel);
+
+    for (int i=0; i<data.size(); ++i)
+    {
+        cout << data.flux[i] << " " << LCRemoved.flux[i] << " " << LCAdded.flux[i] << endl;
+    }
+    return LCAdded;
 
 }
