@@ -21,3 +21,6 @@ ObjectStringList = array([str(o) for o in ObjectList])
 
 if ObjectId not in ObjectStringList:
         raise KeyError("Cannot find object %s" % ObjectId)
+
+ObjectIdIndex = where(ObjectStringList==ObjectId)[0][0]
+print "Object %s corresponds to index %d" % (ObjectId, ObjectIdIndex)
