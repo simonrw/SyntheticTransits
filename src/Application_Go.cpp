@@ -5,7 +5,7 @@
 #include <tclap/CmdLine.h>
 #include <sstream>
 #include <fstream>
-#include <glog/logging.h>
+//#include <glog/logging.h>
 
 
 /* nr includes 
@@ -80,7 +80,7 @@ int Application::go(int argc, char *argv[])
     cmd.parse(argc, argv);
     
     /*  set up logging */
-    google::InitGoogleLogging(argv[0]);
+    //google::InitGoogleLogging(argv[0]);
     
 
     Lightcurve AddModel = GenerateModel(addModel_arg.getValue());

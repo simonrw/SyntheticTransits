@@ -55,7 +55,6 @@
  * 	\li CMake (for the build system)
  * 	\li CCfits
  * 	\li pugixml
- * 	\li Google glog (optional)
  * 	\li tclap
  * 	\li Numerical recipes 3
  *
@@ -63,7 +62,6 @@
  *
  *
  * \todo Package all external requirements in another directory
- * \todo Check if glog is used at all
  *
  */
 

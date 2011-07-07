@@ -13,7 +13,7 @@ find_package(UnitTest++ REQUIRED)
 #find_package(fitsio REQUIRED)
 #find_package(Qt4 COMPONENTS QtCore REQUIRED)
 find_package(pugixml REQUIRED)
-find_package(glog REQUIRED)
+#find_package(glog REQUIRED)
 find_package(tclap REQUIRED)
 find_package(nr3 REQUIRED)
 
@@ -26,7 +26,7 @@ include_directories(
    ${TCLAP_INCLUDE_DIR}
    ${UNITTESTPP_INCLUDE_DIR}
    ${NR3_INCLUDE_DIR}
-   ${GLOG_INCLUDE_DIR}
+   #${GLOG_INCLUDE_DIR}
 #    ${FITSIO_INCLUDE_DIR}
     )
 
@@ -42,7 +42,7 @@ target_link_libraries(
    ${UNITTESTPP_LIBRARIES}
    ${CCFITS_LIBRARIES}
    ${PUGIXML_LIBRARIES}
-   ${GLOG_LIBRARIES}
+   #${GLOG_LIBRARIES}
 #    ${FITSIO_LIBRARIES}
 #    ${QT_LIBRARIES}
    )
