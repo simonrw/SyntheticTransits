@@ -25,7 +25,12 @@ if ObjectId not in ObjectStringList:
 ObjectIdIndex = where(ObjectStringList==ObjectId)[0][0]
 print "Object %s corresponds to index %d" % (ObjectId, ObjectIdIndex)
 
-OldLC = {'hjd': OldFilePointer['hjd'].section[index, :],
-        'flux': OldFilePointer['flux'].section[index, :],
-        'fluxerr': OldFilePointer['fluxerr'].section[index, :],
+OldLC = {'hjd': OldFilePointer['hjd'].section[ObjectIdIndex, :],
+        'flux': OldFilePointer['flux'].section[ObjectIdIndex, :],
+        'fluxerr': OldFilePointer['fluxerr'].section[ObjectIdIndex, :],
+        }
+
+NewLC = {'hjd': NewFilePointer['hjd'].section[ObjectIdIndex, :],
+        'flux': NewFilePointer['flux'].section[ObjectIdIndex, :],
+        'fluxerr': NewFilePointer['fluxerr'].section[ObjectIdIndex, :],
         }
