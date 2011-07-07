@@ -5,8 +5,8 @@ import pyfits
 from pylab import *
 import sys
 
-if len(sys.argv) != 4:
-    raise RuntimeError("Program usage: %s oldfile newfile objectid" % sys.argv[0])
+if len(sys.argv) != 4 and len(sys.argv) != 5:
+    raise RuntimeError("Program usage: %s oldfile newfile objectid (outputfile)" % sys.argv[0])
 
 OldFilename = sys.argv[1]
 NewFilename = sys.argv[2]
@@ -49,6 +49,19 @@ subplot(212, sharex=ax)
 plot(OldLC['hjd'], NewLC['flux'] - OldLC['flux'], 'g.')
 xlabel("JD")
 ylabel("Differrence")
+
+if len(sys.argv) == 5:
+    OutputFilename = sys.argv[4]
+    print "Writing to output file: %s" % OutputFilename
+
+    OutputFilePointer = open(OutputFilename, 'w')
+    OutputFilePointer.write("#hjd oldflux newflux oldfluxerr newfluxerr\n")
+
+    for j, of, nf, ofe, nfe in zip(OldLC['hjd'], OldLC['flux'], 
+            NewLC['flux'], OldLC['fluxerr'], NewLC['fluxerr']):
+        OutputFilePointer.write("%f %f %f %f %f\n" % (j, of, nf, ofe, nfe))
+
+    
 
 
 
