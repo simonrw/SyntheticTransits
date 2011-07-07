@@ -16,6 +16,8 @@ OldFilePointer = pyfits.open(OldFilename)
 NewFilePointer = pyfits.open(NewFilename)
 
 ObjectList = OldFilePointer['CATALOGUE'].data.field("OBJ_ID")
+ObjectStringList = array([str(o) for o in ObjectList])
 
-if ObjectId not in ObjectList:
-    raise KeyError("Cannot find object %s" % ObjectId)
+
+if ObjectId not in ObjectStringList:
+        raise KeyError("Cannot find object %s" % ObjectId)
