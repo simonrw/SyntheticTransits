@@ -34,3 +34,22 @@ NewLC = {'hjd': NewFilePointer['hjd'].section[ObjectIdIndex, :],
         'flux': NewFilePointer['flux'].section[ObjectIdIndex, :],
         'fluxerr': NewFilePointer['fluxerr'].section[ObjectIdIndex, :],
         }
+
+figure(figsize=(11,8))
+subplot(211)
+errorbar(OldLC['hjd'], OldLC['flux'], OldLC['fluxerr'], ls="None", color='r')
+plot(OldLC['hjd'], OldLC['flux'], 'rx', label="Original")
+
+errorbar(NewLC['hjd'], NewLC['flux'], NewLC['fluxerr'], ls="None", color='b')
+plot(NewLC['hjd'], NewLC['flux'], 'bx', label="New")
+ylabel("Flux")
+ax = gca()
+
+subplot(212, sharex=ax)
+plot(OldLC['hjd'], NewLC['flux'] - OldLC['flux'], 'g.')
+xlabel("JD")
+ylabel("Differrence")
+
+
+
+show()
