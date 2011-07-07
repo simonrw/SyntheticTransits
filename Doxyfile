@@ -51,7 +51,7 @@ PROJECT_LOGO           =
 # If a relative path is entered, it will be relative to the location 
 # where doxygen was started. If left blank the current directory will be used.
 
-OUTPUT_DIRECTORY       = doc
+OUTPUT_DIRECTORY       = docs
 
 # If the CREATE_SUBDIRS tag is set to YES, then doxygen will create 
 # 4096 sub-directories (in 2 levels) under the output directory of each output 
@@ -1340,7 +1340,7 @@ GENERATE_AUTOGEN_DEF   = NO
 # feature is still experimental and incomplete at the 
 # moment.
 
-GENERATE_PERLMOD       = NO
+GENERATE_PERLMOD       = YES
 
 # If the PERLMOD_LATEX tag is set to YES Doxygen will generate 
 # the necessary Makefile rules, Perl scripts and LaTeX code to be able 
