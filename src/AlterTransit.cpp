@@ -13,8 +13,8 @@ Lightcurve RemoveTransit(Lightcurve &data, Lightcurve &model)
      * */
 
     /*  set up an output file for debugging */
-    ofstream debugoutfile("debug.dat");
-    debugoutfile.precision(15);
+    //ofstream debugoutfile("debug.dat");
+    //debugoutfile.precision(15);
 
     /*  get the phase values */
     /*  the model SHOULD NOT contain nans */
@@ -92,7 +92,7 @@ Lightcurve RemoveTransit(Lightcurve &data, Lightcurve &model)
     }
     
 
-    debugoutfile.close();
+    //debugoutfile.close();
     
         
     
@@ -109,8 +109,8 @@ Lightcurve AddTransit(Lightcurve &data, Lightcurve &model)
      * */
 
     /*  set up an output file for debugging */
-    ofstream debugoutfile("debug.dat");
-    debugoutfile.precision(15);
+    //ofstream debugoutfile("debug.dat");
+    //debugoutfile.precision(15);
 
     /*  get the phase values */
     /*  the model SHOULD NOT contain nans */
@@ -188,7 +188,7 @@ Lightcurve AddTransit(Lightcurve &data, Lightcurve &model)
     }
     
 
-    debugoutfile.close();
+    //debugoutfile.close();
     
         
     
