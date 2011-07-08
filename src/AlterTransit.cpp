@@ -213,7 +213,7 @@ Lightcurve AlterTransit(Lightcurve &data, Lightcurve &subModel, Lightcurve &addM
 
     for (int i=0; i<data.size(); ++i)
     {
-        debugfile << data.flux[i] << " " << LCRemoved.flux[i] << " " << LCAdded.flux[i] << endl;
+        debugfile << data.jd[i] << " " << data.flux[i] << " " << LCRemoved.flux[i] << " " << LCAdded.flux[i] << endl;
     }
 
     debugfile.close();
