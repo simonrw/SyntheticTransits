@@ -208,10 +208,15 @@ Lightcurve AlterTransit(Lightcurve &data, Lightcurve &subModel, Lightcurve &addM
     LCRemoved.epoch = addModel.epoch;
     Lightcurve LCAdded = AddTransit(LCRemoved, addModel);
 
+    ofstream debugfile("Debug.dat");
+    debugfile.precision(15);
+
     for (int i=0; i<data.size(); ++i)
     {
-        cout << data.flux[i] << " " << LCRemoved.flux[i] << " " << LCAdded.flux[i] << endl;
+        debugfile << data.flux[i] << " " << LCRemoved.flux[i] << " " << LCAdded.flux[i] << endl;
     }
+
+    debugfile.close();
     return LCAdded;
 
 }
