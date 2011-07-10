@@ -3,3 +3,4 @@
 docs
 include/config.h
 WASP12Noisy.dat
+debug/*.fits
