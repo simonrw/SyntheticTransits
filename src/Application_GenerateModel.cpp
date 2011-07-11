@@ -115,38 +115,47 @@ Lightcurve Application::GenerateModel(const string &xmlfilename)
 
         double F = 0;
 
+        if ((phase > -0.25) && (phase < 0.25))
+        {
 
-        if (z <= 1 - p)
-        {
-            F = 0.;
-            //F = 1. - square(p);
-            double norm = 1. / (4. * z * p);
-            double integral = IntegratedI(dr, coeffs, z-p, z+p);
-            integral *= norm;
-            F = 1. - (square(p) * integral / 4. / omega);
-        }
-        else if (z > 1 + p)
-        {
-            F = 1.;
+
+            if (z <= 1 - p)
+            {
+                F = 0.;
+                //F = 1. - square(p);
+                double norm = 1. / (4. * z * p);
+                double integral = IntegratedI(dr, coeffs, z-p, z+p);
+                integral *= norm;
+                F = 1. - (square(p) * integral / 4. / omega);
+            }
+            else if (z > 1 + p)
+            {
+                F = 1.;
+            }
+            else
+            {
+                double startPoint = z - p;
+                double a = square(startPoint);
+                double norm = 1./(1 - a);
+
+                /* Integrate the I*(z) function from startPoint to 1 */
+                double integral = IntegratedI(dr, coeffs, startPoint, 1.);
+                integral *= norm;
+
+                double insideSqrt = square(p) - square(z - 1.);
+                double sqrtVal = sqrt(insideSqrt);
+                sqrtVal *= (z - 1.);
+
+                double insideAcos = (z - 1.) / p;
+                double firstTerm = square(p) * acos(insideAcos);
+
+                F = 1. - (integral * (firstTerm - sqrtVal) / (4. * M_PI * omega));
+            }
+
         }
         else
         {
-            double startPoint = z - p;
-            double a = square(startPoint);
-            double norm = 1./(1 - a);
-
-            /* Integrate the I*(z) function from startPoint to 1 */
-            double integral = IntegratedI(dr, coeffs, startPoint, 1.);
-            integral *= norm;
-
-            double insideSqrt = square(p) - square(z - 1.);
-            double sqrtVal = sqrt(insideSqrt);
-            sqrtVal *= (z - 1.);
-
-            double insideAcos = (z - 1.) / p;
-            double firstTerm = square(p) * acos(insideAcos);
-
-            F = 1. - (integral * (firstTerm - sqrtVal) / (4. * M_PI * omega));
+            F = 1.;
         }
 
         /* add the noise */
