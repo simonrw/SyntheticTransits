@@ -23,7 +23,7 @@ Lightcurve RemoveTransit(Lightcurve &data, Lightcurve &model)
     /*  must sort the input to the interpolator */
     vector<pair<double, int> > SortedModelPhase = SortedIndex(modelPhase);
     vector<double> SortedPhaseOnly(modelPhase.size()), SortedModelOnly(modelPhase.size());
-    for (int i=0; i<modelPhase.size(); ++i)
+    for (size_t i=0; i<modelPhase.size(); ++i)
     {
         SortedPhaseOnly[i] = SortedModelPhase[i].first;
         SortedModelOnly[i] = model.flux[SortedModelPhase[i].second];
@@ -119,7 +119,7 @@ Lightcurve AddTransit(Lightcurve &data, Lightcurve &model)
     /*  must sort the input to the interpolator */
     vector<pair<double, int> > SortedModelPhase = SortedIndex(modelPhase);
     vector<double> SortedPhaseOnly(modelPhase.size()), SortedModelOnly(modelPhase.size());
-    for (int i=0; i<modelPhase.size(); ++i)
+    for (size_t i=0; i<modelPhase.size(); ++i)
     {
         SortedPhaseOnly[i] = SortedModelPhase[i].first;
         SortedModelOnly[i] = model.flux[SortedModelPhase[i].second];
@@ -225,7 +225,7 @@ Lightcurve AlterTransit(Lightcurve &data, Lightcurve &subModel, Lightcurve &addM
     ofstream debugfile("Debug.dat");
     debugfile.precision(15);
 
-    for (int i=0; i<data.size(); ++i)
+    for (size_t i=0; i<data.size(); ++i)
     {
         debugfile << data.jd[i] << " " << data.flux[i] << " " << LCRemoved.flux[i] << " " << LCAdded.flux[i] << endl;
     }
