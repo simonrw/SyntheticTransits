@@ -155,7 +155,6 @@ Lightcurve Application::GenerateModel(const string &xmlfilename)
         lc.jd[i] = t / secondsInDay + midpoint;
         lc.flux[i] = F;
 
-        outfile << t << " " << phaseval << " " << F << endl;
     }
     outfile.close();
     
