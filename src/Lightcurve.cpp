@@ -1,5 +1,5 @@
 #include "Lightcurve.h"
-#include "constants.h"
+#include "WaspDateConverter.h"
 #include <cmath>
 
 using namespace std;
