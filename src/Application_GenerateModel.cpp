@@ -91,6 +91,8 @@ Lightcurve Application::GenerateModel(const string &xmlfilename)
     lc.epoch = midpoint;
 
     
+    ofstream outfile("TransitModel.txt");
+    outfile.precision(15);
     
     /* parallel process this part */
 #pragma omp parallel for
@@ -102,45 +104,56 @@ Lightcurve Application::GenerateModel(const string &xmlfilename)
         double firstTerm = square(sin(angFreq * t));
         double secondTerm = square(cosi * cos(angFreq * t));
 
-        ofstream outfile("TransitModel.txt");
-        outfile.precision(15);
 
-        outfile << t << " " << firstTerm << " " << secondTerm << endl;
-        outfile.close();
+
         
         double z = normalisedDistance * sqrt(firstTerm + secondTerm);
+
+        double intpart = 0;
+        double phaseval = modf(((t / secondsInDay + midpoint) - midpoint), &intpart);
+        
+    
         double F = 0;
-        if (z <= 1 - p)
+        if (phaseval < 0.5)
         {
-            F = 0.;
-            //F = 1. - square(p);
-            double norm = 1. / (4. * z * p);
-            double integral = IntegratedI(dr, coeffs, z-p, z+p);
-            integral *= norm;
-            F = 1. - (square(p) * integral / 4. / omega);
-        }
-        else if (z > 1 + p)
-        {
-            F = 1.;
+
+
+            if (z <= 1 - p)
+            {
+                F = 0.;
+                //F = 1. - square(p);
+                double norm = 1. / (4. * z * p);
+                double integral = IntegratedI(dr, coeffs, z-p, z+p);
+                integral *= norm;
+                F = 1. - (square(p) * integral / 4. / omega);
+            }
+            else if (z > 1 + p)
+            {
+                F = 1.;
+            }
+            else
+            {
+                double startPoint = z - p;
+                double a = square(startPoint);
+                double norm = 1./(1 - a);
+                
+                /* Integrate the I*(z) function from startPoint to 1 */
+                double integral = IntegratedI(dr, coeffs, startPoint, 1.);
+                integral *= norm;
+                
+                double insideSqrt = square(p) - square(z - 1.);
+                double sqrtVal = sqrt(insideSqrt);
+                sqrtVal *= (z - 1.);
+                
+                double insideAcos = (z - 1.) / p;
+                double firstTerm = square(p) * acos(insideAcos);
+                
+                F = 1. - (integral * (firstTerm - sqrtVal) / (4. * M_PI * omega));
+            }
         }
         else
         {
-            double startPoint = z - p;
-            double a = square(startPoint);
-            double norm = 1./(1 - a);
-            
-            /* Integrate the I*(z) function from startPoint to 1 */
-            double integral = IntegratedI(dr, coeffs, startPoint, 1.);
-            integral *= norm;
-            
-            double insideSqrt = square(p) - square(z - 1.);
-            double sqrtVal = sqrt(insideSqrt);
-            sqrtVal *= (z - 1.);
-            
-            double insideAcos = (z - 1.) / p;
-            double firstTerm = square(p) * acos(insideAcos);
-            
-            F = 1. - (integral * (firstTerm - sqrtVal) / (4. * M_PI * omega));
+            F = 1.;
         }
         
         /* add the noise */
@@ -149,7 +162,10 @@ Lightcurve Application::GenerateModel(const string &xmlfilename)
         /* append the data to the vectors */
         lc.jd[i] = t / secondsInDay + midpoint;
         lc.flux[i] = F;
+
+        outfile << t << " " << phaseval << " " << F << endl;
     }
+    outfile.close();
     
     return lc;
 
