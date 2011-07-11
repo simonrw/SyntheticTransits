@@ -13,6 +13,7 @@ class Lightcurve
 {
 	/** Number of data points in the lightcurve */
     size_t npts;
+    bool asWASP;
 public:
 
 	/**	Orbital period (days)*/
