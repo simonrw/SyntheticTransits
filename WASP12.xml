@@ -17,8 +17,8 @@ The details here are for WASP-12b
         <radius val="1.599"  units="rsun"/>
     </star>
 	<orbit>
-		<!--<period val="1.0914222" units="days" />-->
-        <period val="1.094655" units="days" />
+        <period val="1.0914222" units="days" />
+        <!--<period val="1.094655" units="days" />-->
 		<semi val="0.02293" units="au" />
 		<inclination val="86" units="degrees" />
         <midpoint val="2454508.97605" units="jd" />
