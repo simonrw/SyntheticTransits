@@ -201,6 +201,20 @@ Lightcurve AlterTransit(Lightcurve &data, Lightcurve &subModel, Lightcurve &addM
     /*  first subtract... */
     data.period = subModel.period;
     data.epoch = subModel.epoch;
+    
+    if (WASP)
+    {
+        data.asWASP = true;
+        subModel.asWASP = true;
+        addModel.asWASP = true;
+    }
+    else
+    {
+        data.asWASP = false;
+        data.asWASP = false;
+        addModel.asWASP = false;
+    }
+    
     Lightcurve LCRemoved = RemoveTransit(data, subModel);
 
     /*  then add */
