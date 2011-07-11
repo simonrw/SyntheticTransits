@@ -109,8 +109,9 @@ Lightcurve Application::GenerateModel(const string &xmlfilename)
 
         double z = normalisedDistance * sqrt(firstTerm + secondTerm);
 
-        double intpart = 0;
-
+        double intpart;
+        double phase = modf(t  / period , &intpart);
+        phase = phase > 0.5 ? phase - 1.0 : phase;
 
         double F = 0;
 
