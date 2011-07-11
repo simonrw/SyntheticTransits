@@ -42,7 +42,7 @@ public:
 	 * point of mid transit.
 	 *
 	 * This phase information is not stored in the class itself. */
-    std::vector<double> phase();
+    std::vector<double> phase(bool WASP=true);
 };
 
 
