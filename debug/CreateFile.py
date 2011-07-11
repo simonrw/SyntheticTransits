@@ -27,7 +27,12 @@ WASP12ObjectID = "1SWASP J063032.79+294020.4"
 # read in the data file first
 filename = sys.argv[1]
 OutputFilename = "SyntheticLightcurve.fits"
-x, y = loadtxt(filename, unpack=True)
+try:
+    x, y = loadtxt(filename, unpack=True)
+except ValueError:
+    # error information is available
+    x, y, err = loadtxt(filename, unpack=True)
+
 
 avflux = average(y, weights=sqrt(y))
 
