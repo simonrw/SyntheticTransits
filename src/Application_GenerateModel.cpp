@@ -91,8 +91,8 @@ Lightcurve Application::GenerateModel(const string &xmlfilename)
     lc.epoch = midpoint;
 
     
-    ofstream outfile("TransitModel.txt");
-    outfile.precision(15);
+    //ofstream outfile("TransitModel.txt");
+    //outfile.precision(15);
     
     /* parallel process this part */
 #pragma omp parallel for
@@ -166,7 +166,7 @@ Lightcurve Application::GenerateModel(const string &xmlfilename)
         lc.flux[i] = F;
 
     }
-    outfile.close();
+    //outfile.close();
     
     return lc;
 
