@@ -13,11 +13,15 @@ class Lightcurve
 {
 	/** Number of data points in the lightcurve */
     size_t npts;
-    bool asWASP;
 public:
 
 	/**	Orbital period (days)*/
     double period;
+
+    /** Treat the object as a WASP object 
+     Basically means the jd is actually wd */
+    bool asWASP;
+
 
 	/**	Point of mid transit (days) */
     double epoch;
