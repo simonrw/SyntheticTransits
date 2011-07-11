@@ -65,18 +65,14 @@ int Application::go(int argc, char *argv[])
 {
     /* new main function */
     TCLAP::CmdLine cmd(" ", ' ', "0.9");
-    TCLAP::ValueArg<string> addModel_arg("a", "addmodel", "Model to add", true, "", "Model xml file");
-    TCLAP::ValueArg<string> subModel_arg("s", "submodel", "Model to subtract", true, "", "Model xml file");
-    TCLAP::UnlabeledValueArg<string> filename_arg("file", "File", true, "", "Fits file");
-    TCLAP::ValueArg<string> output_arg("o", "output", "Optional output file", false, "output.fits", "Fits filename");
-    TCLAP::ValueArg<string> objectid_arg("O", "object", "Object to alter", true, "", "Object identifier");
+    TCLAP::ValueArg<string> addModel_arg("a", "addmodel", "Model to add", true, "", "Model xml file", cmd);
+    TCLAP::ValueArg<string> subModel_arg("s", "submodel", "Model to subtract", true, "", "Model xml file", cmd);
+    TCLAP::UnlabeledValueArg<string> filename_arg("file", "File", true, "", "Fits file", cmd);
+    TCLAP::ValueArg<string> output_arg("o", "output", "Optional output file", false, "output.fits", "Fits filename", cmd);
+    TCLAP::ValueArg<string> objectid_arg("O", "object", "Object to alter", true, "", "Object identifier", cmd);
 
 
-    cmd.add(addModel_arg);
-    cmd.add(subModel_arg);
-    cmd.add(filename_arg);
-    cmd.add(output_arg);
-    cmd.add(objectid_arg);
+
     cmd.parse(argc, argv);
     
     /*  set up logging */
