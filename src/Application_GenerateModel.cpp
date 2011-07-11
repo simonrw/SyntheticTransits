@@ -4,7 +4,6 @@
 #include <cassert>
 #include "FuncSquare.h"
 #include "FuncIntensity.h"
-#include "FuncGeometricTransit.h"
 #include "FuncOmega.h"
 
 #define _USESTDVECTOR_
