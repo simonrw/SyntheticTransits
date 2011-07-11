@@ -30,19 +30,26 @@ vector<double> Lightcurve::phase()
     size_t N = this->size();
     
     
+    
     vector<double> ReturnPhaseVal(N);
     
     
     for (unsigned int i=0; i<N; ++i)
     {
+        double currentJDValue = this->jd[i];
+        
+        /*  need to convert from wd if this->asWASP is true */
+        if (asWASP)
+            currentJDValue = wd2jd(currentJDValue);
+
         /*  if the jd value is nan then put nan into the array */
-        if (isnan(this->jd[i]))
+        if (isnan(currentJDValue))
         {
-            ReturnPhaseVal[i] = this->jd[i];
+            ReturnPhaseVal[i] = currentJDValue;
         }
         else
         {
-            double phaseval = (this->jd[i] - this->epoch) / double(this->period / secondsInDay);
+            double phaseval = (currentJDValue - this->epoch) / double(this->period / secondsInDay);
             double nperiods = 0;
             double remainder = fabs(modf(phaseval, &nperiods));
             
