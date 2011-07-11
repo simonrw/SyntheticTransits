@@ -203,17 +203,16 @@ Lightcurve AlterTransit(Lightcurve &data, Lightcurve &subModel, Lightcurve &addM
     data.epoch = subModel.epoch;
     
     if (WASP)
-    {
         data.asWASP = true;
-        subModel.asWASP = true;
-        addModel.asWASP = true;
-    }
+
     else
-    {
         data.asWASP = false;
-        data.asWASP = false;
-        addModel.asWASP = false;
-    }
+
+
+    /*  model data will always be in jd */
+    subModel.asWASP = false;
+    addModel.asWASP = false;
+
     
     Lightcurve LCRemoved = RemoveTransit(data, subModel);
 
