@@ -101,6 +101,12 @@ Lightcurve Application::GenerateModel(const string &xmlfilename)
         /* get the normalised device coordinates */
         double firstTerm = square(sin(angFreq * t));
         double secondTerm = square(cosi * cos(angFreq * t));
+
+        ofstream outfile("TransitModel.txt");
+        outfile.precision(15);
+
+        outfile << t << " " << firstTerm << " " << secondTerm << endl;
+        outfile.close();
         
         double z = normalisedDistance * sqrt(firstTerm + secondTerm);
         double F = 0;
