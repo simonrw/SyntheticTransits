@@ -10,6 +10,6 @@
 
 Lightcurve RemoveTransit(Lightcurve &data, Lightcurve &model);
 Lightcurve AddTransit(Lightcurve &data, Lightcurve &model);
-Lightcurve AlterTransit(Lightcurve &data, Lightcurve &subModel, Lightcurve &addModel);
+Lightcurve AlterTransit(Lightcurve &data, Lightcurve &subModel, Lightcurve &addModel, bool WASP);
 
 #endif /* end of include guard: ALTERTRANSIT_H */
