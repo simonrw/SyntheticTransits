@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>Synthetic lightcurves: Main Page</title>
+<title>Synthetic lightcurves: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javaScript" src="search/search.js"></script>
@@ -16,10 +16,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="navigation" id="top">
   <div class="tabs">
     <ul class="tablist">
-      <li class="current"><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
-      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li id="searchli">
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -39,43 +39,31 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </li>
     </ul>
   </div>
+  <div class="tabs2">
+    <ul class="tablist">
+      <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
+    </ul>
+  </div>
 </div>
 <div class="header">
   <div class="headertitle">
-<h1>Synthetic lightcurves Documentation</h1>  </div>
+<h1>Application Member List</h1>  </div>
 </div>
 <div class="contents">
-<h3 class="version">0.2 </h3><h2><a class="anchor" id="Introduction"></a>
-Introduction</h2>
-<p>This software takes a Sysrem-compatible data file and alters the chosen lightcurve by removing an already present transit and adding a custom synthetic transit in.</p>
-<h2><a class="anchor" id="Motivation"></a>
-Motivation</h2>
-<p>WASP-12b is an extremely large exoplanet, almost larger than thought possible. Due to it's large size, it is fairly visible as the transit depth depends on the ratio of stellar and planetary radii</p>
-<p class="formulaDsp">
-<img class="formulaDsp" alt="\[ \delta = \frac{r_p^2}{r_s^2} \]" src="form_0.png"/>
-</p>
-<p>What if WASP-12b was slightly smaller? Perhaps this would not have been detected by SuperWASP. By generating synthetic WASP-12b lightcurves with differing radii the sensitivity to the planetary radius can be mapped out. If other parameters are considered also then this could lead to an understanding of the selection biases towards certain kinds of planet in the SuperWASP survey and a possible understanding of the underlying population.</p>
-<h2><a class="anchor" id="Method"></a>
-Method</h2>
-<p>First the data file is opened and scanned for the given object. If no object with the specified name is found then an exception is thrown. The lightcurve is then read in to memory.</p>
-<p>Two synthetic lightcurves are generated with the parameters given on the command line using the Mandel &amp; Agol model with non-linear limb darkening.</p>
-<p>Firstly the subtracted model is phase folded on the period and epoch values supplied, and a linear interpolator object is generated with this data. A model lightcurve is then interpolated on to the data's time grid, the data normalised to its own mean and the interpolated model is subtracted.</p>
-<p>Then the model lightcurve is added in a similar process.</p>
-<h2><a class="anchor" id="dependencies"></a>
-Software dependencies</h2>
-<p>All the code is written in C++ so a working compiler must be available.</p>
-<p>For compilation on another system, certain libraries must also be installed. These include: </p>
-<ul>
-<li>CMake (for the build system) </li>
-<li>CCfits </li>
-<li>pugixml </li>
-<li>tclap </li>
-<li>Numerical recipes 3</li>
-</ul>
-<h2><a class="anchor" id="notes"></a>
-Notes for the creator</h2>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Package all external requirements in another directory</dd></dl>
-</div>
+This is the complete list of members for <a class="el" href="classApplication.html">Application</a>, including all inherited members.<table>
+  <tr class="memlist"><td><a class="el" href="classApplication.html#afa8cc05ce6b6092be5ecdfdae44e05f8">Application</a>()</td><td><a class="el" href="classApplication.html">Application</a></td><td><code> [inline]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classApplication.html#a3f8c3e34b44ab8382753e0e74ad29cd5">GenerateModel</a>(const std::string &amp;xmlfilename)</td><td><a class="el" href="classApplication.html">Application</a></td><td><code> [private]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classApplication.html#ab35e8782e640d1136490e5bc2e7694fb">getHDUData</a>(const std::string &amp;hduname)</td><td><a class="el" href="classApplication.html">Application</a></td><td><code> [private]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classApplication.html#ace1ec086fdd243abe30a5b5c03d5fcdd">getObject</a>()</td><td><a class="el" href="classApplication.html">Application</a></td><td><code> [private]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classApplication.html#a317a13efcc06c55837ece16f52c78f69">go</a>(int argc, char *argv[])</td><td><a class="el" href="classApplication.html">Application</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classApplication.html#a40cc436544d6cd881343d94c8a5c7433">mInfile</a></td><td><a class="el" href="classApplication.html">Application</a></td><td><code> [private]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classApplication.html#a00c7b15dab943a50ef2a0c77c36fd1bf">mNObjects</a></td><td><a class="el" href="classApplication.html">Application</a></td><td><code> [private]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classApplication.html#a05a6755ede527481e2a6a885120f86b0">mObjectIndex</a></td><td><a class="el" href="classApplication.html">Application</a></td><td><code> [private]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classApplication.html#a73570619a07e02c19088666e67ec03ba">ObjectIndex</a>(const std::string &amp;objName)</td><td><a class="el" href="classApplication.html">Application</a></td><td><code> [private]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classApplication.html#a8d5d693822ae75b81c0cfefe4d9efaa8">UpdateFile</a>(const Lightcurve &amp;lc)</td><td><a class="el" href="classApplication.html">Application</a></td><td><code> [private]</code></td></tr>
+</table></div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"

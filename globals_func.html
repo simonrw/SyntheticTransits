@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>Synthetic lightcurves: Main Page</title>
+<title>Synthetic lightcurves: Class Members</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javaScript" src="search/search.js"></script>
@@ -16,11 +16,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="navigation" id="top">
   <div class="tabs">
     <ul class="tablist">
-      <li class="current"><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
-      <li><a href="files.html"><span>Files</span></a></li>
+      <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li id="searchli">
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -39,42 +39,63 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </li>
     </ul>
   </div>
-</div>
-<div class="header">
-  <div class="headertitle">
-<h1>Synthetic lightcurves Documentation</h1>  </div>
+  <div class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li class="current"><a href="globals.html"><span>File&#160;Members</span></a></li>
+    </ul>
+  </div>
+  <div class="tabs2">
+    <ul class="tablist">
+      <li><a href="globals.html"><span>All</span></a></li>
+      <li class="current"><a href="globals_func.html"><span>Functions</span></a></li>
+      <li><a href="globals_vars.html"><span>Variables</span></a></li>
+      <li><a href="globals_defs.html"><span>Defines</span></a></li>
+    </ul>
+  </div>
 </div>
 <div class="contents">
-<h3 class="version">0.2 </h3><h2><a class="anchor" id="Introduction"></a>
-Introduction</h2>
-<p>This software takes a Sysrem-compatible data file and alters the chosen lightcurve by removing an already present transit and adding a custom synthetic transit in.</p>
-<h2><a class="anchor" id="Motivation"></a>
-Motivation</h2>
-<p>WASP-12b is an extremely large exoplanet, almost larger than thought possible. Due to it's large size, it is fairly visible as the transit depth depends on the ratio of stellar and planetary radii</p>
-<p class="formulaDsp">
-<img class="formulaDsp" alt="\[ \delta = \frac{r_p^2}{r_s^2} \]" src="form_0.png"/>
-</p>
-<p>What if WASP-12b was slightly smaller? Perhaps this would not have been detected by SuperWASP. By generating synthetic WASP-12b lightcurves with differing radii the sensitivity to the planetary radius can be mapped out. If other parameters are considered also then this could lead to an understanding of the selection biases towards certain kinds of planet in the SuperWASP survey and a possible understanding of the underlying population.</p>
-<h2><a class="anchor" id="Method"></a>
-Method</h2>
-<p>First the data file is opened and scanned for the given object. If no object with the specified name is found then an exception is thrown. The lightcurve is then read in to memory.</p>
-<p>Two synthetic lightcurves are generated with the parameters given on the command line using the Mandel &amp; Agol model with non-linear limb darkening.</p>
-<p>Firstly the subtracted model is phase folded on the period and epoch values supplied, and a linear interpolator object is generated with this data. A model lightcurve is then interpolated on to the data's time grid, the data normalised to its own mean and the interpolated model is subtracted.</p>
-<p>Then the model lightcurve is added in a similar process.</p>
-<h2><a class="anchor" id="dependencies"></a>
-Software dependencies</h2>
-<p>All the code is written in C++ so a working compiler must be available.</p>
-<p>For compilation on another system, certain libraries must also be installed. These include: </p>
-<ul>
-<li>CMake (for the build system) </li>
-<li>CCfits </li>
-<li>pugixml </li>
-<li>tclap </li>
-<li>Numerical recipes 3</li>
+&#160;<ul>
+<li>AddTransit()
+: <a class="el" href="AlterTransit_8h.html#abeb36a203c65247c1c9b69009be575c7">AlterTransit.h</a>
+</li>
+<li>AlterTransit()
+: <a class="el" href="AlterTransit_8h.html#ae2ba63de3d64225160759fa24f1db3bf">AlterTransit.h</a>
+</li>
+<li>calcOmega()
+: <a class="el" href="FuncOmega_8h.html#a1b4949a804ec7f75f05bc8e8c8ac5b7a">FuncOmega.h</a>
+</li>
+<li>GeometricTransit()
+: <a class="el" href="FuncGeometricTransit_8h.html#a38b4af7850040d25b129d50f800123c7">FuncGeometricTransit.h</a>
+</li>
+<li>I()
+: <a class="el" href="FuncIntensity_8h.html#a7218240bfa5bdbb25b53f2b6cbce8e17">FuncIntensity.h</a>
+</li>
+<li>IntegratedI()
+: <a class="el" href="FuncIntensity_8h.html#a80ec5ddc0c4a5ad934b5e207727ccf69">FuncIntensity.h</a>
+</li>
+<li>jd2wd()
+: <a class="el" href="WaspDateConverter_8h.html#aa43c8eca2ad808f69a88ea5c6e8f1e17">WaspDateConverter.h</a>
+</li>
+<li>PairComparitor()
+: <a class="el" href="SortedIndex_8h.html#af49fc875aefc8df73eb55ae68a28c03e">SortedIndex.h</a>
+</li>
+<li>RemoveTransit()
+: <a class="el" href="AlterTransit_8h.html#a3a8c7372713c9dea27e5a8e81f365acb">AlterTransit.h</a>
+</li>
+<li>SortedIndex()
+: <a class="el" href="SortedIndex_8h.html#a736118672339a2b9ed2ab3caef757a7c">SortedIndex.h</a>
+</li>
+<li>square()
+: <a class="el" href="FuncSquare_8h.html#a9396ef05d06a94353526b1b34e6c36fc">FuncSquare.h</a>
+</li>
+<li>ToStringList()
+: <a class="el" href="ToStringList_8h.html#af325ea02e2c45bd98a3d0cfab00138bc">ToStringList.h</a>
+</li>
+<li>wd2jd()
+: <a class="el" href="WaspDateConverter_8h.html#ae66cfa0c23e041a77dcfed6a7940cc87">WaspDateConverter.h</a>
+</li>
 </ul>
-<h2><a class="anchor" id="notes"></a>
-Notes for the creator</h2>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Package all external requirements in another directory</dd></dl>
 </div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -90,7 +111,7 @@ Notes for the creator</h2>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Mon Jul 11 2011 13:56:25 for Synthetic lightcurves by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Mon Jul 11 2011 13:56:31 for Synthetic lightcurves by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.2 </small></address>
 </body>

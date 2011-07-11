@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>Synthetic lightcurves: Main Page</title>
+<title>Synthetic lightcurves: include/FuncGeometricTransit.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javaScript" src="search/search.js"></script>
@@ -16,11 +16,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="navigation" id="top">
   <div class="tabs">
     <ul class="tablist">
-      <li class="current"><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
-      <li><a href="files.html"><span>Files</span></a></li>
+      <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li id="searchli">
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -39,42 +39,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </li>
     </ul>
   </div>
-</div>
+  <div class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
+    </ul>
+  </div>
 <div class="header">
   <div class="headertitle">
-<h1>Synthetic lightcurves Documentation</h1>  </div>
+<h1>include/FuncGeometricTransit.h</h1>  </div>
 </div>
 <div class="contents">
-<h3 class="version">0.2 </h3><h2><a class="anchor" id="Introduction"></a>
-Introduction</h2>
-<p>This software takes a Sysrem-compatible data file and alters the chosen lightcurve by removing an already present transit and adding a custom synthetic transit in.</p>
-<h2><a class="anchor" id="Motivation"></a>
-Motivation</h2>
-<p>WASP-12b is an extremely large exoplanet, almost larger than thought possible. Due to it's large size, it is fairly visible as the transit depth depends on the ratio of stellar and planetary radii</p>
-<p class="formulaDsp">
-<img class="formulaDsp" alt="\[ \delta = \frac{r_p^2}{r_s^2} \]" src="form_0.png"/>
-</p>
-<p>What if WASP-12b was slightly smaller? Perhaps this would not have been detected by SuperWASP. By generating synthetic WASP-12b lightcurves with differing radii the sensitivity to the planetary radius can be mapped out. If other parameters are considered also then this could lead to an understanding of the selection biases towards certain kinds of planet in the SuperWASP survey and a possible understanding of the underlying population.</p>
-<h2><a class="anchor" id="Method"></a>
-Method</h2>
-<p>First the data file is opened and scanned for the given object. If no object with the specified name is found then an exception is thrown. The lightcurve is then read in to memory.</p>
-<p>Two synthetic lightcurves are generated with the parameters given on the command line using the Mandel &amp; Agol model with non-linear limb darkening.</p>
-<p>Firstly the subtracted model is phase folded on the period and epoch values supplied, and a linear interpolator object is generated with this data. A model lightcurve is then interpolated on to the data's time grid, the data normalised to its own mean and the interpolated model is subtracted.</p>
-<p>Then the model lightcurve is added in a similar process.</p>
-<h2><a class="anchor" id="dependencies"></a>
-Software dependencies</h2>
-<p>All the code is written in C++ so a working compiler must be available.</p>
-<p>For compilation on another system, certain libraries must also be installed. These include: </p>
-<ul>
-<li>CMake (for the build system) </li>
-<li>CCfits </li>
-<li>pugixml </li>
-<li>tclap </li>
-<li>Numerical recipes 3</li>
-</ul>
-<h2><a class="anchor" id="notes"></a>
-Notes for the creator</h2>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Package all external requirements in another directory</dd></dl>
+<a href="FuncGeometricTransit_8h.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#pragma once</span>
+<a name="l00002"></a>00002 <span class="preprocessor"></span>
+<a name="l00003"></a>00003 <span class="keywordtype">double</span> <a class="code" href="FuncGeometricTransit_8h.html#a38b4af7850040d25b129d50f800123c7">GeometricTransit</a>(<span class="keywordtype">double</span> p, <span class="keywordtype">double</span> z);
+</pre></div></div>
 </div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
