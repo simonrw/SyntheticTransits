@@ -90,8 +90,10 @@ Lightcurve Application::GenerateModel(const string &xmlfilename)
     lc.period = period;
     lc.epoch = midpoint;
 
-
-
+    
+    ofstream outfile("TransitModel.txt");
+    outfile.precision(15);
+    
     /* parallel process this part */
 #pragma omp parallel for
     for (unsigned int i=0; i<time.size(); ++i)
@@ -153,8 +155,10 @@ Lightcurve Application::GenerateModel(const string &xmlfilename)
         lc.jd[i] = t / secondsInDay + midpoint;
         lc.flux[i] = F;
 
+        outfile << t << " " << phaseval << " " << F << endl;
     }
-
+    outfile.close();
+    
     return lc;
 
 }
