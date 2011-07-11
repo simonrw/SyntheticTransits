@@ -25,7 +25,7 @@ void Lightcurve::clear()
     npts = flux.size();
 }
 
-vector<double> Lightcurve::phase(bool WASP)
+vector<double> Lightcurve::phase()
 {
     size_t N = this->size();
     
