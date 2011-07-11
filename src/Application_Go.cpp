@@ -70,6 +70,7 @@ int Application::go(int argc, char *argv[])
     TCLAP::UnlabeledValueArg<string> filename_arg("file", "File", true, "", "Fits file", cmd);
     TCLAP::ValueArg<string> output_arg("o", "output", "Optional output file", false, "output.fits", "Fits filename", cmd);
     TCLAP::ValueArg<string> objectid_arg("O", "object", "Object to alter", true, "", "Object identifier", cmd);
+    TCLAP::SwitchArg wasptreatment_arg("w", "wasp", "Treat as wasp object", cmd, true);
 
 
 
