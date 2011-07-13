@@ -6,6 +6,7 @@ from pylab import *
 import sys
 sys.path.insert(0, "/Users/phrfbf/build/Python/modules")
 sys.path.insert(0, "/home/astro/phrfbf/build/Python/modules")
+sys.path.insert(0, "/home/astro/phrebf/Python/JG")
 from jg.ctx import wd2jd
 
 wasp11 = {'p': 3.722469, 'e': 2454729.90631}
