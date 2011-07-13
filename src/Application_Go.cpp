@@ -96,7 +96,6 @@ int Application::go(int argc, char *argv[])
 
     
     Lightcurve SubModel = GenerateModel(subModel_arg.getValue());
-    return 0;
     
     /*  start by copying the file across to the output file */
     stringstream copycmd;
@@ -132,8 +131,9 @@ int Application::go(int argc, char *argv[])
 
     //[>  now add the transit back in <]
     //Lightcurve TransitAddedLC = AddTransit(TransitRemovedLC, AddModel);
+    return 0;
 
-    Lightcurve NewLightcurve = AlterTransit(ChosenObject, SubModel, AddModel, wasptreatment_arg.getValue());
+    Lightcurve NewLightcurve = AlterTransit(ChosenObject, SubModel, AddModel, wasptreatment_arg.getValue(), addModelFlag);
 
     /*  finally update the file */
     UpdateFile(NewLightcurve);
