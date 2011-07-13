@@ -77,17 +77,26 @@ int Application::go(int argc, char *argv[])
     cmd.parse(argc, argv);
     
     /*  if the model argument is NULL then do not add a model into the lightcurve */
-    bool addModel = true;
+    bool addModelFlag = true;
+    Lightcurve AddModel(0);
     if (addModel_arg.getValue() == "NULL")
     {
         /*  Not adding a model into the lightcurve */
-        addModel = false;
+        addModelFlag = false;
+        cout << "Not adding a transit" << endl;
     }
+    else
+    {
+        AddModel = GenerateModel(addModel_arg.getValue());
+    }
+
+
 
     
 
-    Lightcurve AddModel = GenerateModel(addModel_arg.getValue());
+    
     Lightcurve SubModel = GenerateModel(subModel_arg.getValue());
+    return 0;
     
     /*  start by copying the file across to the output file */
     stringstream copycmd;
