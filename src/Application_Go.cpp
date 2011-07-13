@@ -82,6 +82,19 @@ int Application::go(int argc, char *argv[])
     long SystemMemory = getTotalSystemMemory();
 
     cout  << "System memory: " << SystemMemory / 1024. / 1024. << " MB" << endl;
+    float MemFraction = memlimit_arg.getValue();
+
+    /*  make sure this is within the range 0-1 */
+    if ((MemFraction <= 0) || (MemFraction > 1))
+    {
+        throw MemoryException("Allowed memory is within range 0-1");
+    }
+
+    float AvailableMemory = MemFraction * SystemMemory;
+    cout << "Using " << AvailableMemory / 1024. / 1024. << " MB of memory" << endl;
+
+
+
     return 0;
 
     
