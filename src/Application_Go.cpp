@@ -76,8 +76,14 @@ int Application::go(int argc, char *argv[])
 
     cmd.parse(argc, argv);
     
-    /*  set up logging */
-    //google::InitGoogleLogging(argv[0]);
+    /*  if the model argument is NULL then do not add a model into the lightcurve */
+    bool addModel = true;
+    if (addModel_arg.getValue() == "NULL")
+    {
+        /*  Not adding a model into the lightcurve */
+        addModel = false;
+    }
+
     
 
     Lightcurve AddModel = GenerateModel(addModel_arg.getValue());
