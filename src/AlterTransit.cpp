@@ -196,7 +196,7 @@ Lightcurve AddTransit(Lightcurve &data, Lightcurve &model)
         
 }
 
-Lightcurve AlterTransit(Lightcurve &data, Lightcurve &subModel, Lightcurve &addModel, bool WASP)
+Lightcurve AlterTransit(Lightcurve &data, Lightcurve &subModel, Lightcurve &addModel, bool WASP, bool addModelFlag)
 {
     /*  first subtract... */
     data.period = subModel.period;
