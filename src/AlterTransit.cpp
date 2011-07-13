@@ -216,20 +216,30 @@ Lightcurve AlterTransit(Lightcurve &data, Lightcurve &subModel, Lightcurve &addM
     
     Lightcurve LCRemoved = RemoveTransit(data, subModel);
 
-    /*  then add */
-    LCRemoved.period = addModel.period;
-    LCRemoved.epoch = addModel.epoch;
-    Lightcurve LCAdded = AddTransit(LCRemoved, addModel);
-
-    ofstream debugfile("Debug.dat");
-    debugfile.precision(15);
-
-    for (size_t i=0; i<data.size(); ++i)
+    if (addModelFlag)
     {
-        debugfile << data.jd[i] << " " << data.flux[i] << " " << LCRemoved.flux[i] << " " << LCAdded.flux[i] << endl;
-    }
 
-    debugfile.close();
-    return LCAdded;
+
+        /*  then add */
+        LCRemoved.period = addModel.period;
+        LCRemoved.epoch = addModel.epoch;
+        Lightcurve LCAdded = AddTransit(LCRemoved, addModel);
+
+        ofstream debugfile("Debug.dat");
+        debugfile.precision(15);
+
+        for (size_t i=0; i<data.size(); ++i)
+        {
+            debugfile << data.jd[i] << " " << data.flux[i] << " " << LCRemoved.flux[i] << " " << LCAdded.flux[i] << endl;
+        }
+
+        debugfile.close();
+        return LCAdded;
+    }
+    else
+    {
+        /*  do not add the model, just return the LCRemoved object */
+        return LCRemoved;
+    }
 
 }
