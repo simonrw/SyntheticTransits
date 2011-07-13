@@ -36,6 +36,12 @@ struct XMLException : public BaseException
 	XMLException(const std::string &val) : BaseException(val) {}
 };
 
+/** Memory exception if the user requires less than 0 or more than all of the memory */
+struct MemoryException : public BaseException
+{
+    MemoryException(const std::string &val) : BaseException(val) {}
+};
+
 
 #endif /* end of include guard: EXCEPTIONS_H */
 
