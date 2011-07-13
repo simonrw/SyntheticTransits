@@ -38,7 +38,7 @@ public:
     void clear();
 
 	/** Returns the number of data points in the lightcurve */
-    size_t size();
+    size_t size() const;
 
 	/** Returns a vector of the phase information
 	 *

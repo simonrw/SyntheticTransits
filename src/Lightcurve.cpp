@@ -12,7 +12,7 @@ Lightcurve::Lightcurve(size_t n)
     this->fluxerr = vector<double>(n);
 }
 
-size_t Lightcurve::size()
+size_t Lightcurve::size() const
 {
     return npts;
 }
