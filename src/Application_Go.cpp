@@ -95,7 +95,6 @@ int Application::go(int argc, char *argv[])
 
 
 
-    return 0;
 
     
     /*  if the model argument is NULL then do not add a model into the lightcurve */
