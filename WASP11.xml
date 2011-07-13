@@ -11,7 +11,7 @@ The details here are for WASP-11b
         <c id="2" val="-0.881228" />
         <c id="3" val="1.40956" />
         <c id="4" val="-0.577744" />
-        <radius val="0.91"  units="rjup"/>
+        <radius val="0"  units="rjup"/>
     </planet>
     <star id="0">
         <radius val="0.74"  units="rsun"/>
