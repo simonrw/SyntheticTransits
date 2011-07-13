@@ -19,6 +19,7 @@
 #include "Application.h"
 #include "Exceptions.h"
 #include "AlterTransit.h"
+#include "GetSystemMemory.h"
 
 
 
@@ -75,6 +76,13 @@ int Application::go(int argc, char *argv[])
 
 
     cmd.parse(argc, argv);
+
+    /*  get the system memory */
+    long SystemMemory = getTotalSystemMemory();
+
+    cout  << "System memory: " << SystemMemory / 1024. / 1024. << " MB" << endl;
+    return 0;
+
     
     /*  if the model argument is NULL then do not add a model into the lightcurve */
     bool addModelFlag = true;
