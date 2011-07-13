@@ -131,7 +131,6 @@ int Application::go(int argc, char *argv[])
 
     //[>  now add the transit back in <]
     //Lightcurve TransitAddedLC = AddTransit(TransitRemovedLC, AddModel);
-    return 0;
 
     Lightcurve NewLightcurve = AlterTransit(ChosenObject, SubModel, AddModel, wasptreatment_arg.getValue(), addModelFlag);
 
