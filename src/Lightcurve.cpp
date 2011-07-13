@@ -25,6 +25,27 @@ void Lightcurve::clear()
     npts = flux.size();
 }
 
+Lightcurve &Lightcurve::operator=(const Lightcurve &obj)
+{
+    /*  copy the data arrays across */
+    jd = obj.jd;
+    flux = obj.flux;
+    fluxerr = obj.fluxerr;
+    
+    /*  copy the number of points */
+    npts = obj.size();
+    
+    /*  orbital information */
+    period = obj.period;
+    epoch = obj.epoch;
+    
+    asWASP = obj.asWASP;
+    
+    
+    return *this;
+    
+}
+
 vector<double> Lightcurve::phase()
 {
     size_t N = this->size();

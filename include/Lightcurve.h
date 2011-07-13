@@ -11,9 +11,11 @@
 
 class Lightcurve
 {
-	/** Number of data points in the lightcurve */
+    /** Number of data points in the lightcurve */
     size_t npts;
+
 public:
+
 
 	/**	Orbital period (days)*/
     double period;
@@ -48,6 +50,9 @@ public:
 	 *
 	 * This phase information is not stored in the class itself. */
     std::vector<double> phase();
+    
+    /** Assignment constructor */
+    Lightcurve &operator=(const Lightcurve &obj);
 };
 
 
