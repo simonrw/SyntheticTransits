@@ -54,6 +54,24 @@ add_executable(
     ${CMAKE_SOURCE_DIR}/src/Lightcurve.cpp
     )
 
+add_library(
+    AlterLightcurves
+    SHARED
+    ${SRCS}
+    )
+
+
+target_link_libraries(
+    AlterLightcurves
+   ${UNITTESTPP_LIBRARIES}
+   ${CCFITS_LIBRARIES}
+   ${PUGIXML_LIBRARIES}
+   #${GLOG_LIBRARIES}
+#    ${FITSIO_LIBRARIES}
+#    ${QT_LIBRARIES}
+   )
+
+
 target_link_libraries(
     TestLightcurve
     ${UNITTESTPP_LIBRARIES}
