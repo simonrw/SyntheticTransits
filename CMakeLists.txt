@@ -30,6 +30,8 @@ include_directories(
 #    ${FITSIO_INCLUDE_DIR}
     )
 
+link_directories(${CMAKE_BINARY_DIR})
+
 aux_source_directory(
     ${${TARGET}_SOURCE_DIR}/src
     SRCS
@@ -51,7 +53,7 @@ target_link_libraries(
 add_executable(
     TestLightcurve
     ${CMAKE_SOURCE_DIR}/tests/TestLightcurve.cpp
-    ${CMAKE_SOURCE_DIR}/src/Lightcurve.cpp
+    #${CMAKE_SOURCE_DIR}/src/Lightcurve.cpp
     )
 
 add_library(
@@ -72,7 +74,12 @@ target_link_libraries(
    )
 
 
+message(STATUS ${CMAKE_BINARY_DIR})
+
+
+
 target_link_libraries(
     TestLightcurve
     ${UNITTESTPP_LIBRARIES}
+    -lAlterLightcurves
     )
