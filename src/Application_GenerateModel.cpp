@@ -22,7 +22,8 @@
 Lightcurve Application::GenerateModel(const string &xmlfilename)
 {
     /* set up the conversion constants */
-    Config::Config config(xmlfilename);
+    Config::Config config;
+    config.LoadFromFile(xmlfilename);
 
 
     const double rPlan = config.getPlanetRadius();

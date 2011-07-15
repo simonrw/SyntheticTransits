@@ -61,8 +61,11 @@ namespace Config
 		pugi::xml_node SimulationNode;
 
 		public:
-		Config(const string &filename);
+		Config();
 		virtual ~Config();
+
+        void LoadFromFile(const string &filename);
+        void LoadFromMemory(const string &chars);
 
 		protected:
 		/* internal functions to get the values */

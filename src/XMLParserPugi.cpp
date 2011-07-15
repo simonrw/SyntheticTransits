@@ -15,13 +15,28 @@ void Upper(string &str)
 	transform(str.begin(), str.end(), str.begin(), ::toupper);
 }
 
+/** Default constructor
+ *
+ * does nothing! */
+Config::Config::Config()
+{
+}
 
-/** Constructor to load from a file
+/** Function to load from memory
+ *
+ * Parses the xml given at that point, and sets
+ * the class variables to their values */
+void Config::Config::LoadFromMemory(const string &chars)
+{
+}
+
+/** Function to load from a file
  *
  * Opens the specified filename and parses the xml. Then
  * all the required variables are then stored with the class 
  * for access with the get(...) methods */
-Config::Config::Config(const string &filename)
+//Config::Config::Config(const string &filename)
+void Config::Config::LoadFromFile(const string &filename)
 {
 	result = doc.load_file(filename.c_str());
 
