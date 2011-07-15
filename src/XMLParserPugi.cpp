@@ -22,6 +22,19 @@ Config::Config::Config()
 {
 }
 
+void Config::Config::init()
+{
+	xml_node InfoNode = doc.child("info");
+	PlanetNode = InfoNode.child("planet");
+	StarNode = InfoNode.child("star");
+	OrbitNode = InfoNode.child("orbit");
+	SimulationNode = InfoNode.child("simulation");
+
+
+    m_getAll();
+}
+
+
 /** Function to load from memory
  *
  * Parses the xml given at that point, and sets
@@ -41,6 +54,7 @@ void Config::Config::LoadFromMemory(const string &chars)
         throw XMLException(ss.str());
     }
 
+    init();
 
 }
 
@@ -68,14 +82,7 @@ void Config::Config::LoadFromFile(const string &filename)
 		throw XMLException(ss.str());
 	}
 
-	xml_node InfoNode = doc.child("info");
-	PlanetNode = InfoNode.child("planet");
-	StarNode = InfoNode.child("star");
-	OrbitNode = InfoNode.child("orbit");
-	SimulationNode = InfoNode.child("simulation");
-
-
-    m_getAll();
+    init();
 
 }
 

@@ -84,6 +84,8 @@ namespace Config
         /** Global data retrieval function */
         void m_getAll();
 
+        void init();
+
 		public:
 		vector<double> &getCoeffs() { return this->coeffs; }
 		int getId() { return this->id; }
