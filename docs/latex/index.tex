@@ -1,0 +1,21 @@
+\hypertarget{index_Introduction}{}\section{Introduction}\label{index_Introduction}
+This software takes a Sysrem-\/compatible data file and alters the chosen lightcurve by removing an already present transit and adding a custom synthetic transit in.\hypertarget{index_Motivation}{}\section{Motivation}\label{index_Motivation}
+WASP-\/12b is an extremely large exoplanet, almost larger than thought possible. Due to it's large size, it is fairly visible as the transit depth depends on the ratio of stellar and planetary radii
+
+\[ \delta = \frac{r_p^2}{r_s^2} \]
+
+What if WASP-\/12b was slightly smaller? Perhaps this would not have been detected by SuperWASP. By generating synthetic WASP-\/12b lightcurves with differing radii the sensitivity to the planetary radius can be mapped out. If other parameters are considered also then this could lead to an understanding of the selection biases towards certain kinds of planet in the SuperWASP survey and a possible understanding of the underlying population.\hypertarget{index_Method}{}\section{Method}\label{index_Method}
+First the data file is opened and scanned for the given object. If no object with the specified name is found then an exception is thrown. The lightcurve is then read in to memory.
+
+Two synthetic lightcurves are generated with the parameters given on the command line using the Mandel \& Agol model with non-\/linear limb darkening.
+
+Firstly the subtracted model is phase folded on the period and epoch values supplied, and a linear interpolator object is generated with this data. A model lightcurve is then interpolated on to the data's time grid, the data normalised to its own mean and the interpolated model is subtracted.
+
+Then the model lightcurve is added in a similar process.\hypertarget{index_dependencies}{}\section{Software dependencies}\label{index_dependencies}
+All the code is written in C++ so a working compiler must be available.
+
+For compilation on another system, certain libraries must also be installed. These include: \begin{DoxyItemize}
+\item CMake (for the build system) \item CCfits \item pugixml \item tclap \item Numerical recipes 3\end{DoxyItemize}
+\hypertarget{index_notes}{}\section{Notes for the creator}\label{index_notes}
+\begin{Desc}
+\item[\hyperlink{todo__todo000001}{Todo}]Package all external requirements in another directory\end{Desc}

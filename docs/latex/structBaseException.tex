@@ -1,0 +1,104 @@
+\hypertarget{structBaseException}{
+\section{BaseException Struct Reference}
+\label{structBaseException}\index{BaseException@{BaseException}}
+}
+
+
+Base exception.  
+
+
+
+
+{\ttfamily \#include $<$Exceptions.h$>$}
+
+Inheritance diagram for BaseException:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{structBaseException}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structBaseException_afceeee9f97b6e2bed459692b4050f1a9}{BaseException} (const std::string \&val)
+\item 
+\hyperlink{structBaseException_aed58cb09c64408372719754da40022fc}{$\sim$BaseException} ()  throw ()
+\item 
+const char $\ast$ \hyperlink{structBaseException_a44505abd2e88ffaf5bb90e73452151b6}{what} () const   throw ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std::string \hyperlink{structBaseException_a0e59e8c1ac3653ba4c375e446b6a0462}{str}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Base exception. All other exceptions inherit this exception for easy filtering of exceptions
+
+Extra functionality: the object takes a std::string parameter for customising the error message and returns this string (as a C-\/string) in the \hyperlink{structBaseException_a44505abd2e88ffaf5bb90e73452151b6}{what()} method. 
+
+Definition at line 18 of file Exceptions.h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{structBaseException_afceeee9f97b6e2bed459692b4050f1a9}{
+\index{BaseException@{BaseException}!BaseException@{BaseException}}
+\index{BaseException@{BaseException}!BaseException@{BaseException}}
+\subsubsection[{BaseException}]{\setlength{\rightskip}{0pt plus 5cm}BaseException::BaseException (
+\begin{DoxyParamCaption}
+\item[{const std::string \&}]{ val}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{structBaseException_afceeee9f97b6e2bed459692b4050f1a9}
+
+
+Definition at line 21 of file Exceptions.h.
+
+\hypertarget{structBaseException_aed58cb09c64408372719754da40022fc}{
+\index{BaseException@{BaseException}!$\sim$BaseException@{$\sim$BaseException}}
+\index{$\sim$BaseException@{$\sim$BaseException}!BaseException@{BaseException}}
+\subsubsection[{$\sim$BaseException}]{\setlength{\rightskip}{0pt plus 5cm}BaseException::$\sim$BaseException (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)  throw ()\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{structBaseException_aed58cb09c64408372719754da40022fc}
+
+
+Definition at line 22 of file Exceptions.h.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{structBaseException_a44505abd2e88ffaf5bb90e73452151b6}{
+\index{BaseException@{BaseException}!what@{what}}
+\index{what@{what}!BaseException@{BaseException}}
+\subsubsection[{what}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ BaseException::what (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const  throw ()\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{structBaseException_a44505abd2e88ffaf5bb90e73452151b6}
+
+
+Definition at line 23 of file Exceptions.h.
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{structBaseException_a0e59e8c1ac3653ba4c375e446b6a0462}{
+\index{BaseException@{BaseException}!str@{str}}
+\index{str@{str}!BaseException@{BaseException}}
+\subsubsection[{str}]{\setlength{\rightskip}{0pt plus 5cm}std::string {\bf BaseException::str}}}
+\label{structBaseException_a0e59e8c1ac3653ba4c375e446b6a0462}
+
+
+Definition at line 20 of file Exceptions.h.
+
+
+
+The documentation for this struct was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{Exceptions_8h}{Exceptions.h}\end{DoxyCompactItemize}

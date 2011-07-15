@@ -1,0 +1,217 @@
+\hypertarget{classLightcurve}{
+\section{Lightcurve Class Reference}
+\label{classLightcurve}\index{Lightcurve@{Lightcurve}}
+}
+
+
+\hyperlink{classLightcurve}{Lightcurve} class which stores information about a single object.  
+
+
+
+
+{\ttfamily \#include $<$Lightcurve.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classLightcurve_a1145dcf51e49e3ce069a0aad4ad11e92}{Lightcurve} (size\_\-t n)
+\begin{DoxyCompactList}\small\item\em Constructor. \item\end{DoxyCompactList}\item 
+void \hyperlink{classLightcurve_a5318d441e2d04d71ef10b7509f823e92}{clear} ()
+\begin{DoxyCompactList}\small\item\em Manually clears the timeseries vectors. \item\end{DoxyCompactList}\item 
+size\_\-t \hyperlink{classLightcurve_aa5cc8769e52679a9cc17e8c2782acbf0}{size} () const 
+\begin{DoxyCompactList}\small\item\em Returns the number of data points in the lightcurve. \item\end{DoxyCompactList}\item 
+std::vector$<$ double $>$ \hyperlink{classLightcurve_a134469345638f682f3af941b6994aa92}{phase} ()
+\begin{DoxyCompactList}\small\item\em Returns a vector of the phase information. \item\end{DoxyCompactList}\item 
+\hyperlink{classLightcurve}{Lightcurve} \& \hyperlink{classLightcurve_a51cf49532fe7981cabf91a51ad114013}{operator=} (const \hyperlink{classLightcurve}{Lightcurve} \&obj)
+\begin{DoxyCompactList}\small\item\em Assignment constructor. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double \hyperlink{classLightcurve_a6e8ac482decf1bbcc3f4eea9a4818646}{period}
+\begin{DoxyCompactList}\small\item\em Orbital period (days) \item\end{DoxyCompactList}\item 
+bool \hyperlink{classLightcurve_a54903f9ec0b5fc7b8080cacc332752ec}{asWASP}
+\begin{DoxyCompactList}\small\item\em Treat the object as a WASP object Basically means the jd is actually wd. \item\end{DoxyCompactList}\item 
+double \hyperlink{classLightcurve_aeb03d82f5ff13e75bbb40af674f6597a}{epoch}
+\begin{DoxyCompactList}\small\item\em Point of mid transit (days) \item\end{DoxyCompactList}\item 
+std::vector$<$ double $>$ \hyperlink{classLightcurve_a5bc412c5176599f90b4ae2fba5bd5f19}{jd}
+\begin{DoxyCompactList}\small\item\em Time series for the time, flux and errors. \item\end{DoxyCompactList}\item 
+std::vector$<$ double $>$ \hyperlink{classLightcurve_a88801eb8e66a51a2e15fad1aa42f7129}{flux}
+\item 
+std::vector$<$ double $>$ \hyperlink{classLightcurve_a4ef0c30138238483fe6a5573ed8838a7}{fluxerr}
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+size\_\-t \hyperlink{classLightcurve_adf57f279eab9cb38a65ba09384dbf3f6}{npts}
+\begin{DoxyCompactList}\small\item\em Number of data points in the lightcurve. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{classLightcurve}{Lightcurve} class which stores information about a single object. 
+
+Definition at line 12 of file Lightcurve.h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classLightcurve_a1145dcf51e49e3ce069a0aad4ad11e92}{
+\index{Lightcurve@{Lightcurve}!Lightcurve@{Lightcurve}}
+\index{Lightcurve@{Lightcurve}!Lightcurve@{Lightcurve}}
+\subsubsection[{Lightcurve}]{\setlength{\rightskip}{0pt plus 5cm}Lightcurve::Lightcurve (
+\begin{DoxyParamCaption}
+\item[{size\_\-t}]{ n}
+\end{DoxyParamCaption}
+)}}
+\label{classLightcurve_a1145dcf51e49e3ce069a0aad4ad11e92}
+
+
+Constructor. 
+
+Sets the size of the input vectors to be of size n 
+
+\subsection{Member Function Documentation}
+\hypertarget{classLightcurve_a5318d441e2d04d71ef10b7509f823e92}{
+\index{Lightcurve@{Lightcurve}!clear@{clear}}
+\index{clear@{clear}!Lightcurve@{Lightcurve}}
+\subsubsection[{clear}]{\setlength{\rightskip}{0pt plus 5cm}void Lightcurve::clear (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{classLightcurve_a5318d441e2d04d71ef10b7509f823e92}
+
+
+Manually clears the timeseries vectors. 
+
+\hypertarget{classLightcurve_a51cf49532fe7981cabf91a51ad114013}{
+\index{Lightcurve@{Lightcurve}!operator=@{operator=}}
+\index{operator=@{operator=}!Lightcurve@{Lightcurve}}
+\subsubsection[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Lightcurve}\& Lightcurve::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf Lightcurve} \&}]{ obj}
+\end{DoxyParamCaption}
+)}}
+\label{classLightcurve_a51cf49532fe7981cabf91a51ad114013}
+
+
+Assignment constructor. 
+
+\hypertarget{classLightcurve_a134469345638f682f3af941b6994aa92}{
+\index{Lightcurve@{Lightcurve}!phase@{phase}}
+\index{phase@{phase}!Lightcurve@{Lightcurve}}
+\subsubsection[{phase}]{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$double$>$ Lightcurve::phase (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{classLightcurve_a134469345638f682f3af941b6994aa92}
+
+
+Returns a vector of the phase information. 
+
+Calculates the number of periods since the epoch, then takes the decimal part and creates the 0 point to be at the point of mid transit.
+
+This phase information is not stored in the class itself. \hypertarget{classLightcurve_aa5cc8769e52679a9cc17e8c2782acbf0}{
+\index{Lightcurve@{Lightcurve}!size@{size}}
+\index{size@{size}!Lightcurve@{Lightcurve}}
+\subsubsection[{size}]{\setlength{\rightskip}{0pt plus 5cm}size\_\-t Lightcurve::size (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}
+\label{classLightcurve_aa5cc8769e52679a9cc17e8c2782acbf0}
+
+
+Returns the number of data points in the lightcurve. 
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classLightcurve_a54903f9ec0b5fc7b8080cacc332752ec}{
+\index{Lightcurve@{Lightcurve}!asWASP@{asWASP}}
+\index{asWASP@{asWASP}!Lightcurve@{Lightcurve}}
+\subsubsection[{asWASP}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf Lightcurve::asWASP}}}
+\label{classLightcurve_a54903f9ec0b5fc7b8080cacc332752ec}
+
+
+Treat the object as a WASP object Basically means the jd is actually wd. 
+
+
+
+Definition at line 25 of file Lightcurve.h.
+
+\hypertarget{classLightcurve_aeb03d82f5ff13e75bbb40af674f6597a}{
+\index{Lightcurve@{Lightcurve}!epoch@{epoch}}
+\index{epoch@{epoch}!Lightcurve@{Lightcurve}}
+\subsubsection[{epoch}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf Lightcurve::epoch}}}
+\label{classLightcurve_aeb03d82f5ff13e75bbb40af674f6597a}
+
+
+Point of mid transit (days) 
+
+
+
+Definition at line 29 of file Lightcurve.h.
+
+\hypertarget{classLightcurve_a88801eb8e66a51a2e15fad1aa42f7129}{
+\index{Lightcurve@{Lightcurve}!flux@{flux}}
+\index{flux@{flux}!Lightcurve@{Lightcurve}}
+\subsubsection[{flux}]{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$double$>$ {\bf Lightcurve::flux}}}
+\label{classLightcurve_a88801eb8e66a51a2e15fad1aa42f7129}
+
+
+Definition at line 32 of file Lightcurve.h.
+
+\hypertarget{classLightcurve_a4ef0c30138238483fe6a5573ed8838a7}{
+\index{Lightcurve@{Lightcurve}!fluxerr@{fluxerr}}
+\index{fluxerr@{fluxerr}!Lightcurve@{Lightcurve}}
+\subsubsection[{fluxerr}]{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$double$>$ {\bf Lightcurve::fluxerr}}}
+\label{classLightcurve_a4ef0c30138238483fe6a5573ed8838a7}
+
+
+Definition at line 32 of file Lightcurve.h.
+
+\hypertarget{classLightcurve_a5bc412c5176599f90b4ae2fba5bd5f19}{
+\index{Lightcurve@{Lightcurve}!jd@{jd}}
+\index{jd@{jd}!Lightcurve@{Lightcurve}}
+\subsubsection[{jd}]{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$double$>$ {\bf Lightcurve::jd}}}
+\label{classLightcurve_a5bc412c5176599f90b4ae2fba5bd5f19}
+
+
+Time series for the time, flux and errors. 
+
+
+
+Definition at line 32 of file Lightcurve.h.
+
+\hypertarget{classLightcurve_adf57f279eab9cb38a65ba09384dbf3f6}{
+\index{Lightcurve@{Lightcurve}!npts@{npts}}
+\index{npts@{npts}!Lightcurve@{Lightcurve}}
+\subsubsection[{npts}]{\setlength{\rightskip}{0pt plus 5cm}size\_\-t {\bf Lightcurve::npts}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{classLightcurve_adf57f279eab9cb38a65ba09384dbf3f6}
+
+
+Number of data points in the lightcurve. 
+
+
+
+Definition at line 15 of file Lightcurve.h.
+
+\hypertarget{classLightcurve_a6e8ac482decf1bbcc3f4eea9a4818646}{
+\index{Lightcurve@{Lightcurve}!period@{period}}
+\index{period@{period}!Lightcurve@{Lightcurve}}
+\subsubsection[{period}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf Lightcurve::period}}}
+\label{classLightcurve_a6e8ac482decf1bbcc3f4eea9a4818646}
+
+
+Orbital period (days) 
+
+
+
+Definition at line 21 of file Lightcurve.h.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{Lightcurve_8h}{Lightcurve.h}\end{DoxyCompactItemize}
