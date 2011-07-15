@@ -56,6 +56,12 @@ add_executable(
     #${CMAKE_SOURCE_DIR}/src/Lightcurve.cpp
     )
 
+
+add_executable(
+    TestConfig
+    ${CMAKE_SOURCE_DIR}/tests/TestConfig.cpp
+    )
+
 add_library(
     AlterLightcurves
     SHARED
@@ -80,6 +86,13 @@ message(STATUS ${CMAKE_BINARY_DIR})
 
 target_link_libraries(
     TestLightcurve
+    ${UNITTESTPP_LIBRARIES}
+    -lAlterLightcurves
+    )
+
+
+target_link_libraries(
+    TestConfig
     ${UNITTESTPP_LIBRARIES}
     -lAlterLightcurves
     )
