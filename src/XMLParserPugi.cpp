@@ -29,6 +29,19 @@ Config::Config::Config()
 void Config::Config::LoadFromMemory(const string &chars)
 {
     result = doc.load_buffer_inplace((void*)chars.c_str(), chars.size());
+    if (result)
+    {
+        cout << "XML [:memory:] parsed without errors" << endl;
+    }
+    else
+    {
+        stringstream ss;
+        ss << "XML [:memory:] parsed with errors" << endl;
+        ss << "Error description: " << result.description();
+        throw XMLException(ss.str());
+    }
+
+
 }
 
 /** Function to load from a file
