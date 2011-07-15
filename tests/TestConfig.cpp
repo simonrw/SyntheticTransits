@@ -6,14 +6,22 @@ struct BasicFixture
 {
     BasicFixture()
     {
+        config = new Config::Config;
     }
 
     ~BasicFixture()
     {
+        delete config;
     }
 
     Config::Config *config;
 };
+
+TEST_FIXTURE(BasicFixture, TestConfigConstructor)
+{
+
+}
+
 
 int main(int argc, const char *argv[])
 {

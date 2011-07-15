@@ -28,6 +28,7 @@ Config::Config::Config()
  * the class variables to their values */
 void Config::Config::LoadFromMemory(const string &chars)
 {
+    result = doc.load_buffer_inplace((void*)chars.c_str(), chars.size());
 }
 
 /** Function to load from a file
