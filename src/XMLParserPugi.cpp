@@ -16,7 +16,7 @@ void Upper(string &str)
 }
 
 
-/** Constructor
+/** Constructor to load from a file
  *
  * Opens the specified filename and parses the xml. Then
  * all the required variables are then stored with the class 
