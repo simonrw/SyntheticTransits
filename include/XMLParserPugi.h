@@ -78,6 +78,9 @@ namespace Config
 		void m_getMidpoint();
 		void m_getNoise();
 
+        /** Global data retrieval function */
+        void m_getAll();
+
 		public:
 		vector<double> &getCoeffs() { return this->coeffs; }
 		int getId() { return this->id; }

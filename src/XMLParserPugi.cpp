@@ -45,18 +45,8 @@ Config::Config::Config(const string &filename)
 	OrbitNode = InfoNode.child("orbit");
 	SimulationNode = InfoNode.child("simulation");
 
-    m_getPlanetRadius();
-    m_getStarRadius();
-    m_getLDCoeffs();
-    m_getPeriod();
-    m_getSemi();
-    m_getInclination();
-    m_getDT();
-    m_getDR();
-    m_getMidpoint();
-	m_getNoise();
-    m_getMaxTime();                   // must come after m_getPeriod()
 
+    m_getAll();
 
 }
 
@@ -245,3 +235,17 @@ void Config::Config::m_getNoise()
 
 }
 
+void Config::Config::m_getAll()
+{
+    m_getPlanetRadius();
+    m_getStarRadius();
+    m_getLDCoeffs();
+    m_getPeriod();
+    m_getSemi();
+    m_getInclination();
+    m_getDT();
+    m_getDR();
+    m_getMidpoint();
+	m_getNoise();
+    m_getMaxTime();                   // must come after m_getPeriod()
+}
