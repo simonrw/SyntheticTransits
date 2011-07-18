@@ -66,7 +66,7 @@ def main(args):
     # set up the regex object
 
     for r in np.arange(radVals[0], radVals[1]+radVals[2], radVals[2], dtype='float32'):
-        filename = "Model_r=%.2f.xml" % r
+        filename = "Model_r=%.5f.xml" % r
         fullPath = os.path.join(outputPath, filename)
 
         outputFile = open(fullPath, 'w')
