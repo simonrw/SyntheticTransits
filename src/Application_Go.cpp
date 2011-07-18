@@ -241,6 +241,10 @@ int main(int argc, char *argv[])
     {
         cerr << "FITS Exception: " << e.message() << endl;
     }
+    catch (FitsioException &e)
+    {
+        cerr << "FITSIO Exception: " << e.what() << endl;
+    }
     catch (TCLAP::ArgException &e)
     {
         cerr << "TCLAP error: " << e.error() << " for arg " << e.argId() << endl;
