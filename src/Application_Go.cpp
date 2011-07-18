@@ -24,7 +24,6 @@
 #include "AlterTransit.h"
 #include "GetSystemMemory.h"
 #include "CopyFileEfficiently.h"
-#include "CopyObjectData.h"
 
 
 
@@ -213,6 +212,7 @@ int Application::go(int argc, char *argv[])
             ++i, ++count)
     {
         const int InsertIndex = nObjects + count;
+        CopyObject(InsertIndex);
 
     }
 
