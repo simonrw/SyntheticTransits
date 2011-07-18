@@ -2,25 +2,24 @@
 
 Example configuration file for the FalseTransits program
 
-The details here are for WASP-12b
+The details here are for WASP-11b
 
 -->
 <info>
     <planet id="0">
-        <c id="1" val="0.61764" />
-        <c id="2" val="-0.11308" />
-        <c id="3" val="0.331026" />
-        <c id="4" val="-0.198393" />
+        <c id="1" val="0.794738" />
+        <c id="2" val="-0.881228" />
+        <c id="3" val="1.40956" />
+        <c id="4" val="-0.577744" />
 <radius val="0.600000" units="rjup"/>    </planet>
     <star id="0">
-        <radius val="1.599"  units="rsun"/>
+        <radius val="0.74"  units="rsun"/>
     </star>
 	<orbit>
-        <period val="1.0914222" units="days" />
-        <!--<period val="1.094655" units="days" />-->
-		<semi val="0.02293" units="au" />
-		<inclination val="86" units="degrees" />
-        <midpoint val="2454508.97605" units="jd" />
+		<period val="3.722469" units="days" />
+		<semi val="0.043" units="au" />
+		<inclination val="89.8" units="degrees" />
+        <midpoint val="2454729.90631" units="jd" />
 	</orbit>
     <simulation>
         <maxtime val="2" units="periods" />
