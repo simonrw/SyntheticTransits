@@ -62,6 +62,15 @@ namespace bf = boost::filesystem;
 
 
 
+/** Function to get the number of objects in a fits file
+ *
+ * Static funciton as it's only required in the Application::go() method */
+int getNObjects(const string &filename)
+{
+    /*  assume the number of objects is just the number of entries in the
+     *  catalogue hdu */
+    auto_ptr<FITS> pInfile(new FITS(filename, Read));
+}
 
 
 
