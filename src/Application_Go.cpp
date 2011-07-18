@@ -85,14 +85,6 @@ int getNObjects(const string &filename)
  * Runs all of the later code and garruntees RAII behaviour */
 int Application::go(int argc, char *argv[])
 {
-    const string filename = "/Volumes/External/Data/data.fits";
-    cout << "Number of objects: " << getNObjects(filename) << endl;
-
-
-
-
-
-    return 0;
     /* new main function */
     TCLAP::CmdLine cmd("Synthetic lightcurves");
     TCLAP::ValueArg<float> memlimit_arg("M", "memorylimit", "Fraction of system memory to use", false, 0.1, "0-1", cmd);
@@ -183,6 +175,12 @@ int Application::go(int argc, char *argv[])
     else
         cout << "Non-WASP object chosen" << endl;
 
+    /*  need to get the number of objects that were originally in the 
+     *  file so we know which index to add the nExtra objects at */
+    const int nObjects = getNObjects(filename_arg.getValue());
+    const int nObjectsTotal = nObjects + nExtra;
+
+
     /*  now copy the file across */
     /*  exclamation mark ensures the file is overwritten if it exists */
     CopyFileEfficiently(filename_arg.getValue(), nExtra, "!" + output_arg.getValue(), MemFraction);
@@ -200,6 +198,8 @@ int Application::go(int argc, char *argv[])
     /*  update the period and epoch */
     ChosenObject.period = SubModel.period;
     ChosenObject.epoch = SubModel.epoch;
+
+
 
 
 
