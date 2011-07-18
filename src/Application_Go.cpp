@@ -104,6 +104,8 @@ int Application::go(int argc, char *argv[])
         cout << "Not adding a transit" << endl;
     }
 
+    /*  need to get the list of extra models to add */
+    int nExtra = 0;
 
 
 
