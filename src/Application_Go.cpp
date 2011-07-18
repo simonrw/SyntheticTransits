@@ -76,6 +76,10 @@ int Application::go(int argc, char *argv[])
 
 
 
+    cmd.parse(argc, argv);
+
+
+
 
 
 
@@ -92,98 +96,86 @@ int Application::go(int argc, char *argv[])
 
     return 0;
     /* new main function */
-    TCLAP::CmdLine cmd(" ", ' ', "0.9");
-    TCLAP::ValueArg<float> memlimit_arg("M", "memorylimit", "Fraction of system memory to use", false, 0.1, "0-1", cmd);
-    TCLAP::SwitchArg wasptreatment_arg("w", "wasp", "Do not treat as WASP object", cmd, true);
-    TCLAP::ValueArg<string> output_arg("o", "output", "Optional output file", false, "output.fits", "Fits filename", cmd);
-    TCLAP::ValueArg<string> objectid_arg("O", "object", "Object to alter", true, "", "Object identifier", cmd);
-    TCLAP::ValueArg<string> subModel_arg("s", "submodel", "Model to subtract", true, "", "Model xml file", cmd);
-    TCLAP::ValueArg<string> addModel_arg("a", "addmodel", "Model to add", true, "", "Model xml file", cmd);
-    TCLAP::UnlabeledValueArg<string> filename_arg("file", "File", true, "", "Fits file", cmd);
-
-
-
-    cmd.parse(argc, argv);
 
     /*  get the system memory */
-    long SystemMemory = getTotalSystemMemory();
+    //long SystemMemory = getTotalSystemMemory();
 
-    cout  << "System memory: " << SystemMemory / 1024. / 1024. << " MB" << endl;
-    float MemFraction = memlimit_arg.getValue();
+    //cout  << "System memory: " << SystemMemory / 1024. / 1024. << " MB" << endl;
+    //float MemFraction = memlimit_arg.getValue();
 
-    /*  make sure this is within the range 0-1 */
-    if ((MemFraction <= 0) || (MemFraction > 1))
-    {
-        throw MemoryException("Allowed memory is within range 0-1");
-    }
+    //[>  make sure this is within the range 0-1 <]
+    //if ((MemFraction <= 0) || (MemFraction > 1))
+    //{
+        //throw MemoryException("Allowed memory is within range 0-1");
+    //}
 
-    float AvailableMemory = MemFraction * SystemMemory;
-    cout << "Using " << AvailableMemory / 1024. / 1024. << " MB of memory" << endl;
+    //float AvailableMemory = MemFraction * SystemMemory;
+    //cout << "Using " << AvailableMemory / 1024. / 1024. << " MB of memory" << endl;
 
-
-
-
-    
-    /*  if the model argument is NULL then do not add a model into the lightcurve */
-    bool addModelFlag = true;
-    Lightcurve AddModel(0);
-    if (addModel_arg.getValue() == "NULL")
-    {
-        /*  Not adding a model into the lightcurve */
-        addModelFlag = false;
-        cout << "Not adding a transit" << endl;
-    }
-    else
-    {
-        AddModel = GenerateModel(addModel_arg.getValue());
-    }
 
 
 
     
+    //[>  if the model argument is NULL then do not add a model into the lightcurve <]
+    //bool addModelFlag = true;
+    //Lightcurve AddModel(0);
+    //if (addModel_arg.getValue() == "NULL")
+    //{
+        //[>  Not adding a model into the lightcurve <]
+        //addModelFlag = false;
+        //cout << "Not adding a transit" << endl;
+    //}
+    //else
+    //{
+        //AddModel = GenerateModel(addModel_arg.getValue());
+    //}
+
+
 
     
-    Lightcurve SubModel = GenerateModel(subModel_arg.getValue());
-    
-    /*  start by copying the file across to the output file */
-    stringstream copycmd;
-    copycmd << "cp " << filename_arg.getValue() << " " << output_arg.getValue();
 
-    system(copycmd.str().c_str());
     
-    /*  alter the filename to have a ! in front of it */
-    string DataFilename = output_arg.getValue();
+    //Lightcurve SubModel = GenerateModel(subModel_arg.getValue());
     
-    /*  print if the object is from wasp or not */
-    if (wasptreatment_arg.getValue())
-        cout << "WASP object chosen" << endl;
-    else
-        cout << "Non-WASP object chosen" << endl;
+    //[>  start by copying the file across to the output file <]
+    //stringstream copycmd;
+    //copycmd << "cp " << filename_arg.getValue() << " " << output_arg.getValue();
+
+    //system(copycmd.str().c_str());
     
-    /*  open the fits file */
-    mInfile = auto_ptr<FITS>(new FITS(DataFilename, Write));
+    //[>  alter the filename to have a ! in front of it <]
+    //string DataFilename = output_arg.getValue();
     
-    /*  get the desired index */
-    mObjectIndex = ObjectIndex(objectid_arg.getValue());
+    //[>  print if the object is from wasp or not <]
+    //if (wasptreatment_arg.getValue())
+        //cout << "WASP object chosen" << endl;
+    //else
+        //cout << "Non-WASP object chosen" << endl;
     
-    /*  extract the flux */
-    Lightcurve ChosenObject = getObject();
+    //[>  open the fits file <]
+    //mInfile = auto_ptr<FITS>(new FITS(DataFilename, Write));
     
-    /*  update the period and epoch */
-    ChosenObject.period = SubModel.period;
-    ChosenObject.epoch = SubModel.epoch;
+    //[>  get the desired index <]
+    //mObjectIndex = ObjectIndex(objectid_arg.getValue());
     
-    /*  create the interpolated values */
-    //Lightcurve TransitRemovedLC = RemoveTransit(ChosenObject, SubModel);
+    //[>  extract the flux <]
+    //Lightcurve ChosenObject = getObject();
+    
+    //[>  update the period and epoch <]
+    //ChosenObject.period = SubModel.period;
+    //ChosenObject.epoch = SubModel.epoch;
+    
+    //[>  create the interpolated values <]
+    ////Lightcurve TransitRemovedLC = RemoveTransit(ChosenObject, SubModel);
     
 
-    //[>  now add the transit back in <]
-    //Lightcurve TransitAddedLC = AddTransit(TransitRemovedLC, AddModel);
+    ////[>  now add the transit back in <]
+    ////Lightcurve TransitAddedLC = AddTransit(TransitRemovedLC, AddModel);
 
-    Lightcurve NewLightcurve = AlterTransit(ChosenObject, SubModel, AddModel, wasptreatment_arg.getValue(), addModelFlag);
+    //Lightcurve NewLightcurve = AlterTransit(ChosenObject, SubModel, AddModel, wasptreatment_arg.getValue(), addModelFlag);
 
-    /*  finally update the file */
-    UpdateFile(NewLightcurve);
+    //[>  finally update the file <]
+    //UpdateFile(NewLightcurve);
 
 
 
