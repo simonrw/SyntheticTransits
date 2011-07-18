@@ -66,9 +66,11 @@ Inheritance diagram for BaseException:<!-- endSectionHeader --></div>
  <div class="center">
   <img src="structBaseException.png" usemap="#BaseException_map" alt=""/>
   <map id="BaseException_map" name="BaseException_map">
-<area href="structMemoryException.html" alt="MemoryException" shape="rect" coords="0,56,113,80"/>
-<area href="structObjectNotFound.html" alt="ObjectNotFound" shape="rect" coords="123,56,236,80"/>
-<area href="structXMLException.html" alt="XMLException" shape="rect" coords="246,56,359,80"/>
+<area href="structFileNotOpen.html" alt="FileNotOpen" shape="rect" coords="0,56,113,80"/>
+<area href="classFitsioException.html" alt="FitsioException" shape="rect" coords="123,56,236,80"/>
+<area href="structMemoryException.html" alt="MemoryException" shape="rect" coords="246,56,359,80"/>
+<area href="structObjectNotFound.html" alt="ObjectNotFound" shape="rect" coords="369,56,482,80"/>
+<area href="structXMLException.html" alt="XMLException" shape="rect" coords="492,56,605,80"/>
 </map>
  </div><!-- endSectionContent --></div>
 
@@ -82,13 +84,14 @@ Public Member Functions</h2></td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBaseException.html#a0e59e8c1ac3653ba4c375e446b6a0462">str</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBaseException.html#abf888af3f35094d93a165c3adfa89f17">type</a></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p>Base exception. </p>
 <p>All other exceptions inherit this exception for easy filtering of exceptions</p>
 <p>Extra functionality: the object takes a std::string parameter for customising the error message and returns this string (as a C-string) in the <a class="el" href="structBaseException.html#a44505abd2e88ffaf5bb90e73452151b6">what()</a> method. </p>
 
-<p>Definition at line <a class="el" href="Exceptions_8h_source.html#l00018">18</a> of file <a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="Exceptions_8h_source.html#l00020">20</a> of file <a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>.</p>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="afceeee9f97b6e2bed459692b4050f1a9"></a><!-- doxytag: member="BaseException::BaseException" ref="afceeee9f97b6e2bed459692b4050f1a9" args="(const std::string &amp;val)" -->
 <div class="memitem">
@@ -105,7 +108,7 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="Exceptions_8h_source.html#l00021">21</a> of file <a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="Exceptions_8h_source.html#l00024">24</a> of file <a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -123,7 +126,7 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="Exceptions_8h_source.html#l00022">22</a> of file <a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="Exceptions_8h_source.html#l00025">25</a> of file <a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -142,7 +145,9 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="Exceptions_8h_source.html#l00023">23</a> of file <a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>.</p>
+<p>Reimplemented in <a class="el" href="classFitsioException.html#ab3277a5c4192658e6828f2bb63875b02">FitsioException</a>.</p>
+
+<p>Definition at line <a class="el" href="Exceptions_8h_source.html#l00026">26</a> of file <a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -158,7 +163,22 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="Exceptions_8h_source.html#l00020">20</a> of file <a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="Exceptions_8h_source.html#l00022">22</a> of file <a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="abf888af3f35094d93a165c3adfa89f17"></a><!-- doxytag: member="BaseException::type" ref="abf888af3f35094d93a165c3adfa89f17" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string <a class="el" href="structBaseException.html#abf888af3f35094d93a165c3adfa89f17">BaseException::type</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="Exceptions_8h_source.html#l00023">23</a> of file <a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -180,7 +200,7 @@ Public Attributes</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Fri Jul 15 2011 10:28:08 for Synthetic lightcurves by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Mon Jul 18 2011 13:57:34 for Synthetic lightcurves by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.2 </small></address>
 </body>

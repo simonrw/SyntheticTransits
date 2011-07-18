@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>Synthetic lightcurves: include/ToStringList.h File Reference</title>
+<title>Synthetic lightcurves: include/CopyFileEfficiently.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javaScript" src="search/search.js"></script>
@@ -50,39 +50,44 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="summary">
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<h1>include/ToStringList.h File Reference</h1>  </div>
+<h1>include/CopyFileEfficiently.h File Reference</h1>  </div>
 </div>
 <div class="contents">
-<code>#include &lt;vector&gt;</code><br/>
-<code>#include &lt;string&gt;</code><br/>
-<code>#include &lt;sstream&gt;</code><br/>
-<code>#include &lt;CCfits/CCfits&gt;</code><br/>
 
-<p><a href="ToStringList_8h_source.html">Go to the source code of this file.</a></p>
+<p><a href="CopyFileEfficiently_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="ToStringList_8h.html#af325ea02e2c45bd98a3d0cfab00138bc">ToStringList</a> (CCfits::Column &amp;col, int size)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CopyFileEfficiently_8h.html#a65effe17c58c87603bb80622c8a6d3b7">CopyFileEfficiently</a> (const string &amp;Filename, const int nExtra, const string &amp;OutputFilename, const float fraction)</td></tr>
 </table>
 <hr/><h2>Function Documentation</h2>
-<a class="anchor" id="af325ea02e2c45bd98a3d0cfab00138bc"></a><!-- doxytag: member="ToStringList.h::ToStringList" ref="af325ea02e2c45bd98a3d0cfab00138bc" args="(CCfits::Column &amp;col, int size)" -->
+<a class="anchor" id="a65effe17c58c87603bb80622c8a6d3b7"></a><!-- doxytag: member="CopyFileEfficiently.h::CopyFileEfficiently" ref="a65effe17c58c87603bb80622c8a6d3b7" args="(const string &amp;Filename, const int nExtra, const string &amp;OutputFilename, const float fraction)" -->
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;std::string&gt; ToStringList </td>
+          <td class="memname">void CopyFileEfficiently </td>
           <td>(</td>
-          <td class="paramtype">CCfits::Column &amp;&#160;</td>
-          <td class="paramname"> <em>col</em>, </td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"> <em>Filename</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"> <em>size</em>&#160;</td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"> <em>nExtra</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"> <em>OutputFilename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float&#160;</td>
+          <td class="paramname"> <em>fraction</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -92,8 +97,6 @@ template&lt;typename T &gt; </div>
       </table>
 </div>
 <div class="memdoc">
-
-<p>Definition at line <a class="el" href="ToStringList_8h_source.html#l00012">12</a> of file <a class="el" href="ToStringList_8h_source.html">ToStringList.h</a>.</p>
 
 </div>
 </div>

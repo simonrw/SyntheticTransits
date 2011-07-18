@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>Synthetic lightcurves: include/ToStringList.h File Reference</title>
+<title>Synthetic lightcurves: include/CopyFileEfficiently.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javaScript" src="search/search.js"></script>
@@ -45,58 +45,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
-</div>
 <div class="header">
-  <div class="summary">
-<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<h1>include/ToStringList.h File Reference</h1>  </div>
+<h1>include/CopyFileEfficiently.h</h1>  </div>
 </div>
 <div class="contents">
-<code>#include &lt;vector&gt;</code><br/>
-<code>#include &lt;string&gt;</code><br/>
-<code>#include &lt;sstream&gt;</code><br/>
-<code>#include &lt;CCfits/CCfits&gt;</code><br/>
-
-<p><a href="ToStringList_8h_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
-<tr><td colspan="2"><h2><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="ToStringList_8h.html#af325ea02e2c45bd98a3d0cfab00138bc">ToStringList</a> (CCfits::Column &amp;col, int size)</td></tr>
-</table>
-<hr/><h2>Function Documentation</h2>
-<a class="anchor" id="af325ea02e2c45bd98a3d0cfab00138bc"></a><!-- doxytag: member="ToStringList.h::ToStringList" ref="af325ea02e2c45bd98a3d0cfab00138bc" args="(CCfits::Column &amp;col, int size)" -->
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;std::string&gt; ToStringList </td>
-          <td>(</td>
-          <td class="paramtype">CCfits::Column &amp;&#160;</td>
-          <td class="paramname"> <em>col</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"> <em>size</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="ToStringList_8h_source.html#l00012">12</a> of file <a class="el" href="ToStringList_8h_source.html">ToStringList.h</a>.</p>
-
-</div>
-</div>
+<a href="CopyFileEfficiently_8h.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef COPYFILEEFFICIENTLY_H</span>
+<a name="l00002"></a>00002 <span class="preprocessor"></span>
+<a name="l00003"></a>00003 <span class="preprocessor">#define COPYFILEEFFICIENTLY_H</span>
+<a name="l00004"></a>00004 <span class="preprocessor"></span>
+<a name="l00005"></a>00005 
+<a name="l00006"></a>00006 <span class="keywordtype">void</span> <a class="code" href="CopyFileEfficiently_8h.html#a65effe17c58c87603bb80622c8a6d3b7">CopyFileEfficiently</a>(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;Filename, <span class="keyword">const</span> <span class="keywordtype">int</span> nExtra, <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;OutputFilename, <span class="keyword">const</span> <span class="keywordtype">float</span> fraction);
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="preprocessor">#endif </span><span class="comment">/* end of include guard: COPYFILEEFFICIENTLY_H */</span>
+</pre></div></div>
 </div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>Synthetic lightcurves: include/ToStringList.h File Reference</title>
+<title>Synthetic lightcurves: FileNotOpen Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javaScript" src="search/search.js"></script>
@@ -19,8 +19,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
-      <li><a href="annotated.html"><span>Classes</span></a></li>
-      <li class="current"><a href="files.html"><span>Files</span></a></li>
+      <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li id="searchli">
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -41,62 +41,63 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
   <div class="tabs2">
     <ul class="tablist">
-      <li><a href="files.html"><span>File&#160;List</span></a></li>
-      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
+      <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
 </div>
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#pub-methods">Public Member Functions</a>  </div>
   <div class="headertitle">
-<h1>include/ToStringList.h File Reference</h1>  </div>
+<h1>FileNotOpen Struct Reference</h1>  </div>
 </div>
 <div class="contents">
-<code>#include &lt;vector&gt;</code><br/>
-<code>#include &lt;string&gt;</code><br/>
-<code>#include &lt;sstream&gt;</code><br/>
-<code>#include &lt;CCfits/CCfits&gt;</code><br/>
+<!-- doxytag: class="FileNotOpen" --><!-- doxytag: inherits="BaseException" -->
+<p><code>#include &lt;<a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>&gt;</code></p>
+<!-- startSectionHeader --><div class="dynheader">
+Inheritance diagram for FileNotOpen:<!-- endSectionHeader --></div>
+<!-- startSectionSummary --><!-- endSectionSummary --><!-- startSectionContent --><div class="dyncontent">
+ <div class="center">
+  <img src="structFileNotOpen.png" usemap="#FileNotOpen_map" alt=""/>
+  <map id="FileNotOpen_map" name="FileNotOpen_map">
+<area href="structBaseException.html" alt="BaseException" shape="rect" coords="0,0,95,24"/>
+</map>
+ </div><!-- endSectionContent --></div>
 
-<p><a href="ToStringList_8h_source.html">Go to the source code of this file.</a></p>
+<p><a href="structFileNotOpen-members.html">List of all members.</a></p>
 <table class="memberdecls">
-<tr><td colspan="2"><h2><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="ToStringList_8h.html#af325ea02e2c45bd98a3d0cfab00138bc">ToStringList</a> (CCfits::Column &amp;col, int size)</td></tr>
+<tr><td colspan="2"><h2><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFileNotOpen.html#a6d90f1d553991161b88ee6358705ad6e">FileNotOpen</a> (const std::string &amp;val)</td></tr>
 </table>
-<hr/><h2>Function Documentation</h2>
-<a class="anchor" id="af325ea02e2c45bd98a3d0cfab00138bc"></a><!-- doxytag: member="ToStringList.h::ToStringList" ref="af325ea02e2c45bd98a3d0cfab00138bc" args="(CCfits::Column &amp;col, int size)" -->
+<hr/><a name="_details"></a><h2>Detailed Description</h2>
+
+<p>Definition at line <a class="el" href="Exceptions_8h_source.html#l00083">83</a> of file <a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>.</p>
+<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a6d90f1d553991161b88ee6358705ad6e"></a><!-- doxytag: member="FileNotOpen::FileNotOpen" ref="a6d90f1d553991161b88ee6358705ad6e" args="(const std::string &amp;val)" -->
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;std::string&gt; ToStringList </td>
+          <td class="memname">FileNotOpen::FileNotOpen </td>
           <td>(</td>
-          <td class="paramtype">CCfits::Column &amp;&#160;</td>
-          <td class="paramname"> <em>col</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"> <em>size</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"> <em>val</em>&#160;)</td>
+          <td><code> [inline]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="ToStringList_8h_source.html#l00012">12</a> of file <a class="el" href="ToStringList_8h_source.html">ToStringList.h</a>.</p>
+<p>Definition at line <a class="el" href="Exceptions_8h_source.html#l00085">85</a> of file <a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>.</p>
 
 </div>
 </div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/<a class="el" href="Exceptions_8h_source.html">Exceptions.h</a></li>
+</ul>
 </div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -112,7 +113,7 @@ template&lt;typename T &gt; </div>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Mon Jul 18 2011 13:57:32 for Synthetic lightcurves by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Mon Jul 18 2011 13:57:35 for Synthetic lightcurves by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.2 </small></address>
 </body>
