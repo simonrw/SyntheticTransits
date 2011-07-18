@@ -88,6 +88,10 @@ void Application::CopyObject(const int LocationIndex)
             i!=HDUList.end();
             ++i)
     {
+        ExtHDU &CurrentHDU = mInfile->extension(*i);
+        /*  do not need to be efficient about this */
+
+        const long bitpix = CurrentHDU.bitpix();
     }
 
 
