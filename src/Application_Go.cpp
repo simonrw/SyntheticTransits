@@ -67,9 +67,15 @@ namespace bf = boost::filesystem;
  * Static funciton as it's only required in the Application::go() method */
 int getNObjects(const string &filename)
 {
+    int nObjects = -1;
     /*  assume the number of objects is just the number of entries in the
      *  catalogue hdu */
     auto_ptr<FITS> pInfile(new FITS(filename, Read));
+
+    ExtHDU &CatalogueHDU = pInfile->extension("CATALOGUE");
+    nObjects = CatalogueHDU.rows();
+
+    return nObjects;
 }
 
 
@@ -79,6 +85,8 @@ int getNObjects(const string &filename)
  * Runs all of the later code and garruntees RAII behaviour */
 int Application::go(int argc, char *argv[])
 {
+    const string filename = "/Volumes/External/Data/data.fits";
+    cout << "Number of objects: " << getNObjects(filename) << endl;
 
 
 
