@@ -42,6 +42,11 @@ struct MemoryException : public BaseException
     MemoryException(const std::string &val) : BaseException(val) {}
 };
 
+struct FileNotOpen : public BaseException
+{
+    FileNotOpen(const std::string &val) : BaseException(val) {}
+};
+
 
 #endif /* end of include guard: EXCEPTIONS_H */
 
