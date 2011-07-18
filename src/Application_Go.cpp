@@ -37,15 +37,6 @@ namespace bf = boost::filesystem;
 
 typedef list<string> StringList;
 
-double MeanFlux(const Lightcurve &lc)
-{
-    const vector<double> &flux = lc.flux;
-}
-
-
-
-
-
 
 /* steps
  *
