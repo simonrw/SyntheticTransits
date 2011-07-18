@@ -24,3 +24,20 @@ void Application::UpdateFile(const Lightcurve &lc)
 
     
 }
+
+/** Update the open file at a particular location */
+void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
+{
+
+    ExtHDU &fluxHDU = mInfile->extension("FLUX");
+    const long nFrames = fluxHDU.axis(0);
+    
+    /*  have to create a valarray for writing */
+    valarray<double> writeArray(nFrames);
+    for (int i=0; i<nFrames; ++i) writeArray[i] = lc.flux[i];
+    
+    long firstElement = TargetIndex * nFrames + 1;
+    fluxHDU.write(firstElement, nFrames, writeArray);
+
+    
+}
