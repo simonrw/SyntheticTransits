@@ -79,6 +79,12 @@ int getNObjects(const string &filename)
  * Runs all of the later code and garruntees RAII behaviour */
 int Application::go(int argc, char *argv[])
 {
+
+
+
+
+
+    return 0;
     /* new main function */
     TCLAP::CmdLine cmd("Synthetic lightcurves");
     TCLAP::ValueArg<float> memlimit_arg("M", "memorylimit", "Fraction of system memory to use", false, 0.1, "0-1", cmd);
