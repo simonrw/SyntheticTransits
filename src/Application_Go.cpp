@@ -111,6 +111,8 @@ int Application::go(int argc, char *argv[])
     /*  need a subtraction model whatever happens */
     Lightcurve SubModel = GenerateModel(subModel_arg.getValue());
 
+    list<string> AddModelFilenames;
+
 
     if (addModelFlag)
     {
