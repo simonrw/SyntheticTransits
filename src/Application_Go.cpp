@@ -94,6 +94,16 @@ int Application::go(int argc, char *argv[])
     float AvailableMemory = MemFraction * SystemMemory;
     cout << "Using " << AvailableMemory / 1024. / 1024. << " MB of memory" << endl;
 
+    /*  need to deal with whether the addmodel argument is null or not */
+    /*  if the model argument is NULL then do not add a model into the lightcurve */
+    bool addModelFlag = true;
+    if (addModelFilename_arg.getValue() == "NULL")
+    {
+        /*  Not adding a model into the lightcurve */
+        addModelFlag = false;
+        cout << "Not adding a transit" << endl;
+    }
+
 
 
 
@@ -116,19 +126,6 @@ int Application::go(int argc, char *argv[])
 
 
     
-    //[>  if the model argument is NULL then do not add a model into the lightcurve <]
-    //bool addModelFlag = true;
-    //Lightcurve AddModel(0);
-    //if (addModel_arg.getValue() == "NULL")
-    //{
-        //[>  Not adding a model into the lightcurve <]
-        //addModelFlag = false;
-        //cout << "Not adding a transit" << endl;
-    //}
-    //else
-    //{
-        //AddModel = GenerateModel(addModel_arg.getValue());
-    //}
 
 
 
