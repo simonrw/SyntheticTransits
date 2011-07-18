@@ -145,6 +145,10 @@ int Application::go(int argc, char *argv[])
 
 
     }
+    else
+    {
+        /*  deal with this later */
+    }
 
 
 
