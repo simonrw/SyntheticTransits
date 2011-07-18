@@ -30,6 +30,7 @@ void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
 {
 
     ExtHDU &fluxHDU = mInfile->extension("FLUX");
+    ExtHDU &CatalogueHDU = mInfile->extension("CATALOGUE");
     const long nFrames = fluxHDU.axis(0);
     
     /*  have to create a valarray for writing */
