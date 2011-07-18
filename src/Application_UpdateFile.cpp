@@ -16,10 +16,31 @@ void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
     
     /*  have to create a valarray for writing */
     valarray<double> writeArray(nFrames);
-    for (int i=0; i<nFrames; ++i) writeArray[i] = lc.flux[i];
+    double sum = 0;
+    int count = 0;
+    for (int i=0; i<nFrames; ++i) 
+    {
+        double FluxValue = lc.flux[i];
+        writeArray[i] = FluxValue;
+
+        if (!isnan(FluxValue))
+        {
+            sum += FluxValue;
+            ++count;
+            
+        }
+    }
+
+    double MeanFlux = sum / (double)count;
     
     long firstElement = TargetIndex * nFrames + 1;
     fluxHDU.write(firstElement, nFrames, writeArray);
+
+    /*  now update the catalgogue flux_mean parameter */
+    vector<double> FluxMeanData(1);
+    FluxMeanData[0] = MeanFlux;
+
+    CatalogueHDU.column("FLUX_MEAN").write(FluxMeanData, TargetIndex+1);
 
     
 }
