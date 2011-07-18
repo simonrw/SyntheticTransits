@@ -136,7 +136,7 @@ int Application::go(int argc, char *argv[])
             bf::path FullPath = BasePath / bf::path(line);
 
 
-            cout << FullPath << endl;
+            AddModelFilenames.push_back(FullPath.string());
             nExtra++;
         }
 
