@@ -211,7 +211,7 @@ int Application::go(int argc, char *argv[])
             i!=AddModelFilenames.end();
             ++i, ++count)
     {
-        cout << "Generating model: " << *i << endl;
+
     }
 
 
