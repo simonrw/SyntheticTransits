@@ -208,6 +208,8 @@ int Application::go(int argc, char *argv[])
 
     SubModel.asWASP = false;
 
+    Lightcurve LCRemoved = RemoveTransit(ChosenObject, SubModel);
+
     /*  now need to iterate through the list of filenames generating 
      *  a new object every time 
      *
@@ -215,6 +217,9 @@ int Application::go(int argc, char *argv[])
      *  so this may need altering */
 
     int count = 0;
+
+    ExtHDU &FluxHDU = mInfile->extension("FLUX");
+    const int nFrames = FluxHDU.axis(0);
     for (StringList::iterator i=AddModelFilenames.begin();
             i!=AddModelFilenames.end();
             ++i, ++count)
@@ -222,6 +227,17 @@ int Application::go(int argc, char *argv[])
         const int InsertIndex = nObjects + count;
         cout << "Using model file: " << *i << endl;
         CopyObject(InsertIndex);
+
+        Lightcurve AddModel = GenerateModel(*i);
+
+        LCRemoved.period = AddModel.period;
+        LCRemoved.epoch = AddModel.epoch;
+        Lightcurve SyntheticLightcurve = AddTransit(LCRemoved, AddModel);
+
+        /*  set the data to the new value */
+        UpdateFile(SyntheticLightcurve, InsertIndex);
+
+
 
     }
 
