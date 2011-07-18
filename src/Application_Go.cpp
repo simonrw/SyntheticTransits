@@ -171,7 +171,8 @@ int Application::go(int argc, char *argv[])
 
 
     /*  print if the object is from wasp or not */
-    if (wasptreatment_arg.getValue())
+    bool asWASP = wasptreatment_arg.getValue();
+    if (asWASP)
         cout << "WASP object chosen" << endl;
     else
         cout << "Non-WASP object chosen" << endl;
@@ -199,6 +200,13 @@ int Application::go(int argc, char *argv[])
     /*  update the period and epoch */
     ChosenObject.period = SubModel.period;
     ChosenObject.epoch = SubModel.epoch;
+
+    if (asWASP)
+        ChosenObject.asWASP = true;
+    else
+        ChosenObject.asWASP = false;
+
+    SubModel.asWASP = false;
 
     /*  now need to iterate through the list of filenames generating 
      *  a new object every time 
