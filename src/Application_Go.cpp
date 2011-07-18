@@ -199,6 +199,12 @@ int Application::go(int argc, char *argv[])
     ChosenObject.period = SubModel.period;
     ChosenObject.epoch = SubModel.epoch;
 
+    /*  now need to iterate through the list of filenames generating 
+     *  a new object every time 
+     *
+     *  TODO: This will generate a lot of output if the code remains as it is 
+     *  so this may need altering */
+
 
 
 
