@@ -161,7 +161,8 @@ int Application::go(int argc, char *argv[])
         cout << "Non-WASP object chosen" << endl;
 
     /*  now copy the file across */
-    CopyFileEfficiently(filename_arg.getValue(), nExtra, output_arg.getValue(), MemFraction);
+    /*  exclamation mark ensures the file is overwritten if it exists */
+    CopyFileEfficiently(filename_arg.getValue(), nExtra, "!" + output_arg.getValue(), MemFraction);
     string DataFilename = output_arg.getValue();
 
     /*  open the fits file */
