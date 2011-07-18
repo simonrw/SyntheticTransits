@@ -108,7 +108,6 @@ int Application::go(int argc, char *argv[])
     /*  need to get the list of extra models to add */
     int nExtra = 0;
 
-    typedef list<string> StringList;
 
     if (addModelFlag)
     {
@@ -118,6 +117,15 @@ int Application::go(int argc, char *argv[])
             throw FileNotOpen("Cannot open list of model files for reading");
         }
 
+        string line;
+        while (getline(ModelsListFile, line))
+        {
+
+            nExtra++;
+        }
+
+
+        cout << nExtra << " lightcurves will be appended to the file" << endl;
 
 
     }
