@@ -129,6 +129,7 @@ int Application::go(int argc, char *argv[])
         string line;
         while (getline(ModelsListFile, line))
         {
+            bf::path FilePath(line);
 
             nExtra++;
         }
