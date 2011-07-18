@@ -206,6 +206,14 @@ int Application::go(int argc, char *argv[])
      *  TODO: This will generate a lot of output if the code remains as it is 
      *  so this may need altering */
 
+    int count = 0;
+    for (StringList::iterator i=AddModelFilenames.begin();
+            i!=AddModelFilenames.end();
+            ++i, ++count)
+    {
+        cout << "Generating model: " << *i << endl;
+    }
+
 
 
 
