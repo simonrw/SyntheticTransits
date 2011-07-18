@@ -18,7 +18,8 @@
 struct BaseException : public std::exception
 {
 	std::string str;
-    BaseException(const std::string &val) : str(val) {}
+    std::string type;
+    BaseException(const std::string &val) : str(val), type("") {}
     ~BaseException() throw() {}
     const char *what() const throw() { return str.c_str(); }
 };
@@ -27,24 +28,36 @@ struct BaseException : public std::exception
 /** Thrown if the selected object is not in the file */
 struct ObjectNotFound : public BaseException
 {
-    ObjectNotFound(const std::string &val) : BaseException(val) {}
+    ObjectNotFound(const std::string &val) : BaseException(val)
+    {
+        type = "Object not found";
+    }
 };
 
 /** Custom xml exception if any xml handling goes wrong */
 struct XMLException : public BaseException
 {
-	XMLException(const std::string &val) : BaseException(val) {}
+	XMLException(const std::string &val) : BaseException(val)
+    {
+        type = "XML Error";
+    }
 };
 
 /** Memory exception if the user requires less than 0 or more than all of the memory */
 struct MemoryException : public BaseException
 {
-    MemoryException(const std::string &val) : BaseException(val) {}
+    MemoryException(const std::string &val) : BaseException(val)
+    {
+        type = "Memory error";
+    }
 };
 
 struct FileNotOpen : public BaseException
 {
-    FileNotOpen(const std::string &val) : BaseException(val) {}
+    FileNotOpen(const std::string &val) : BaseException(val)
+    {
+        type = "File not open";
+    }
 };
 
 

@@ -211,7 +211,7 @@ int main(int argc, char *argv[])
     }
     catch (BaseException &e)
     {
-        cerr << "Custom exception: " << e.what() << endl;
+        cerr << "Custom exception: " << e.type << ". " << e.what() << endl;
     }
     catch (exception &e)
     {
