@@ -1,11 +1,9 @@
 #include <iostream>
-#include <map>
-#include <tclap/CmdLine.h>
-#include <cstdio>
 #include <CCfits/CCfits>
 
 /*  local includes */
 #include "GetSystemMemory.h"
+#include "Exceptions.h"
 
 using namespace CCfits;
 using namespace std;
@@ -13,24 +11,6 @@ using namespace std;
 typedef map<string, Column*> ColumnMap;
 typedef vector<string> StringVector;
 
-class FitsioException : public std::exception
-{
-    public:
-        FitsioException(const int status) : status(status) {}
-        virtual ~FitsioException() throw() {}
-        const char *what() const throw()
-        {
-            fits_get_errstatus(status, (char*)errmsg);
-            return errmsg;
-        }
-
-        int GetStatus() const { return this->status; }
-
-
-    private:
-        int status;
-        char errmsg[FLEN_STATUS];
-};
 
 template <typename T>
 void CopyImageData(ExtHDU &InHDU, ExtHDU &OutHDU, fitsfile *infptr, fitsfile *outfptr, float MemLimit)

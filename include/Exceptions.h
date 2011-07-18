@@ -6,6 +6,8 @@
 #include <exception>
 #include <string>
 
+#include <fitsio.h>
+
 /** Base exception
  *
  * All other exceptions inherit this exception for easy filtering of
@@ -22,6 +24,25 @@ struct BaseException : public std::exception
     BaseException(const std::string &val) : str(val), type("") {}
     ~BaseException() throw() {}
     const char *what() const throw() { return str.c_str(); }
+};
+
+class FitsioException : public BaseException
+{
+    public:
+        FitsioException(const int status) : BaseException(""), status(status) {}
+        virtual ~FitsioException() throw() {}
+        const char *what() const throw()
+        {
+            fits_get_errstatus(status, (char*)errmsg);
+            return errmsg;
+        }
+
+        int GetStatus() const { return this->status; }
+
+
+    private:
+        int status;
+        char errmsg[FLEN_STATUS];
 };
 
 
