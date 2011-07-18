@@ -162,7 +162,20 @@ int Application::go(int argc, char *argv[])
 
     /*  now copy the file across */
     CopyFileEfficiently(filename_arg.getValue(), nExtra, output_arg.getValue(), MemFraction);
+    string DataFilename = output_arg.getValue();
 
+    /*  open the fits file */
+    mInfile = auto_ptr<FITS>(new FITS(DataFilename, Write));
+    
+    /*  get the desired index */
+    mObjectIndex = ObjectIndex(objectid_arg.getValue());
+    
+    /*  extract the flux */
+    Lightcurve ChosenObject = getObject();
+    
+    /*  update the period and epoch */
+    ChosenObject.period = SubModel.period;
+    ChosenObject.epoch = SubModel.epoch;
 
 
 
@@ -196,21 +209,8 @@ int Application::go(int argc, char *argv[])
     //system(copycmd.str().c_str());
     
     //[>  alter the filename to have a ! in front of it <]
-    //string DataFilename = output_arg.getValue();
     
     
-    //[>  open the fits file <]
-    //mInfile = auto_ptr<FITS>(new FITS(DataFilename, Write));
-    
-    //[>  get the desired index <]
-    //mObjectIndex = ObjectIndex(objectid_arg.getValue());
-    
-    //[>  extract the flux <]
-    //Lightcurve ChosenObject = getObject();
-    
-    //[>  update the period and epoch <]
-    //ChosenObject.period = SubModel.period;
-    //ChosenObject.epoch = SubModel.epoch;
     
     //[>  create the interpolated values <]
     ////Lightcurve TransitRemovedLC = RemoveTransit(ChosenObject, SubModel);
