@@ -32,32 +32,32 @@ void Application::CopyObject(const int LocationIndex)
         {
             /*  data type is long */
             vector<long> data;
-            i->second->read(data, mObjectIndex + 1, 1);
+            i->second->read(data, mObjectIndex + 1, mObjectIndex + 1);
 
         }
         else if (Format == "1I")
         {
             /*  data type is int */
             vector<int> data;
-            i->second->read(data, mObjectIndex + 1, 1);
+            i->second->read(data, mObjectIndex + 1, mObjectIndex + 1);
         }
         else if (Format == "1E")
         {
             /*  data type is float */
             vector<float> data;
-            i->second->read(data, mObjectIndex + 1, 1);
+            i->second->read(data, mObjectIndex + 1, mObjectIndex + 1);
         }
         else if (Format == "26A")
         {
             /*  data type is string */
             vector<string> data;
-            i->second->read(data, mObjectIndex + 1, 1);
+            i->second->read(data, mObjectIndex + 1, mObjectIndex + 1);
         }
         else if (Format == "1D")
         {
             /*  data type is double */
             vector<double> data;
-            i->second->read(data, mObjectIndex + 1, 1);
+            i->second->read(data, mObjectIndex + 1, mObjectIndex + 1);
         }
         else
         {
