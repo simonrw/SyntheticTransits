@@ -12,6 +12,7 @@ find_package(CCfits REQUIRED)
 find_package(UnitTest++ REQUIRED)
 #find_package(fitsio REQUIRED)
 #find_package(Qt4 COMPONENTS QtCore REQUIRED)
+find_package(Boost 1.3 COMPONENTS filesystem system REQUIRED)
 find_package(pugixml REQUIRED)
 #find_package(glog REQUIRED)
 find_package(tclap REQUIRED)
@@ -24,6 +25,7 @@ include_directories(
     ${CCFITS_INCLUDE_DIR}
     ${PUGIXML_INCLUDE_DIR}
    ${TCLAP_INCLUDE_DIR}
+   ${Boost_INCLUDE_DIR}
    ${UNITTESTPP_INCLUDE_DIR}
    ${NR3_INCLUDE_DIR}
    #${GLOG_INCLUDE_DIR}
@@ -44,6 +46,7 @@ target_link_libraries(
    ${UNITTESTPP_LIBRARIES}
    ${CCFITS_LIBRARIES}
    ${PUGIXML_LIBRARIES}
+   ${Boost_LIBRARIES}
    #${GLOG_LIBRARIES}
 #    ${FITSIO_LIBRARIES}
 #    ${QT_LIBRARIES}
