@@ -107,6 +107,18 @@ int Application::go(int argc, char *argv[])
     /*  need to get the list of extra models to add */
     int nExtra = 0;
 
+    if (addModelFlag)
+    {
+        ifstream ModelsListFile(addModelFilename_arg.getValue().c_str());
+        if (!ModelsListFile.is_open())
+        {
+            throw FileNotOpen("Cannot open list of model files for reading");
+        }
+
+    }
+
+
+
 
 
 
