@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 2.6)
-#set(CMAKE_C_COMPILER ccache)
-#set(CMAKE_C_COMPILER_ARG1 gcc)
-#set(CMAKE_CXX_COMPILER ccache)
-#set(CMAKE_CXX_COMPILER_ARG1 g++)
+set(CMAKE_C_COMPILER ccache)
+set(CMAKE_C_COMPILER_ARG1 gcc)
+set(CMAKE_CXX_COMPILER ccache)
+set(CMAKE_CXX_COMPILER_ARG1 g++)
 set(TARGET SyntheticLightcurves)
 project(${TARGET})
 
