@@ -117,6 +117,10 @@ int Application::go(int argc, char *argv[])
 
     list<string> AddModelFilenames;
 
+    /*  need to get the path of the models list file */
+    bf::path BasePath = bf::path(addModelFilename_arg.getValue()).parent_path();
+    cout << "Using base path: " << BasePath << endl;
+
 
     if (addModelFlag)
     {
@@ -129,8 +133,10 @@ int Application::go(int argc, char *argv[])
         string line;
         while (getline(ModelsListFile, line))
         {
-            bf::path FilePath(line);
+            bf::path FullPath = BasePath / bf::path(line);
 
+
+            cout << FullPath << endl;
             nExtra++;
         }
 
