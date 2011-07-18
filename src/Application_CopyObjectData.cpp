@@ -92,6 +92,23 @@ void Application::CopyObject(const int LocationIndex)
         /*  do not need to be efficient about this */
 
         const long bitpix = CurrentHDU.bitpix();
+        switch (bitpix)
+        {
+            case BYTE_IMG:
+                break;
+            case SHORT_IMG:
+                break;
+            case LONG_IMG:
+                break;
+            case LONGLONG_IMG:
+                break;
+            case FLOAT_IMG:
+                break;
+            case DOUBLE_IMG:
+                break;
+            default:
+                cerr << "Unknown HDU type encountered: " << bitpix << endl;
+        }
     }
 
 
