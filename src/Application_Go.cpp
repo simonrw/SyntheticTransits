@@ -212,6 +212,7 @@ int Application::go(int argc, char *argv[])
             ++i, ++count)
     {
         const int InsertIndex = nObjects + count;
+        cout << "Using model file: " << *i << endl;
         CopyObject(InsertIndex);
 
     }
