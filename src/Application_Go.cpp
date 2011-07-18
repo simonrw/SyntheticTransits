@@ -161,7 +161,7 @@ int Application::go(int argc, char *argv[])
         cout << "Non-WASP object chosen" << endl;
 
     /*  now copy the file across */
-    CopyFile(filename_arg.getValue(), nExtra, output_arg.getValue(), MemFraction);
+    CopyFileEfficiently(filename_arg.getValue(), nExtra, output_arg.getValue(), MemFraction);
 
 
 

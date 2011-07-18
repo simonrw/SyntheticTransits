@@ -90,7 +90,7 @@ void CopyImageData(ExtHDU &InHDU, ExtHDU &OutHDU, fitsfile *infptr, fitsfile *ou
 
 }
 
-void CopyFile(const string &Filename, const int nExtra, const string &OutputFilename, const float fraction)
+void CopyFileEfficiently(const string &Filename, const int nExtra, const string &OutputFilename, const float fraction)
 {
     map<int, string> ImageTypes;
     ImageTypes[8] = "Unsigned integer";
