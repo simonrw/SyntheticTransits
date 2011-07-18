@@ -59,6 +59,7 @@ using namespace CCfits;
 
 
 
+
 /**	The main function, abstracted from the main function for good separation
  *
  * Runs all of the later code and garruntees RAII behaviour */
@@ -107,6 +108,8 @@ int Application::go(int argc, char *argv[])
     /*  need to get the list of extra models to add */
     int nExtra = 0;
 
+    typedef list<string> StringList;
+
     if (addModelFlag)
     {
         ifstream ModelsListFile(addModelFilename_arg.getValue().c_str());
@@ -114,6 +117,8 @@ int Application::go(int argc, char *argv[])
         {
             throw FileNotOpen("Cannot open list of model files for reading");
         }
+
+
 
     }
 
