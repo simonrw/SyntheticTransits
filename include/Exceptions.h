@@ -35,7 +35,7 @@ struct BaseException : public std::exception
      *
      * Sets the error message to be set */
     BaseException(const std::string &val) : str(val), type("") {}
-    ~BaseException() throw() {}
+    virtual ~BaseException() throw() {}
 
     /** Returns the BaseException::str variable */
     const char *what() const throw() { return str.c_str(); }
