@@ -108,6 +108,9 @@ int Application::go(int argc, char *argv[])
     /*  need to get the list of extra models to add */
     int nExtra = 0;
 
+    /*  need a subtraction model whatever happens */
+    Lightcurve SubModel = GenerateModel(subModel_arg.getValue());
+
 
     if (addModelFlag)
     {
@@ -159,7 +162,6 @@ int Application::go(int argc, char *argv[])
     
 
     
-    //Lightcurve SubModel = GenerateModel(subModel_arg.getValue());
     
     //[>  start by copying the file across to the output file <]
     //stringstream copycmd;
