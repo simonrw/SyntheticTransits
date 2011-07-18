@@ -35,6 +35,7 @@ namespace bf = boost::filesystem;
 
 
 
+typedef list<string> StringList;
 
 
 
@@ -131,7 +132,7 @@ int Application::go(int argc, char *argv[])
     /*  need a subtraction model whatever happens */
     Lightcurve SubModel = GenerateModel(subModel_arg.getValue());
 
-    list<string> AddModelFilenames;
+    StringList AddModelFilenames;
 
     /*  need to get the path of the models list file */
     bf::path BasePath = bf::path(addModelFilename_arg.getValue()).parent_path();
