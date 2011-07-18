@@ -64,6 +64,7 @@ using namespace CCfits;
  * Runs all of the later code and garruntees RAII behaviour */
 int Application::go(int argc, char *argv[])
 {
+    /* new main function */
     TCLAP::CmdLine cmd("Synthetic lightcurves");
     TCLAP::ValueArg<float> memlimit_arg("M", "memorylimit", "Fraction of system memory to use", false, 0.1, "0-1", cmd);
     TCLAP::SwitchArg wasptreatment_arg("w", "wasp", "Do not treat as WASP object", cmd, true);
@@ -78,6 +79,20 @@ int Application::go(int argc, char *argv[])
 
     cmd.parse(argc, argv);
 
+    /*  get the system memory */
+    long SystemMemory = getTotalSystemMemory();
+
+    cout  << "System memory: " << SystemMemory / 1024. / 1024. << " MB" << endl;
+    float MemFraction = memlimit_arg.getValue();
+
+    /*  make sure this is within the range 0-1 */
+    if ((MemFraction <= 0) || (MemFraction > 1))
+    {
+        throw MemoryException("Allowed memory is within range 0-1");
+    }
+
+    float AvailableMemory = MemFraction * SystemMemory;
+    cout << "Using " << AvailableMemory / 1024. / 1024. << " MB of memory" << endl;
 
 
 
@@ -95,22 +110,7 @@ int Application::go(int argc, char *argv[])
 
 
     return 0;
-    /* new main function */
 
-    /*  get the system memory */
-    //long SystemMemory = getTotalSystemMemory();
-
-    //cout  << "System memory: " << SystemMemory / 1024. / 1024. << " MB" << endl;
-    //float MemFraction = memlimit_arg.getValue();
-
-    //[>  make sure this is within the range 0-1 <]
-    //if ((MemFraction <= 0) || (MemFraction > 1))
-    //{
-        //throw MemoryException("Allowed memory is within range 0-1");
-    //}
-
-    //float AvailableMemory = MemFraction * SystemMemory;
-    //cout << "Using " << AvailableMemory / 1024. / 1024. << " MB of memory" << endl;
 
 
 
