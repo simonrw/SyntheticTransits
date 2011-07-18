@@ -26,6 +26,13 @@ struct BaseException : public std::exception
     const char *what() const throw() { return str.c_str(); }
 };
 
+/** cfitsio specific exception
+ *
+ * Takes a cfitsio status integer and the FitsioException::what() function 
+ * returns the cfitiso error message
+ *
+ * @param[in] status cfitsio status number
+ */
 class FitsioException : public BaseException
 {
     public:
