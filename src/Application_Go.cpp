@@ -64,7 +64,7 @@ using namespace CCfits;
  * Runs all of the later code and garruntees RAII behaviour */
 int Application::go(int argc, char *argv[])
 {
-    TCLAP::CmdLine cmd(" ", ' ', "0.9");
+    TCLAP::CmdLine cmd("Synthetic lightcurves");
     TCLAP::ValueArg<float> memlimit_arg("M", "memorylimit", "Fraction of system memory to use", false, 0.1, "0-1", cmd);
     TCLAP::SwitchArg wasptreatment_arg("w", "wasp", "Do not treat as WASP object", cmd, true);
     TCLAP::ValueArg<string> output_arg("o", "output", "Optional output file", false, "output.fits", "Fits filename", cmd);
