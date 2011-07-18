@@ -9,6 +9,15 @@ using namespace CCfits;
 typedef map<string, Column*> ColumnList;
 typedef list<string> StringList;
 
+template <class T>
+void CopyData(ExtHDU &CurrentHDU, int SourceIndex, int DestIndex)
+{
+    valarray<T> data;
+    const int nFrames = CurrentHDU.axis(0);
+    CurrentHDU.read(data, (SourceIndex*nFrames) + 1, nFrames);
+    CurrentHDU.write((DestIndex*nFrames)+1, nFrames, data);
+}
+
 /** Copies an object at given index to another location in the file
  *
  * @param LocationIndex Empty lightcurve location in the file */
@@ -84,27 +93,38 @@ void Application::CopyObject(const int LocationIndex)
     HDUList.push_back("QUALITY");
     HDUList.push_back("SKYBKG");
 
+
     for (StringList::const_iterator i=HDUList.begin();
             i!=HDUList.end();
             ++i)
     {
         ExtHDU &CurrentHDU = mInfile->extension(*i);
         /*  do not need to be efficient about this */
+        
+        cout << "Copying data from hdu: " << *i << endl;
+        
+        
 
         const long bitpix = CurrentHDU.bitpix();
         switch (bitpix)
         {
             case BYTE_IMG:
+                CopyData<unsigned int>(CurrentHDU, mObjectIndex, LocationIndex);
                 break;
             case SHORT_IMG:
+                CopyData<int>(CurrentHDU, mObjectIndex, LocationIndex);
                 break;
             case LONG_IMG:
+                CopyData<long>(CurrentHDU, mObjectIndex, LocationIndex);
                 break;
             case LONGLONG_IMG:
+                CopyData<long long>(CurrentHDU, mObjectIndex, LocationIndex);
                 break;
             case FLOAT_IMG:
+                CopyData<float>(CurrentHDU, mObjectIndex, LocationIndex);
                 break;
             case DOUBLE_IMG:
+                CopyData<double>(CurrentHDU, mObjectIndex, LocationIndex);
                 break;
             default:
                 cerr << "Unknown HDU type encountered: " << bitpix << endl;
