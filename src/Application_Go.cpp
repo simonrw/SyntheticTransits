@@ -97,8 +97,8 @@ int Application::go(int argc, char *argv[])
         throw MemoryException("Allowed memory is within range 0-1");
     }
 
-    float AvailableMemory = MemFraction * SystemMemory;
-    cout << "Using " << AvailableMemory / 1024. / 1024. << " MB of memory" << endl;
+    //float AvailableMemory = MemFraction * SystemMemory;
+    //cout << "Using " << AvailableMemory / 1024. / 1024. << " MB of memory" << endl;
 
     /*  need to deal with whether the addmodel argument is null or not */
     /*  if the model argument is NULL then do not add a model into the lightcurve */
