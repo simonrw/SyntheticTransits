@@ -92,7 +92,7 @@ class Application
 	std::valarray<double> getHDUData(const std::string &hduname);
     Lightcurve getObject();
     void UpdateFile(const Lightcurve &lc);
-    void CopyObject(auto_ptr<FITS> &pFile, const int TargetIndex, const int LocationIndex);
+    void CopyObject(const int LocationIndex);
 
 
 	/** CCfits::FITS object auto_ptr for RAII */
