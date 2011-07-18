@@ -7,6 +7,9 @@
 #include <fstream>
 //#include <glog/logging.h>
 
+/*  boost includes */
+#include <boost/filesystem.hpp>
+
 
 /* nr includes 
  *
@@ -25,6 +28,7 @@
 
 using namespace std;
 using namespace CCfits;
+namespace bf = boost::filesystem;
 
 
 
