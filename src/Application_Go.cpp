@@ -153,6 +153,11 @@ int Application::go(int argc, char *argv[])
 
 
 
+    /*  print if the object is from wasp or not */
+    if (wasptreatment_arg.getValue())
+        cout << "WASP object chosen" << endl;
+    else
+        cout << "Non-WASP object chosen" << endl;
 
 
 
@@ -189,11 +194,6 @@ int Application::go(int argc, char *argv[])
     //[>  alter the filename to have a ! in front of it <]
     //string DataFilename = output_arg.getValue();
     
-    //[>  print if the object is from wasp or not <]
-    //if (wasptreatment_arg.getValue())
-        //cout << "WASP object chosen" << endl;
-    //else
-        //cout << "Non-WASP object chosen" << endl;
     
     //[>  open the fits file <]
     //mInfile = auto_ptr<FITS>(new FITS(DataFilename, Write));
