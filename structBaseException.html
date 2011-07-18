@@ -79,17 +79,21 @@ Inheritance diagram for BaseException:<!-- endSectionHeader --></div>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBaseException.html#afceeee9f97b6e2bed459692b4050f1a9">BaseException</a> (const std::string &amp;val)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBaseException.html#aed58cb09c64408372719754da40022fc">~BaseException</a> ()  throw ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#afceeee9f97b6e2bed459692b4050f1a9"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBaseException.html#abc351b149be47d3e078dc04b9b5c8891">~BaseException</a> ()  throw ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBaseException.html#a44505abd2e88ffaf5bb90e73452151b6">what</a> () const   throw ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="structBaseException.html#a0e59e8c1ac3653ba4c375e446b6a0462" title="Message to be printed.">BaseException::str</a> variable.  <a href="#a44505abd2e88ffaf5bb90e73452151b6"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBaseException.html#a0e59e8c1ac3653ba4c375e446b6a0462">str</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Message to be printed.  <a href="#a0e59e8c1ac3653ba4c375e446b6a0462"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBaseException.html#abf888af3f35094d93a165c3adfa89f17">type</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Type string.  <a href="#abf888af3f35094d93a165c3adfa89f17"></a><br/></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p>Base exception. </p>
 <p>All other exceptions inherit this exception for easy filtering of exceptions</p>
-<p>Extra functionality: the object takes a std::string parameter for customising the error message and returns this string (as a C-string) in the <a class="el" href="structBaseException.html#a44505abd2e88ffaf5bb90e73452151b6">what()</a> method. </p>
+<p>Extra functionality: the object takes a std::string parameter for customising the error message and returns this string (as a C-string) in the <a class="el" href="structBaseException.html#a44505abd2e88ffaf5bb90e73452151b6" title="Returns the BaseException::str variable.">what()</a> method. </p>
 
 <p>Definition at line <a class="el" href="Exceptions_8h_source.html#l00020">20</a> of file <a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>.</p>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
@@ -108,25 +112,28 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="Exceptions_8h_source.html#l00024">24</a> of file <a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>.</p>
+<p>Constructor. </p>
+<p>Sets the error message to be set </p>
+
+<p>Definition at line <a class="el" href="Exceptions_8h_source.html#l00037">37</a> of file <a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="aed58cb09c64408372719754da40022fc"></a><!-- doxytag: member="BaseException::~BaseException" ref="aed58cb09c64408372719754da40022fc" args="()" -->
+<a class="anchor" id="abc351b149be47d3e078dc04b9b5c8891"></a><!-- doxytag: member="BaseException::~BaseException" ref="abc351b149be47d3e078dc04b9b5c8891" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">BaseException::~BaseException </td>
+          <td class="memname">virtual BaseException::~BaseException </td>
           <td>(</td>
           <td class="paramname">&#160;)</td>
-          <td>  throw ()<code> [inline]</code></td>
+          <td>  throw ()<code> [inline, virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="Exceptions_8h_source.html#l00025">25</a> of file <a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="Exceptions_8h_source.html#l00038">38</a> of file <a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -145,9 +152,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Returns the <a class="el" href="structBaseException.html#a0e59e8c1ac3653ba4c375e446b6a0462" title="Message to be printed.">BaseException::str</a> variable. </p>
+
 <p>Reimplemented in <a class="el" href="classFitsioException.html#ab3277a5c4192658e6828f2bb63875b02">FitsioException</a>.</p>
 
-<p>Definition at line <a class="el" href="Exceptions_8h_source.html#l00026">26</a> of file <a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="Exceptions_8h_source.html#l00041">41</a> of file <a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -163,7 +172,10 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="Exceptions_8h_source.html#l00022">22</a> of file <a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>.</p>
+<p>Message to be printed. </p>
+<p>When the exception catcher prints the error message using the <a class="el" href="structBaseException.html#a44505abd2e88ffaf5bb90e73452151b6" title="Returns the BaseException::str variable.">BaseException::what()</a> method, this variable is returned </p>
+
+<p>Definition at line <a class="el" href="Exceptions_8h_source.html#l00026">26</a> of file <a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -178,7 +190,10 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="Exceptions_8h_source.html#l00023">23</a> of file <a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>.</p>
+<p>Type string. </p>
+<p>Allows the catch code to print which type the exception is. </p>
+
+<p>Definition at line <a class="el" href="Exceptions_8h_source.html#l00032">32</a> of file <a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -200,7 +215,7 @@ Public Attributes</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Mon Jul 18 2011 13:57:34 for Synthetic lightcurves by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Mon Jul 18 2011 14:07:29 for Synthetic lightcurves by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.2 </small></address>
 </body>
