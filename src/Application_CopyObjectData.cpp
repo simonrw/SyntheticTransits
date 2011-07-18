@@ -7,6 +7,7 @@ using namespace std;
 using namespace CCfits;
 
 typedef map<string, Column*> ColumnList;
+typedef list<string> StringList;
 
 /** Copies an object at given index to another location in the file
  *
@@ -73,5 +74,21 @@ void Application::CopyObject(const int LocationIndex)
             cerr << "Unknown data type: " << Format << endl;
         }
     }
+
+    StringList HDUList;
+    HDUList.push_back("HJD");
+    HDUList.push_back("FLUX");
+    HDUList.push_back("FLUXERR");
+    HDUList.push_back("CCDX");
+    HDUList.push_back("CCDY");
+    HDUList.push_back("QUALITY");
+    HDUList.push_back("SKYBKG");
+
+    for (StringList::const_iterator i=HDUList.begin();
+            i!=HDUList.end();
+            ++i)
+    {
+    }
+
 
 }
