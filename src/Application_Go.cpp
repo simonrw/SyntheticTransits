@@ -120,6 +120,15 @@ int Application::go(int argc, char *argv[])
 
     /*  if the addmodel argument is not NULL and the replace argument is true
      *  then the user must specify a single model file for replacement */
+    if (!addModelFlag && replace_arg.getValue())
+    {
+        /*  add model argument must point to a valid xml file */
+        if (!ValidXML(addModelFilename_arg.getValue()))
+        {
+            throw NotValidXMLFile("Model to add in this mode must be a valid config file");
+        }
+    }
+
 
     /*  need to get the list of extra models to add */
     int nExtra = 0;

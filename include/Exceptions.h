@@ -105,6 +105,14 @@ struct FileNotOpen : public BaseException
     }
 };
 
+/** Exception thrown if a file is not a vaild file */
+struct NotValidXMLFile : public BaseException
+{
+    NotValidXMLFile(const std::string &val) : BaseException(val)
+    {
+        type = "Not a valid xml file";
+    }
+};
 
 #endif /* end of include guard: EXCEPTIONS_H */
 
