@@ -19,6 +19,7 @@
 #include "AlterTransit.h"
 #include "GetSystemMemory.h"
 #include "CopyFileEfficiently.h"
+#include "ValidXML.h"
 
 
 
