@@ -129,6 +129,7 @@ int Application::go(int argc, char *argv[])
         }
     }
 
+    return 0;
 
     /*  need to get the list of extra models to add */
     int nExtra = 0;
