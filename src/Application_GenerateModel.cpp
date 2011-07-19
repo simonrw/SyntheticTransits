@@ -169,6 +169,7 @@ Lightcurve Application::GenerateModel(const string &xmlfilename)
     }
     //outfile.close();
     
+    lc.radius = rPlan / rJup;
     return lc;
 
 }
