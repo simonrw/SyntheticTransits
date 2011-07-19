@@ -11,7 +11,8 @@ using namespace CCfits;
 void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
 {
 
-    ExtHDU &fluxHDU = mInfile->extension("FLUX");
+    const string FluxHDUName = "FLUX";
+    ExtHDU &fluxHDU = mInfile->extension(FluxHDUName);
     ExtHDU &CatalogueHDU = mInfile->extension("CATALOGUE");
     const long nFrames = fluxHDU.axis(0);
     
