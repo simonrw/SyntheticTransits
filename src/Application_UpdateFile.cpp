@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "Exceptions.h"
 
 using namespace std;
 using namespace CCfits;
@@ -16,6 +17,7 @@ void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
     
     /*  have to create a valarray for writing */
     valarray<double> writeArray(nFrames);
+    int status = 0;
     double sum = 0;
     int count = 0;
     for (int i=0; i<nFrames; ++i) 
@@ -34,7 +36,9 @@ void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
     double MeanFlux = sum / (double)count;
     
     long firstElement = TargetIndex * nFrames + 1;
-    fluxHDU.write(firstElement, nFrames, writeArray);
+    //fluxHDU.write(firstElement, nFrames, writeArray);
+    fits_write_img(this->fptr, TDOUBLE, firstElement, nFrames, &writeArray[0], &status);
+    if (status) throw FitsioException(status);
 
     /*  now update the catalgogue flux_mean parameter */
     vector<double> FluxMeanData(1);
