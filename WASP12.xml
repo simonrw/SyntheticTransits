@@ -24,7 +24,7 @@ The details here are for WASP-12b
         <midpoint val="2454508.97605" units="jd" />
 	</orbit>
     <simulation>
-        <maxtime val="2" units="periods" />
+        <maxtime val="60" units="periods" />
         <dt val="1" units="minutes" />
         <dr val="0.001" units="none" />
 		<noise val="0" units="mmag" />
