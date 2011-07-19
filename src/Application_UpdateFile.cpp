@@ -38,6 +38,10 @@ void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
     
     long firstElement = TargetIndex * nFrames + 1;
     //fluxHDU.write(firstElement, nFrames, writeArray);
+
+    fits_movnam_hdu(this->fptr, IMAGE_HDU, const_cast<char*>(FluxHDUName.c_str()), 0, &status);
+    if (status)  throw FitsioException(status);
+
     fits_write_img(this->fptr, TDOUBLE, firstElement, nFrames, &writeArray[0], &status);
     if (status) throw FitsioException(status);
 
