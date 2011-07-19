@@ -99,6 +99,9 @@ class Application
 	/** CCfits::FITS object auto_ptr for RAII */
 	std::auto_ptr<CCfits::FITS> mInfile;
 
+    /** fits pointer for when it's needed */
+    fitsfile *fptr;
+
 	/** Selected object index */
     int mObjectIndex;
 

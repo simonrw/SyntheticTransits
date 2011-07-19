@@ -192,6 +192,7 @@ int Application::go(int argc, char *argv[])
 
         /*  open the fits file */
         mInfile = auto_ptr<FITS>(new FITS(DataFilename, Write));
+        fptr = mInfile->fitsPointer();
 
         /*  get the desired index */
         mObjectIndex = ObjectIndex(objectid_arg.getValue());
