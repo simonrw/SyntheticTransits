@@ -4,6 +4,7 @@
 #define EXCEPTIONS_H
 
 #include <exception>
+#include <fitsio.h>
 #include <string>
 
 /** Base exception
