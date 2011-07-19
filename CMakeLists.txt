@@ -50,49 +50,49 @@ target_link_libraries(
    )
 
 # add the unit testing code
-add_executable(
-    TestLightcurve
-    ${CMAKE_SOURCE_DIR}/tests/TestLightcurve.cpp
-    #${CMAKE_SOURCE_DIR}/src/Lightcurve.cpp
-    )
+#add_executable(
+    #TestLightcurve
+    #${CMAKE_SOURCE_DIR}/tests/TestLightcurve.cpp
+    ##${CMAKE_SOURCE_DIR}/src/Lightcurve.cpp
+    #)
 
 
-add_executable(
-    TestConfig
-    ${CMAKE_SOURCE_DIR}/tests/TestConfig.cpp
-    )
+#add_executable(
+    #TestConfig
+    #${CMAKE_SOURCE_DIR}/tests/TestConfig.cpp
+    #)
 
-add_library(
-    AlterLightcurves
-    SHARED
-    ${SRCS}
-    )
-
-
-target_link_libraries(
-    AlterLightcurves
-   ${UNITTESTPP_LIBRARIES}
-   ${CCFITS_LIBRARIES}
-   ${PUGIXML_LIBRARIES}
-   #${GLOG_LIBRARIES}
-#    ${FITSIO_LIBRARIES}
-#    ${QT_LIBRARIES}
-   )
+#add_library(
+    #AlterLightcurves
+    #SHARED
+    #${SRCS}
+    #)
 
 
-message(STATUS ${CMAKE_BINARY_DIR})
+#target_link_libraries(
+    #AlterLightcurves
+   #${UNITTESTPP_LIBRARIES}
+   #${CCFITS_LIBRARIES}
+   #${PUGIXML_LIBRARIES}
+   ##${GLOG_LIBRARIES}
+##    ${FITSIO_LIBRARIES}
+##    ${QT_LIBRARIES}
+   #)
+
+
+#message(STATUS ${CMAKE_BINARY_DIR})
 
 
 
-target_link_libraries(
-    TestLightcurve
-    ${UNITTESTPP_LIBRARIES}
-    -lAlterLightcurves
-    )
+#target_link_libraries(
+    #TestLightcurve
+    #${UNITTESTPP_LIBRARIES}
+    #-lAlterLightcurves
+    #)
 
 
-target_link_libraries(
-    TestConfig
-    ${UNITTESTPP_LIBRARIES}
-    -lAlterLightcurves
-    )
+#target_link_libraries(
+    #TestConfig
+    #${UNITTESTPP_LIBRARIES}
+    #-lAlterLightcurves
+    #)
