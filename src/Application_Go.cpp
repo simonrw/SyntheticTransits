@@ -248,6 +248,7 @@ int Application::go(int argc, char *argv[])
                 LCRemoved.period = AddModel.period;
                 LCRemoved.epoch = AddModel.epoch;
                 Lightcurve SyntheticLightcurve = AddTransit(LCRemoved, AddModel);
+                SyntheticLightcurve.radius = AddModel.radius;
 
                 /*  set the data to the new value */
                 UpdateFile(SyntheticLightcurve, InsertIndex);
