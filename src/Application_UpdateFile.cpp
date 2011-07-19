@@ -1,3 +1,4 @@
+#include <sstream>
 #include "Application.h"
 #include "Exceptions.h"
 
@@ -50,6 +51,9 @@ void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
     FluxMeanData[0] = MeanFlux;
 
     CatalogueHDU.column("FLUX_MEAN").write(FluxMeanData, TargetIndex+1);
+
+    /*  set the object name to be its radius plus it's original identifier */
+    stringstream id;
 
     
 }
