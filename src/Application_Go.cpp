@@ -11,11 +11,6 @@
 #include <boost/filesystem.hpp>
 
 
-/* nr includes 
- *
- * must come after everything else as it redefines
- * the exception class
- * */
 
 /* local includes */
 #include "Lightcurve.h"
