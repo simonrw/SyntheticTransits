@@ -117,6 +117,9 @@ int Application::go(int argc, char *argv[])
         cout << "Not adding a transit" << endl;
     }
 
+    /*  if the addmodel argument is not NULL and the replace argument is true
+     *  then the user must specify a single model file for replacement */
+
     /*  need to get the list of extra models to add */
     int nExtra = 0;
 
