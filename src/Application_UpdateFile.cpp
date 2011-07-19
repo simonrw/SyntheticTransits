@@ -52,6 +52,8 @@ void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
     CatalogueHDU.column("FLUX_MEAN").write(FluxMeanData, TargetIndex+1);
 
     /*  set the object name to be its radius plus it's original identifier */
+    char ObjID[26];
+    sprintf(ObjID, "R=%.3lf", lc.radius);
 
     
 }
