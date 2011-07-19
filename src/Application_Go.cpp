@@ -134,6 +134,17 @@ int Application::go(int argc, char *argv[])
     bf::path BasePath = bf::path(addModelFilename_arg.getValue()).parent_path();
     cout << "Using base path: " << BasePath << endl;
 
+    /*  print if the object is from wasp or not */
+    bool asWASP = wasptreatment_arg.getValue();
+    if (asWASP)
+        cout << "WASP object chosen" << endl;
+    else
+        cout << "Non-WASP object chosen" << endl;
+
+
+    /*  need to get the number of objects that were originally in the 
+     *  file so we know which index to add the nExtra objects at */
+    const int nObjects = getNObjects(filename_arg.getValue());
 
     if (addModelFlag)
     {
@@ -158,25 +169,10 @@ int Application::go(int argc, char *argv[])
 
 
     }
-    else
-    {
-        /*  deal with this later */
-    }
 
 
 
 
-    /*  print if the object is from wasp or not */
-    bool asWASP = wasptreatment_arg.getValue();
-    if (asWASP)
-        cout << "WASP object chosen" << endl;
-    else
-        cout << "Non-WASP object chosen" << endl;
-
-    /*  need to get the number of objects that were originally in the 
-     *  file so we know which index to add the nExtra objects at */
-    const int nObjects = getNObjects(filename_arg.getValue());
-    const int nObjectsTotal = nObjects + nExtra;
 
 
     /*  now copy the file across */
@@ -206,40 +202,50 @@ int Application::go(int argc, char *argv[])
 
     Lightcurve LCRemoved = RemoveTransit(ChosenObject, SubModel);
 
-    /*  now need to iterate through the list of filenames generating 
-     *  a new object every time 
-     *
-     *  TODO: This will generate a lot of output if the code remains as it is 
-     *  so this may need altering */
-
-    int count = 0;
-
-    ExtHDU &FluxHDU = mInfile->extension("FLUX");
-    const int nFrames = FluxHDU.axis(0);
-    for (StringList::iterator i=AddModelFilenames.begin();
-            i!=AddModelFilenames.end();
-            ++i, ++count)
+    if (!addModelFlag)
     {
-        const int InsertIndex = nObjects + count;
-        cout << "Using model file: " << *i << endl;
-        CopyObject(InsertIndex);
+        /*  if the add model is NULL then just update the original lightcurve 
+         *  with the new flux */
+        UpdateFile(LCRemoved);
+    }
+    else
+    {
 
-        Lightcurve AddModel = GenerateModel(*i);
+        /*  now need to iterate through the list of filenames generating 
+         *  a new object every time 
+         *
+         *  TODO: This will generate a lot of output if the code remains as it is 
+         *  so this may need altering */
 
-        LCRemoved.period = AddModel.period;
-        LCRemoved.epoch = AddModel.epoch;
-        Lightcurve SyntheticLightcurve = AddTransit(LCRemoved, AddModel);
+        int count = 0;
 
-        /*  set the data to the new value */
-        UpdateFile(SyntheticLightcurve, InsertIndex);
+        ExtHDU &FluxHDU = mInfile->extension("FLUX");
+        const int nFrames = FluxHDU.axis(0);
+        for (StringList::iterator i=AddModelFilenames.begin();
+                i!=AddModelFilenames.end();
+                ++i, ++count)
+        {
+            const int InsertIndex = nObjects + count;
+            cout << "Using model file: " << *i << endl;
+            CopyObject(InsertIndex);
+
+            Lightcurve AddModel = GenerateModel(*i);
+
+            LCRemoved.period = AddModel.period;
+            LCRemoved.epoch = AddModel.epoch;
+            Lightcurve SyntheticLightcurve = AddTransit(LCRemoved, AddModel);
+
+            /*  set the data to the new value */
+            UpdateFile(SyntheticLightcurve, InsertIndex);
+
+
+
+        }
+
 
 
 
     }
-
-
-
-
 
 
 
