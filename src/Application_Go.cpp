@@ -128,133 +128,150 @@ int Application::go(int argc, char *argv[])
             throw NotValidXMLFile("Model to add in this mode must be a valid config file");
         }
     }
+    else
+    {
+
+
+        /*  need to get the list of extra models to add */
+        int nExtra = 0;
+
+        /*  need a subtraction model whatever happens */
+        Lightcurve SubModel = GenerateModel(subModel_arg.getValue());
+
+        StringList AddModelFilenames;
+
+        /*  need to get the path of the models list file */
+        bf::path BasePath = bf::path(addModelFilename_arg.getValue()).parent_path();
+        cout << "Using base path: " << BasePath << endl;
+
+        /*  print if the object is from wasp or not */
+        bool asWASP = wasptreatment_arg.getValue();
+        if (asWASP)
+            cout << "WASP object chosen" << endl;
+        else
+            cout << "Non-WASP object chosen" << endl;
+
+
+        /*  need to get the number of objects that were originally in the 
+         *  file so we know which index to add the nExtra objects at */
+        const int nObjects = getNObjects(filename_arg.getValue());
+
+        if (addModelFlag)
+        {
+            ifstream ModelsListFile(addModelFilename_arg.getValue().c_str());
+            if (!ModelsListFile.is_open())
+            {
+                throw FileNotOpen("Cannot open list of model files for reading");
+            }
+
+            string line;
+            while (getline(ModelsListFile, line))
+            {
+                bf::path FullPath = BasePath / bf::path(line);
+
+
+                AddModelFilenames.push_back(FullPath.string());
+                nExtra++;
+            }
+
+
+            cout << nExtra << " lightcurves will be appended to the file" << endl;
+
+
+        }
+
+
+
+
+
+
+        /*  now copy the file across */
+        /*  exclamation mark ensures the file is overwritten if it exists */
+        CopyFileEfficiently(filename_arg.getValue(), nExtra, "!" + output_arg.getValue(), MemFraction);
+        string DataFilename = output_arg.getValue();
+
+        /*  open the fits file */
+        mInfile = auto_ptr<FITS>(new FITS(DataFilename, Write));
+
+        /*  get the desired index */
+        mObjectIndex = ObjectIndex(objectid_arg.getValue());
+        cout << "Object found at index: " << mObjectIndex << endl;
+
+        /*  extract the flux */
+        Lightcurve ChosenObject = getObject();
+
+        /*  update the period and epoch */
+        ChosenObject.period = SubModel.period;
+        ChosenObject.epoch = SubModel.epoch;
+
+        if (asWASP)
+            ChosenObject.asWASP = true;
+        else
+            ChosenObject.asWASP = false;
+
+        SubModel.asWASP = false;
+
+        Lightcurve LCRemoved = RemoveTransit(ChosenObject, SubModel);
+        LCRemoved.asWASP = ChosenObject.asWASP;
+
+        if (!addModelFlag)
+        {
+            /*  if the add model is NULL then just update the original lightcurve 
+             *  with the new flux */
+            UpdateFile(LCRemoved);
+        }
+        else
+        {
+
+            /*  now need to iterate through the list of filenames generating 
+             *  a new object every time 
+             *
+             *  TODO: This will generate a lot of output if the code remains as it is 
+             *  so this may need altering */
+
+            int count = 0;
+
+            ExtHDU &FluxHDU = mInfile->extension("FLUX");
+            const int nFrames = FluxHDU.axis(0);
+            for (StringList::iterator i=AddModelFilenames.begin();
+                    i!=AddModelFilenames.end();
+                    ++i, ++count)
+            {
+                const int InsertIndex = nObjects + count;
+                cout << "Using model file: " << *i << endl;
+                CopyObject(InsertIndex);
+
+                Lightcurve AddModel = GenerateModel(*i);
+
+                AddModel.asWASP = false;
+                LCRemoved.period = AddModel.period;
+                LCRemoved.epoch = AddModel.epoch;
+                Lightcurve SyntheticLightcurve = AddTransit(LCRemoved, AddModel);
+
+                /*  set the data to the new value */
+                UpdateFile(SyntheticLightcurve, InsertIndex);
+
+
+
+            }
+
+
+
+
+        }
+
+
+
+
+    }
+
+
+
+
+
 
     return 0;
 
-    /*  need to get the list of extra models to add */
-    int nExtra = 0;
-
-    /*  need a subtraction model whatever happens */
-    Lightcurve SubModel = GenerateModel(subModel_arg.getValue());
-
-    StringList AddModelFilenames;
-
-    /*  need to get the path of the models list file */
-    bf::path BasePath = bf::path(addModelFilename_arg.getValue()).parent_path();
-    cout << "Using base path: " << BasePath << endl;
-
-    /*  print if the object is from wasp or not */
-    bool asWASP = wasptreatment_arg.getValue();
-    if (asWASP)
-        cout << "WASP object chosen" << endl;
-    else
-        cout << "Non-WASP object chosen" << endl;
-
-
-    /*  need to get the number of objects that were originally in the 
-     *  file so we know which index to add the nExtra objects at */
-    const int nObjects = getNObjects(filename_arg.getValue());
-
-    if (addModelFlag)
-    {
-        ifstream ModelsListFile(addModelFilename_arg.getValue().c_str());
-        if (!ModelsListFile.is_open())
-        {
-            throw FileNotOpen("Cannot open list of model files for reading");
-        }
-
-        string line;
-        while (getline(ModelsListFile, line))
-        {
-            bf::path FullPath = BasePath / bf::path(line);
-
-
-            AddModelFilenames.push_back(FullPath.string());
-            nExtra++;
-        }
-
-
-        cout << nExtra << " lightcurves will be appended to the file" << endl;
-
-
-    }
-
-
-
-
-
-
-    /*  now copy the file across */
-    /*  exclamation mark ensures the file is overwritten if it exists */
-    CopyFileEfficiently(filename_arg.getValue(), nExtra, "!" + output_arg.getValue(), MemFraction);
-    string DataFilename = output_arg.getValue();
-
-    /*  open the fits file */
-    mInfile = auto_ptr<FITS>(new FITS(DataFilename, Write));
-    
-    /*  get the desired index */
-    mObjectIndex = ObjectIndex(objectid_arg.getValue());
-    
-    /*  extract the flux */
-    Lightcurve ChosenObject = getObject();
-    
-    /*  update the period and epoch */
-    ChosenObject.period = SubModel.period;
-    ChosenObject.epoch = SubModel.epoch;
-
-    if (asWASP)
-        ChosenObject.asWASP = true;
-    else
-        ChosenObject.asWASP = false;
-
-    SubModel.asWASP = false;
-
-    Lightcurve LCRemoved = RemoveTransit(ChosenObject, SubModel);
-
-    if (!addModelFlag)
-    {
-        /*  if the add model is NULL then just update the original lightcurve 
-         *  with the new flux */
-        UpdateFile(LCRemoved);
-    }
-    else
-    {
-
-        /*  now need to iterate through the list of filenames generating 
-         *  a new object every time 
-         *
-         *  TODO: This will generate a lot of output if the code remains as it is 
-         *  so this may need altering */
-
-        int count = 0;
-
-        ExtHDU &FluxHDU = mInfile->extension("FLUX");
-        const int nFrames = FluxHDU.axis(0);
-        for (StringList::iterator i=AddModelFilenames.begin();
-                i!=AddModelFilenames.end();
-                ++i, ++count)
-        {
-            const int InsertIndex = nObjects + count;
-            cout << "Using model file: " << *i << endl;
-            CopyObject(InsertIndex);
-
-            Lightcurve AddModel = GenerateModel(*i);
-
-            LCRemoved.period = AddModel.period;
-            LCRemoved.epoch = AddModel.epoch;
-            Lightcurve SyntheticLightcurve = AddTransit(LCRemoved, AddModel);
-
-            /*  set the data to the new value */
-            UpdateFile(SyntheticLightcurve, InsertIndex);
-
-
-
-        }
-
-
-
-
-    }
 
 
 
@@ -265,33 +282,21 @@ int Application::go(int argc, char *argv[])
 
 
 
-    return 0;
 
 
-
-
-
-    
-
-
-
-    
-
-    
-    
     //[>  start by copying the file across to the output file <]
     //stringstream copycmd;
     //copycmd << "cp " << filename_arg.getValue() << " " << output_arg.getValue();
 
     //system(copycmd.str().c_str());
-    
+
     //[>  alter the filename to have a ! in front of it <]
-    
-    
-    
+
+
+
     //[>  create the interpolated values <]
     ////Lightcurve TransitRemovedLC = RemoveTransit(ChosenObject, SubModel);
-    
+
 
     ////[>  now add the transit back in <]
     ////Lightcurve TransitAddedLC = AddTransit(TransitRemovedLC, AddModel);
