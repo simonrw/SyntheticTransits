@@ -1,21 +1,21 @@
 #include "ValidXML.h"
-#include <pugixml.hpp>
+#include <fstream>
 
 using namespace std;
 
+/** Function will check if a file is a valid xml file
+ *
+ * It does this by checking if there's an <info> node in the file */
 bool ValidXML(const string &filename)
 {
-    pugi::xml_document doc;
-    pugi::xml_parse_result result = doc.load_file(filename.c_str());
+    string line;
+    ifstream infile(filename.c_str());
 
-    if (result)
+    while (getline(infile, line))
     {
-        /*  file is valid */
-        return true;
+        if (line == "<info>")
+            return true;
     }
-    else
-    {
-        /*  file is not valid */
-        return false;
-    }
+
+    return false;
 }
