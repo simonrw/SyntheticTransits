@@ -54,6 +54,8 @@ void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
     /*  set the object name to be its radius plus it's original identifier */
     char ObjID[26];
     sprintf(ObjID, "R=%.3lf", lc.radius);
+    vector<string> IDData(1, ObjID);
+    CatalogueHDU.column("OBJ_ID").write(IDData, TargetIndex+1);
 
     
 }
