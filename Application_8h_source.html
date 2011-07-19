@@ -74,13 +74,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00098"></a>00098 
 <a name="l00100"></a><a class="code" href="classApplication.html#a40cc436544d6cd881343d94c8a5c7433">00100</a>         std::auto_ptr&lt;CCfits::FITS&gt; <a class="code" href="classApplication.html#a40cc436544d6cd881343d94c8a5c7433" title="CCfits::FITS object auto_ptr for RAII.">mInfile</a>;
 <a name="l00101"></a>00101 
-<a name="l00103"></a><a class="code" href="classApplication.html#a05a6755ede527481e2a6a885120f86b0">00103</a>     <span class="keywordtype">int</span> <a class="code" href="classApplication.html#a05a6755ede527481e2a6a885120f86b0" title="Selected object index.">mObjectIndex</a>;
+<a name="l00103"></a><a class="code" href="classApplication.html#ab4355057679d006c01ad1814ce38a7e0">00103</a>     fitsfile *<a class="code" href="classApplication.html#ab4355057679d006c01ad1814ce38a7e0" title="fits pointer for when it&amp;#39;s needed">fptr</a>;
 <a name="l00104"></a>00104 
-<a name="l00106"></a><a class="code" href="classApplication.html#a00c7b15dab943a50ef2a0c77c36fd1bf">00106</a>     <span class="keywordtype">long</span> <a class="code" href="classApplication.html#a00c7b15dab943a50ef2a0c77c36fd1bf" title="Number of total objects in the data set.">mNObjects</a>;
-<a name="l00107"></a>00107 };
-<a name="l00108"></a>00108 
-<a name="l00109"></a>00109 
-<a name="l00110"></a>00110 <span class="preprocessor">#endif </span><span class="comment">/* end of include guard: APPLICATION_H */</span>
+<a name="l00106"></a><a class="code" href="classApplication.html#a05a6755ede527481e2a6a885120f86b0">00106</a>     <span class="keywordtype">int</span> <a class="code" href="classApplication.html#a05a6755ede527481e2a6a885120f86b0" title="Selected object index.">mObjectIndex</a>;
+<a name="l00107"></a>00107 
+<a name="l00109"></a><a class="code" href="classApplication.html#a00c7b15dab943a50ef2a0c77c36fd1bf">00109</a>     <span class="keywordtype">long</span> <a class="code" href="classApplication.html#a00c7b15dab943a50ef2a0c77c36fd1bf" title="Number of total objects in the data set.">mNObjects</a>;
+<a name="l00110"></a>00110 };
+<a name="l00111"></a>00111 
+<a name="l00112"></a>00112 
+<a name="l00113"></a>00113 <span class="preprocessor">#endif </span><span class="comment">/* end of include guard: APPLICATION_H */</span>
 </pre></div></div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -96,7 +98,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue Jul 19 11:32:11 2011 for Synthetic lightcurves by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue Jul 19 18:13:22 2011 for Synthetic lightcurves by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>
