@@ -24,6 +24,9 @@ public:
      Basically means the jd is actually wd */
     bool asWASP;
 
+    /** Radius (Jupiter radii) */
+    double radius;
+
 
 	/**	Point of mid transit (days) */
     double epoch;

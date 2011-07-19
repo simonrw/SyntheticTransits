@@ -5,7 +5,7 @@
 using namespace std;
 
 Lightcurve::Lightcurve(size_t n)
-: npts(n), period(0), epoch(0)
+: npts(n), period(0), epoch(0), radius(0)
 {
     this->jd = vector<double>(n);
     this->flux = vector<double>(n);
