@@ -10,12 +10,20 @@ typedef map<string, Column*> ColumnList;
 typedef list<string> StringList;
 
 template <class T>
-void CopyData(ExtHDU &CurrentHDU, int SourceIndex, int DestIndex)
+void CopyData(ExtHDU &CurrentHDU, int SourceIndex, int DestIndex, fitsfile *fptr)
 {
     valarray<T> data;
     const int nFrames = CurrentHDU.axis(0);
     CurrentHDU.read(data, (SourceIndex*nFrames) + 1, nFrames);
-    //CurrentHDU.write((DestIndex*nFrames)+1, nFrames, data);
+
+    /*  need to get the data type */
+    FITSUtil::MatchType<T> type;
+
+    int status = 0;
+    /*  must write efficiently now */
+    fits_write_img(fptr, type(), (DestIndex*nFrames) + 1, nFrames, &data[0], &status);
+
+    if (status) throw FitsioException(status);
 }
 
 /** Copies an object at given index to another location in the file
@@ -109,22 +117,22 @@ void Application::CopyObject(const int LocationIndex)
         switch (bitpix)
         {
             case BYTE_IMG:
-                CopyData<unsigned int>(CurrentHDU, mObjectIndex, LocationIndex);
+                CopyData<unsigned int>(CurrentHDU, mObjectIndex, LocationIndex, this->fptr);
                 break;
             case SHORT_IMG:
-                CopyData<int>(CurrentHDU, mObjectIndex, LocationIndex);
+                CopyData<int>(CurrentHDU, mObjectIndex, LocationIndex, this->fptr);
                 break;
             case LONG_IMG:
-                CopyData<long>(CurrentHDU, mObjectIndex, LocationIndex);
+                CopyData<long>(CurrentHDU, mObjectIndex, LocationIndex, this->fptr);
                 break;
             case LONGLONG_IMG:
-                CopyData<long long>(CurrentHDU, mObjectIndex, LocationIndex);
+                CopyData<long long>(CurrentHDU, mObjectIndex, LocationIndex, this->fptr);
                 break;
             case FLOAT_IMG:
-                CopyData<float>(CurrentHDU, mObjectIndex, LocationIndex);
+                CopyData<float>(CurrentHDU, mObjectIndex, LocationIndex, this->fptr);
                 break;
             case DOUBLE_IMG:
-                CopyData<double>(CurrentHDU, mObjectIndex, LocationIndex);
+                CopyData<double>(CurrentHDU, mObjectIndex, LocationIndex, this->fptr);
                 break;
             default:
                 cerr << "Unknown HDU type encountered: " << bitpix << endl;
