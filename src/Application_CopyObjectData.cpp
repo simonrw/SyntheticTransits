@@ -15,7 +15,7 @@ void CopyData(ExtHDU &CurrentHDU, int SourceIndex, int DestIndex)
     valarray<T> data;
     const int nFrames = CurrentHDU.axis(0);
     CurrentHDU.read(data, (SourceIndex*nFrames) + 1, nFrames);
-    CurrentHDU.write((DestIndex*nFrames)+1, nFrames, data);
+    //CurrentHDU.write((DestIndex*nFrames)+1, nFrames, data);
 }
 
 /** Copies an object at given index to another location in the file
