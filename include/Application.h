@@ -4,6 +4,7 @@
 #define APPLICATION_H
 
 
+#include <memory>
 #include <CCfits/CCfits>
 #include "Lightcurve.h"
 
@@ -91,6 +92,8 @@ class Application
 	std::valarray<double> getHDUData(const std::string &hduname);
     Lightcurve getObject();
     void UpdateFile(const Lightcurve &lc);
+    void UpdateFile(const Lightcurve &lc, const int TargetIndex);
+    void CopyObject(const int LocationIndex);
 
 
 	/** CCfits::FITS object auto_ptr for RAII */

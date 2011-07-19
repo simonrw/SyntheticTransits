@@ -12,3 +12,4 @@ const double degreesInRadian = 360. / 2. / 3.14;
 
 
 #endif // CONSTANTS_H_
+

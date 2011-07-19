@@ -7,6 +7,8 @@
 #include <fitsio.h>
 #include <string>
 
+#include <fitsio.h>
+
 /** Base exception
  *
  * All other exceptions inherit this exception for easy filtering of
@@ -18,10 +20,25 @@
  * */
 struct BaseException : public std::exception
 {
+    /** Message to be printed
+     *
+     * When the exception catcher prints the error message using
+     * the BaseException::what() method, this variable is returned */
 	std::string str;
+
+    /** Type string
+     *
+     * Allows the catch code to print which type the
+     * exception is. */
     std::string type;
+
+    /** Constructor
+     *
+     * Sets the error message to be set */
     BaseException(const std::string &val) : str(val), type("") {}
-    ~BaseException() throw() {}
+    virtual ~BaseException() throw() {}
+
+    /** Returns the BaseException::str variable */
     const char *what() const throw() { return str.c_str(); }
 };
 
@@ -79,6 +96,7 @@ struct MemoryException : public BaseException
     }
 };
 
+/** Exception for a bad filename given */
 struct FileNotOpen : public BaseException
 {
     FileNotOpen(const std::string &val) : BaseException(val)
