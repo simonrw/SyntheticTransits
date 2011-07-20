@@ -147,6 +147,50 @@ int Application::go(int argc, char *argv[])
         {
             throw NotValidXMLFile("Model to add in this mode must be a valid config file");
         }
+
+        /* no extra lightcurves will be added */
+        const int nExtra = 0; 
+
+        /*  now copy the file across */
+        /*  exclamation mark ensures the file is overwritten if it exists */
+        CopyFileEfficiently(filename_arg.getValue(), nExtra, "!" + DataFilename, MemFraction);
+
+        /*  now subtract the original model including the setup */
+        /*  open the fits file */
+        mInfile = auto_ptr<FITS>(new FITS(DataFilename, Write));
+        fptr = mInfile->fitsPointer();
+
+        /*  get the desired index */
+        mObjectIndex = ObjectIndex(objectid_arg.getValue());
+        cout << "Object found at index: " << mObjectIndex << endl;
+
+        /*  extract the flux */
+        Lightcurve ChosenObject = getObject();
+
+        /*  update the period and epoch */
+        ChosenObject.period = SubModel.period;
+        ChosenObject.epoch = SubModel.epoch;
+
+        if (asWASP)
+            ChosenObject.asWASP = true;
+        else
+            ChosenObject.asWASP = false;
+
+        SubModel.asWASP = false;
+
+        Lightcurve LCRemoved = RemoveTransit(ChosenObject, SubModel);
+        LCRemoved.asWASP = ChosenObject.asWASP;
+        /* TODO: Consider putting the setup into the remove transits function itself */
+
+        /*  now need to add the model to the lightcurve */
+        Lightcurve AddModel = GenerateModel(addModelFilename_arg.getValue());
+        AddModel.asWASP = false;
+        LCRemoved.period = AddModel.period;
+        LCRemoved.epoch = AddModel.epoch;
+        Lightcurve SyntheticLightcurve = AddTransit(LCRemoved, AddModel);
+        SyntheticLightcurve.radius = AddModel.radius;
+
+        UpdateFile(SyntheticLightcurve);
     }
     else
     {
@@ -196,8 +240,7 @@ int Application::go(int argc, char *argv[])
 
         /*  now copy the file across */
         /*  exclamation mark ensures the file is overwritten if it exists */
-        CopyFileEfficiently(filename_arg.getValue(), nExtra, "!" + output_arg.getValue(), MemFraction);
-        string DataFilename = output_arg.getValue();
+        CopyFileEfficiently(filename_arg.getValue(), nExtra, "!" + DataFilename, MemFraction);
 
         /*  open the fits file */
         mInfile = auto_ptr<FITS>(new FITS(DataFilename, Write));
@@ -297,7 +340,7 @@ int Application::go(int argc, char *argv[])
 
     //[>  start by copying the file across to the output file <]
     //stringstream copycmd;
-    //copycmd << "cp " << filename_arg.getValue() << " " << output_arg.getValue();
+    //copycmd << "cp " << filename_arg.getValue() << " " << DataFilename;
 
     //system(copycmd.str().c_str());
 
