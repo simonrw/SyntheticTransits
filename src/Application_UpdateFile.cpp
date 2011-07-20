@@ -7,13 +7,6 @@ using namespace CCfits;
 
 
 
-/** Update a lightcurve at a particular location
- *
- * General function where TargetIndex is the location to write to
- * @note Fits libraries are 1-indexed
- *
- * @param lc Input lightcurve
- * @param TargetIndex Location to write the flux data to */
 void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
 {
 
@@ -75,9 +68,6 @@ void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
     
 }
 
-/** Overloaded function
- *
- * Replaces the lightcurve at the source location */
 void Application::UpdateFile(const Lightcurve &lc)
 {
     UpdateFile(lc, mObjectIndex);

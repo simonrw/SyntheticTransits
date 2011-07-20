@@ -91,8 +91,24 @@ class Application
     int ObjectIndex(const std::string &objName);
 	std::valarray<double> getHDUData(const std::string &hduname);
     Lightcurve getObject();
-    void UpdateFile(const Lightcurve &lc);
+
+
+    /** Update a lightcurve at a particular location
+     
+     General function where TargetIndex is the location to write to
+     NOTE: Fits libraries are 1-indexed
+     
+     \param lc Input lightcurve
+
+
+     \param TargetIndex Location to write the flux data to */
     void UpdateFile(const Lightcurve &lc, const int TargetIndex);
+
+    /** Overloaded function
+     *
+     * Replaces the lightcurve at the source location */
+    void UpdateFile(const Lightcurve &lc);
+
     void CopyObject(const int LocationIndex);
 
 
