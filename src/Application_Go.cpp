@@ -323,11 +323,11 @@ int main(int argc, char *argv[])
     }
     catch (FitsException &e)
     {
-        cerr << "FITS Exception: " << e.message() << endl;
+        cerr << "CCfits error: " << e.message() << endl;
     }
     catch (FitsioException &e)
     {
-        cerr << "FITSIO Exception: " << e.what() << endl;
+        cerr << "FITSIO error: " << e.what() << endl;
     }
     catch (TCLAP::ArgException &e)
     {
@@ -339,6 +339,6 @@ int main(int argc, char *argv[])
     }
     catch (exception &e)
     {
-        cerr << "STD exception: " << e.what() << endl;
+        cerr << "STD error: " << e.what() << endl;
     }
 }
