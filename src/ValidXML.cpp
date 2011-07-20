@@ -5,7 +5,7 @@ using namespace std;
 
 /** Function will check if a file is a valid xml file
  *
- * It does this by checking if there's an <info> node in the file */
+ * It does this by checking if there's an info node in the file */
 bool ValidXML(const string &filename)
 {
     string line;
