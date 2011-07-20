@@ -59,6 +59,31 @@
  * 	\li tclap
  * 	\li Numerical recipes 3
  *
+ * 	\section usage Program usage
+ *
+ * In general the program usage itself is based on a combination of command line arguments
+ * given at runtime, and are as follows:
+ *
+ * 	\li Replace a single lightcurve in a file
+ *
+ * 	The user must specify the add model as a single configuration file, and the -r/--replace
+ * 	flag must be given. This searches for the object specified on the command line, subtracts
+ * 	the -s/--submodel transit and adds the -a/--addmodel transit inplace. No extra lightcurves
+ * 	are inserted into the data file.
+ *
+ * 	\li Only subtract a transit model
+ *
+ * 	The user \em must specify the -a/--addmodel argument as the string "NULL" (note the caps). 
+ * 	This will subtract the -s/--submodel transit only inplace with no extra lightcurves inserted.
+ *
+ * 	\li Generate synthetic lightcurves and append onto a file
+ *
+ * 	The main mode of operation, the -a/--addmodel argument must point to a \em list of configuration 
+ * 	files. The program first subtracts the -s/--submodel transit and then for each file in the list,
+ * 	a new lightcurve is inserted into the file after the original data set.
+ *
+ *
+ *
  * \section notes Notes for the creator
  *
  *
