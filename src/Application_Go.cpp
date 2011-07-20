@@ -118,6 +118,9 @@ int Application::go(int argc, char *argv[])
         cout << "Not adding a transit" << endl;
     }
 
+    /*  need a subtraction model whatever happens */
+    Lightcurve SubModel = GenerateModel(subModel_arg.getValue());
+
     /*  if the addmodel argument is not NULL and the replace argument is true
      *  then the user must specify a single model file for replacement */
     if (addModelFlag && replace_arg.getValue())
@@ -135,8 +138,6 @@ int Application::go(int argc, char *argv[])
         /*  need to get the list of extra models to add */
         int nExtra = 0;
 
-        /*  need a subtraction model whatever happens */
-        Lightcurve SubModel = GenerateModel(subModel_arg.getValue());
 
         StringList AddModelFilenames;
 
