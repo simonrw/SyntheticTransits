@@ -135,6 +135,9 @@ int Application::go(int argc, char *argv[])
      *  file so we know which index to add the nExtra objects at */
     const int nObjects = getNObjects(filename_arg.getValue());
 
+    /*  string for storing the filename */
+    string DataFilename = output_arg.getValue();
+
     /*  if the addmodel argument is not NULL and the replace argument is true
      *  then the user must specify a single model file for replacement */
     if (addModelFlag && replace_arg.getValue())
@@ -159,17 +162,8 @@ int Application::go(int argc, char *argv[])
         bf::path BasePath = bf::path(addModelFilename_arg.getValue()).parent_path();
         cout << "Using base path: " << BasePath << endl;
 
-        /*  print if the object is from wasp or not */
-        bool asWASP = wasptreatment_arg.getValue();
-        if (asWASP)
-            cout << "WASP object chosen" << endl;
-        else
-            cout << "Non-WASP object chosen" << endl;
 
 
-        /*  need to get the number of objects that were originally in the 
-         *  file so we know which index to add the nExtra objects at */
-        const int nObjects = getNObjects(filename_arg.getValue());
 
         if (addModelFlag)
         {
