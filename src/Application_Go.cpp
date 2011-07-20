@@ -79,7 +79,7 @@ int getNObjects(const string &filename)
 int Application::go(int argc, char *argv[])
 {
     /* new main function */
-    TCLAP::CmdLine cmd("Synthetic lightcurves");
+    TCLAP::CmdLine cmd("Synthetic lightcurves", ' ', "1.0");
     TCLAP::ValueArg<float> memlimit_arg("M", "memorylimit", "Fraction of system memory to use", false, 0.1, "0-1", cmd);
     TCLAP::SwitchArg wasptreatment_arg("w", "wasp", "Do not treat as WASP object", cmd, true);
     TCLAP::ValueArg<string> output_arg("o", "output", "Optional output file", false, "output.fits", "Fits filename", cmd);
