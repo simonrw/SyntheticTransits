@@ -62,7 +62,8 @@ Inheritance diagram for BaseException:</div>
 <area href="structMemoryException.html" alt="MemoryException" shape="rect" coords="246,56,359,80"/>
 <area href="structNotValidXMLFile.html" alt="NotValidXMLFile" shape="rect" coords="369,56,482,80"/>
 <area href="structObjectNotFound.html" alt="ObjectNotFound" shape="rect" coords="492,56,605,80"/>
-<area href="structXMLException.html" alt="XMLException" shape="rect" coords="615,56,728,80"/>
+<area href="structUsageError.html" alt="UsageError" shape="rect" coords="615,56,728,80"/>
+<area href="structXMLException.html" alt="XMLException" shape="rect" coords="738,56,851,80"/>
 </map>
  </div>
 </div>
@@ -74,10 +75,10 @@ Inheritance diagram for BaseException:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Constructor.  <a href="#afceeee9f97b6e2bed459692b4050f1a9"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBaseException.html#abc351b149be47d3e078dc04b9b5c8891">~BaseException</a> ()  throw ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBaseException.html#a44505abd2e88ffaf5bb90e73452151b6">what</a> () const   throw ()</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Returns the <a class="el" href="structBaseException.html#a0e59e8c1ac3653ba4c375e446b6a0462" title="Message to be printed.">BaseException::str</a> variable.  <a href="#a44505abd2e88ffaf5bb90e73452151b6"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Returns the <a class="el" href="structBaseException.html#a0e59e8c1ac3653ba4c375e446b6a0462" title="Message to be printed * When the exception catcher prints the error message using...">BaseException::str</a> variable.  <a href="#a44505abd2e88ffaf5bb90e73452151b6"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBaseException.html#a0e59e8c1ac3653ba4c375e446b6a0462">str</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Message to be printed.  <a href="#a0e59e8c1ac3653ba4c375e446b6a0462"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Message to be printed * When the exception catcher prints the error message using the <a class="el" href="structBaseException.html#a44505abd2e88ffaf5bb90e73452151b6" title="Returns the BaseException::str variable.">BaseException::what()</a> method, this variable is returned.  <a href="#a0e59e8c1ac3653ba4c375e446b6a0462"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBaseException.html#abf888af3f35094d93a165c3adfa89f17">type</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Type string.  <a href="#abf888af3f35094d93a165c3adfa89f17"></a><br/></td></tr>
 </table>
@@ -107,7 +108,7 @@ Inheritance diagram for BaseException:</div>
 <p>Constructor. </p>
 <p>Sets the error message to be set </p>
 
-<p>Definition at line <a class="el" href="Exceptions_8h_source.html#l00038">38</a> of file <a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="Exceptions_8h_source.html#l00037">37</a> of file <a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -126,7 +127,7 @@ Inheritance diagram for BaseException:</div>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="Exceptions_8h_source.html#l00039">39</a> of file <a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="Exceptions_8h_source.html#l00038">38</a> of file <a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -146,11 +147,11 @@ Inheritance diagram for BaseException:</div>
 </div>
 <div class="memdoc">
 
-<p>Returns the <a class="el" href="structBaseException.html#a0e59e8c1ac3653ba4c375e446b6a0462" title="Message to be printed.">BaseException::str</a> variable. </p>
+<p>Returns the <a class="el" href="structBaseException.html#a0e59e8c1ac3653ba4c375e446b6a0462" title="Message to be printed * When the exception catcher prints the error message using...">BaseException::str</a> variable. </p>
 
 <p>Reimplemented in <a class="el" href="classFitsioException.html#ab3277a5c4192658e6828f2bb63875b02">FitsioException</a>.</p>
 
-<p>Definition at line <a class="el" href="Exceptions_8h_source.html#l00042">42</a> of file <a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="Exceptions_8h_source.html#l00041">41</a> of file <a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -166,10 +167,9 @@ Inheritance diagram for BaseException:</div>
 </div>
 <div class="memdoc">
 
-<p>Message to be printed. </p>
-<p>When the exception catcher prints the error message using the <a class="el" href="structBaseException.html#a44505abd2e88ffaf5bb90e73452151b6" title="Returns the BaseException::str variable.">BaseException::what()</a> method, this variable is returned </p>
+<p>Message to be printed * When the exception catcher prints the error message using the <a class="el" href="structBaseException.html#a44505abd2e88ffaf5bb90e73452151b6" title="Returns the BaseException::str variable.">BaseException::what()</a> method, this variable is returned. </p>
 
-<p>Definition at line <a class="el" href="Exceptions_8h_source.html#l00027">27</a> of file <a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="Exceptions_8h_source.html#l00026">26</a> of file <a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -187,7 +187,7 @@ Inheritance diagram for BaseException:</div>
 <p>Type string. </p>
 <p>Allows the catch code to print which type the exception is. </p>
 
-<p>Definition at line <a class="el" href="Exceptions_8h_source.html#l00033">33</a> of file <a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>.</p>
+<p>Definition at line <a class="el" href="Exceptions_8h_source.html#l00032">32</a> of file <a class="el" href="Exceptions_8h_source.html">Exceptions.h</a>.</p>
 
 </div>
 </div>
@@ -209,7 +209,7 @@ Inheritance diagram for BaseException:</div>
 </iframe>
 </div>
 
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Jul 20 10:52:34 2011 for Synthetic lightcurves by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Jul 20 11:30:43 2011 for Synthetic lightcurves by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>
