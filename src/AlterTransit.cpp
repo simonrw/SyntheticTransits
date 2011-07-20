@@ -8,10 +8,6 @@ using namespace std;
 
 Lightcurve RemoveTransit(Lightcurve &data, Lightcurve &model)
 {
-    /** 
-     * \bug Code does not take into account nans 
-     * */
-
     /*  set up an output file for debugging */
     //ofstream debugoutfile("debug.dat");
     //debugoutfile.precision(15);
@@ -104,10 +100,6 @@ Lightcurve RemoveTransit(Lightcurve &data, Lightcurve &model)
 
 Lightcurve AddTransit(Lightcurve &data, Lightcurve &model)
 {
-    /** 
-     * \bug Code does not take into account nans 
-     * */
-
     /*  set up an output file for debugging */
     //ofstream debugoutfile("debug.dat");
     //debugoutfile.precision(15);
