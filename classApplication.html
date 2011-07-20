@@ -58,14 +58,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApplication.html#afa8cc05ce6b6092be5ecdfdae44e05f8">Application</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Default constructor.  <a href="#afa8cc05ce6b6092be5ecdfdae44e05f8"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApplication.html#a317a13efcc06c55837ece16f52c78f69">go</a> (int argc, char *argv[])</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The main function, abstracted from the main function for good separation.  <a href="#a317a13efcc06c55837ece16f52c78f69"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classLightcurve.html">Lightcurve</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApplication.html#a3f8c3e34b44ab8382753e0e74ad29cd5">GenerateModel</a> (const std::string &amp;xmlfilename)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create a model from the xml config file.  <a href="#a3f8c3e34b44ab8382753e0e74ad29cd5"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApplication.html#a73570619a07e02c19088666e67ec03ba">ObjectIndex</a> (const std::string &amp;objName)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">std::valarray&lt; double &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApplication.html#ab35e8782e640d1136490e5bc2e7694fb">getHDUData</a> (const std::string &amp;hduname)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Returns the object index.  <a href="#a73570619a07e02c19088666e67ec03ba"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::valarray&lt; double &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApplication.html#a2f3a5da1d98606e460d46cbdc12736a3">getHDUData</a> (const std::string &amp;hduname)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Utility function to return the data from a CCfits::ExtHDU.  <a href="#a2f3a5da1d98606e460d46cbdc12736a3"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classLightcurve.html">Lightcurve</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApplication.html#ace1ec086fdd243abe30a5b5c03d5fcdd">getObject</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApplication.html#a8d5d693822ae75b81c0cfefe4d9efaa8">UpdateFile</a> (const <a class="el" href="classLightcurve.html">Lightcurve</a> &amp;lc)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApplication.html#a07955d6bd81b821ff65df9ba616cbeff">UpdateFile</a> (const <a class="el" href="classLightcurve.html">Lightcurve</a> &amp;lc, const int TargetIndex)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Update a lightcurve at a particular location.  <a href="#a07955d6bd81b821ff65df9ba616cbeff"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApplication.html#a8d5d693822ae75b81c0cfefe4d9efaa8">UpdateFile</a> (const <a class="el" href="classLightcurve.html">Lightcurve</a> &amp;lc)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Overloaded function.  <a href="#a8d5d693822ae75b81c0cfefe4d9efaa8"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApplication.html#a60562fdc75fc70382d2a364abffed723">CopyObject</a> (const int LocationIndex)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Copies an object at given index to another location in the file.  <a href="#a60562fdc75fc70382d2a364abffed723"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::auto_ptr&lt; CCfits::FITS &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApplication.html#a40cc436544d6cd881343d94c8a5c7433">mInfile</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">CCfits::FITS object auto_ptr for RAII.  <a href="#a40cc436544d6cd881343d94c8a5c7433"></a><br/></td></tr>
@@ -121,6 +128,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="memdoc">
 
+<p>Copies an object at given index to another location in the file. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>LocationIndex</em>&nbsp;</td><td>Empty lightcurve location in the file </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="Application__CopyObjectData_8cpp_source.html#l00032">32</a> of file <a class="el" href="Application__CopyObjectData_8cpp_source.html">Application_CopyObjectData.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a3f8c3e34b44ab8382753e0e74ad29cd5"></a><!-- doxytag: member="Application::GenerateModel" ref="a3f8c3e34b44ab8382753e0e74ad29cd5" args="(const std::string &amp;xmlfilename)" -->
@@ -139,14 +156,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="memdoc">
 
+<p>Create a model from the xml config file. </p>
+<p>Takes a std::string filename and returns a <a class="el" href="classLightcurve.html" title="Lightcurve class which stores information about a single object.">Lightcurve</a> object</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>xmlfilename</em>&nbsp;</td><td>Name of the input filename </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="Application__GenerateModel_8cpp_source.html#l00022">22</a> of file <a class="el" href="Application__GenerateModel_8cpp_source.html">Application_GenerateModel.cpp</a>.</p>
+
 </div>
 </div>
-<a class="anchor" id="ab35e8782e640d1136490e5bc2e7694fb"></a><!-- doxytag: member="Application::getHDUData" ref="ab35e8782e640d1136490e5bc2e7694fb" args="(const std::string &amp;hduname)" -->
+<a class="anchor" id="a2f3a5da1d98606e460d46cbdc12736a3"></a><!-- doxytag: member="Application::getHDUData" ref="a2f3a5da1d98606e460d46cbdc12736a3" args="(const std::string &amp;hduname)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::valarray&lt;double&gt; Application::getHDUData </td>
+          <td class="memname">valarray&lt; double &gt; Application::getHDUData </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&nbsp;</td>
           <td class="paramname"> <em>hduname</em></td>
@@ -156,6 +184,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </table>
 </div>
 <div class="memdoc">
+
+<p>Utility function to return the data from a CCfits::ExtHDU. </p>
+<p>This code uses the mInfile auto_ptr and HDU name hduname and returns the lightcurve for the object at index mObjectIndex. This is then returned. </p>
+
+<p>Definition at line <a class="el" href="Application__GetHDUData_8cpp_source.html#l00011">11</a> of file <a class="el" href="Application__GetHDUData_8cpp_source.html">Application_GetHDUData.cpp</a>.</p>
 
 </div>
 </div>
@@ -173,6 +206,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="Application__GetObject_8cpp_source.html#l00005">5</a> of file <a class="el" href="Application__GetObject_8cpp_source.html">Application_GetObject.cpp</a>.</p>
 
 </div>
 </div>
@@ -201,6 +236,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="memdoc">
 
+<p>The main function, abstracted from the main function for good separation. </p>
+<p>Runs all of the later code and garruntees RAII behaviour </p>
+
+<p>Definition at line <a class="el" href="Application__Go_8cpp_source.html#l00079">79</a> of file <a class="el" href="Application__Go_8cpp_source.html">Application_Go.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a73570619a07e02c19088666e67ec03ba"></a><!-- doxytag: member="Application::ObjectIndex" ref="a73570619a07e02c19088666e67ec03ba" args="(const std::string &amp;objName)" -->
@@ -218,6 +258,36 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </table>
 </div>
 <div class="memdoc">
+
+<p>Returns the object index. </p>
+<p>The OBJ_ID column data type differs for NGTS and WASP so there needs to be a function that deals with this.</p>
+<p>If the column type is TSTRING then the data is just read to a std::vector&lt;string&gt;. Otherwise if it is numerical (int, long etc.) then it's converted first.</p>
+<p>If the object is not found then an <a class="el" href="structObjectNotFound.html" title="Thrown if the selected object is not in the file.">ObjectNotFound</a> exception is thrown </p>
+
+<p>Definition at line <a class="el" href="Application__ObjectIndex_8cpp_source.html#l00018">18</a> of file <a class="el" href="Application__ObjectIndex_8cpp_source.html">Application_ObjectIndex.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8d5d693822ae75b81c0cfefe4d9efaa8"></a><!-- doxytag: member="Application::UpdateFile" ref="a8d5d693822ae75b81c0cfefe4d9efaa8" args="(const Lightcurve &amp;lc)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Application::UpdateFile </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classLightcurve.html">Lightcurve</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>lc</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Overloaded function. </p>
+<p>Replaces the lightcurve at the source location </p>
+
+<p>Definition at line <a class="el" href="Application__UpdateFile_8cpp_source.html#l00071">71</a> of file <a class="el" href="Application__UpdateFile_8cpp_source.html">Application_UpdateFile.cpp</a>.</p>
 
 </div>
 </div>
@@ -246,23 +316,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="memdoc">
 
-</div>
-</div>
-<a class="anchor" id="a8d5d693822ae75b81c0cfefe4d9efaa8"></a><!-- doxytag: member="Application::UpdateFile" ref="a8d5d693822ae75b81c0cfefe4d9efaa8" args="(const Lightcurve &amp;lc)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Application::UpdateFile </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classLightcurve.html">Lightcurve</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>lc</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
+<p>Update a lightcurve at a particular location. </p>
+<p>General function where TargetIndex is the location to write to NOTE: Fits libraries are 1-indexed</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>lc</em>&nbsp;</td><td>Input lightcurve</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>TargetIndex</em>&nbsp;</td><td>Location to write the flux data to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="Application__UpdateFile_8cpp_source.html#l00010">10</a> of file <a class="el" href="Application__UpdateFile_8cpp_source.html">Application_UpdateFile.cpp</a>.</p>
 
 </div>
 </div>
@@ -280,7 +344,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p>fits pointer for when it's needed </p>
 
-<p>Definition at line <a class="el" href="Application_8h_source.html#l00103">103</a> of file <a class="el" href="Application_8h_source.html">Application.h</a>.</p>
+<p>Definition at line <a class="el" href="Application_8h_source.html#l00119">119</a> of file <a class="el" href="Application_8h_source.html">Application.h</a>.</p>
 
 </div>
 </div>
@@ -297,7 +361,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p>CCfits::FITS object auto_ptr for RAII. </p>
 
-<p>Definition at line <a class="el" href="Application_8h_source.html#l00100">100</a> of file <a class="el" href="Application_8h_source.html">Application.h</a>.</p>
+<p>Definition at line <a class="el" href="Application_8h_source.html#l00116">116</a> of file <a class="el" href="Application_8h_source.html">Application.h</a>.</p>
 
 </div>
 </div>
@@ -314,7 +378,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p>Number of total objects in the data set. </p>
 
-<p>Definition at line <a class="el" href="Application_8h_source.html#l00109">109</a> of file <a class="el" href="Application_8h_source.html">Application.h</a>.</p>
+<p>Definition at line <a class="el" href="Application_8h_source.html#l00125">125</a> of file <a class="el" href="Application_8h_source.html">Application.h</a>.</p>
 
 </div>
 </div>
@@ -331,12 +395,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p>Selected object index. </p>
 
-<p>Definition at line <a class="el" href="Application_8h_source.html#l00106">106</a> of file <a class="el" href="Application_8h_source.html">Application.h</a>.</p>
+<p>Definition at line <a class="el" href="Application_8h_source.html#l00122">122</a> of file <a class="el" href="Application_8h_source.html">Application.h</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>include/<a class="el" href="Application_8h_source.html">Application.h</a></li>
+<li>src/<a class="el" href="Application__CopyObjectData_8cpp_source.html">Application_CopyObjectData.cpp</a></li>
+<li>src/<a class="el" href="Application__GenerateModel_8cpp_source.html">Application_GenerateModel.cpp</a></li>
+<li>src/<a class="el" href="Application__GetHDUData_8cpp_source.html">Application_GetHDUData.cpp</a></li>
+<li>src/<a class="el" href="Application__GetObject_8cpp_source.html">Application_GetObject.cpp</a></li>
+<li>src/<a class="el" href="Application__Go_8cpp_source.html">Application_Go.cpp</a></li>
+<li>src/<a class="el" href="Application__ObjectIndex_8cpp_source.html">Application_ObjectIndex.cpp</a></li>
+<li>src/<a class="el" href="Application__UpdateFile_8cpp_source.html">Application_UpdateFile.cpp</a></li>
 </ul>
 </div>
 <!--- window showing the filter options -->
@@ -344,7 +415,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&nbsp;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&nbsp;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&nbsp;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&nbsp;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&nbsp;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&nbsp;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&nbsp;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&nbsp;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&nbsp;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&nbsp;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&nbsp;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&nbsp;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&nbsp;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&nbsp;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&nbsp;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -353,7 +424,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Jul 20 10:07:52 2011 for Synthetic lightcurves by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Jul 20 10:21:32 2011 for Synthetic lightcurves by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>
