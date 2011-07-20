@@ -118,8 +118,22 @@ int Application::go(int argc, char *argv[])
         cout << "Not adding a transit" << endl;
     }
 
+    /********************************************************************************* 
+     * LOCATION FOR COMMON CODE TO BOTH BRANCHES
+    *********************************************************************************/
     /*  need a subtraction model whatever happens */
     Lightcurve SubModel = GenerateModel(subModel_arg.getValue());
+
+    /*  print if the object is from wasp or not */
+    const bool asWASP = wasptreatment_arg.getValue();
+    if (asWASP)
+        cout << "WASP object chosen" << endl;
+    else
+        cout << "Non-WASP object chosen" << endl;
+
+    /*  need to get the number of objects that were originally in the 
+     *  file so we know which index to add the nExtra objects at */
+    const int nObjects = getNObjects(filename_arg.getValue());
 
     /*  if the addmodel argument is not NULL and the replace argument is true
      *  then the user must specify a single model file for replacement */
