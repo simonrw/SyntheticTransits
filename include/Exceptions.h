@@ -21,8 +21,7 @@
 struct BaseException : public std::exception
 {
     /** Message to be printed
-     *
-     * When the exception catcher prints the error message using
+     * * When the exception catcher prints the error message using
      * the BaseException::what() method, this variable is returned */
 	std::string str;
 
@@ -111,6 +110,15 @@ struct NotValidXMLFile : public BaseException
     NotValidXMLFile(const std::string &val) : BaseException(val)
     {
         type = "Not a valid xml file";
+    }
+};
+
+/** Exception for poor user input */
+struct UsageError : public BaseException
+{
+    UsageError(const std::string &val) : BaseException(val)
+    {
+        type = "Usage error";
     }
 };
 
