@@ -65,6 +65,21 @@ Software dependencies</a></h2>
 <li>tclap </li>
 <li>Numerical recipes 3</li>
 </ul>
+<h2><a class="anchor" id="usage">
+Program usage</a></h2>
+<p>In general the program usage itself is based on a combination of command line arguments given at runtime, and are as follows:</p>
+<ul>
+<li>Replace a single lightcurve in a file</li>
+</ul>
+The user must specify the add model as a single configuration file, and the -r/--replace flag must be given. This searches for the object specified on the command line, subtracts the -s/--submodel transit and adds the -a/--addmodel transit inplace. No extra lightcurves are inserted into the data file.</p>
+<ul>
+<li>Only subtract a transit model</li>
+</ul>
+The user <em>must</em> specify the -a/--addmodel argument as the string "NULL" (note the caps). This will subtract the -s/--submodel transit only inplace with no extra lightcurves inserted.</p>
+<ul>
+<li>Generate synthetic lightcurves and append onto a file</li>
+</ul>
+The main mode of operation, the -a/--addmodel argument must point to a <em>list</em> of configuration files. The program first subtracts the -s/--submodel transit and then for each file in the list, a new lightcurve is inserted into the file after the original data set.</p>
 <h2><a class="anchor" id="notes">
 Notes for the creator</a></h2>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Package all external requirements in another directory</dd></dl>
@@ -83,7 +98,7 @@ Notes for the creator</a></h2>
 </iframe>
 </div>
 
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Jul 20 10:39:00 2011 for Synthetic lightcurves by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Jul 20 10:52:33 2011 for Synthetic lightcurves by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>
