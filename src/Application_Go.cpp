@@ -194,6 +194,14 @@ int Application::go(int argc, char *argv[])
     }
     else
     {
+        /* Branch for appending multiple lightcurves */
+        /* If the addmodel argument points to a valid xml file then 
+         * raise an error */
+        if (ValidXML(addModelFilename_arg.getValue()))
+        {
+            throw UsageError("Single model file specified, this mode requires "
+                    "multiple model files. Perhaps you wanted -r/--replace mode?");
+        }
 
 
         /*  need to get the list of extra models to add */
