@@ -20,6 +20,9 @@ if [ -f "Doxyfile" ]; then
 
     git co $BRANCH
 
+    # get rid of left over files
+    git clean -fd
+
 
 
 else
