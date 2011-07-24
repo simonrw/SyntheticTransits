@@ -86,6 +86,13 @@ void Application::CopyObject(const int LocationIndex)
             i->second->write(data, LocationIndex + 1);
 
         }
+        else if (Format == "B")
+        {
+            /* data type is byte */
+            vector<double> data;
+            i->second->read(data, mObjectIndex+1, mObjectIndex+1);
+            i->second->write(data, LocationIndex+1);
+        }
         else
         {
             cerr << "Unknown data type: " << Format << endl;
