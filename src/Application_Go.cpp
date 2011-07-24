@@ -20,6 +20,7 @@
 #include "GetSystemMemory.h"
 #include "CopyFileEfficiently.h"
 #include "ValidXML.h"
+#include "ObjectSkipDefs.h"
 
 
 
