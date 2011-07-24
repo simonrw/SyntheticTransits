@@ -77,6 +77,10 @@ void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
     catch (Table::NoSuchColumn &e)
     {
         CatalogueHDU.addColumn(Tbyte, "SKIPDET", 1);
+
+        vector<unsigned int> FillData(mNObjects, ad::include);
+        CatalogueHDU.column("SKIPDET").write(FillData, 1);
+
     }
     
     Column &SkipdetCol = CatalogueHDU.column("SKIPDET");
