@@ -1,9 +1,11 @@
 #include "Application.h"
 #include "Exceptions.h"
+#include "ObjectSkipDefs.h"
 
 using namespace std;
 using namespace CCfits;
 
+namespace ad = AlterDetrending;
 
 
 
