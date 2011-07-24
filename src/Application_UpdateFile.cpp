@@ -76,6 +76,7 @@ void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
     }
     catch (Table::NoSuchColumn &e)
     {
+        CatalogueHDU.addColumn(Tbyte, "SKIPDET", 1);
     }
     
 }
