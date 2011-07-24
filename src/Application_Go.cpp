@@ -27,6 +27,7 @@
 using namespace std;
 using namespace CCfits;
 namespace bf = boost::filesystem;
+namespace ad = AlterDetrending;
 
 
 
