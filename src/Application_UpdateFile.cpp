@@ -65,6 +65,16 @@ void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
         /*  didn't work, probably working on NGTS prototype data so ignore */
     }
 
+    /* need to update the skipdet column */
+
+    /* first check for its existence */
+    try
+    {
+        Column &SkipdetCol = CatalogueHDU.column("SKIPDET");
+    }
+    catch (Table::NoSuchColumn &e)
+    {
+    }
     
 }
 
