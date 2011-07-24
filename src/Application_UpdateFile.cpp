@@ -84,6 +84,8 @@ void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
     }
     
     Column &SkipdetCol = CatalogueHDU.column("SKIPDET");
+    vector<unsigned int> FillData(1, ad::skipsysrem);
+    SkipdetCol.write(FillData, TargetIndex+1);
 }
 
 void Application::UpdateFile(const Lightcurve &lc)
