@@ -79,6 +79,7 @@ void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
         CatalogueHDU.addColumn(Tbyte, "SKIPDET", 1);
     }
     
+    Column &SkipdetCol = CatalogueHDU.column("SKIPDET");
 }
 
 void Application::UpdateFile(const Lightcurve &lc)
