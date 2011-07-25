@@ -77,6 +77,7 @@ void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
     catch (Table::NoSuchColumn &e)
     {
         cout << "SKIPDET column does not exist, creating..." << endl;
+        cout << "This may take a while..." << endl;
         CatalogueHDU.addColumn(Tbyte, "SKIPDET", 1);
 
         vector<unsigned int> FillData(mNObjects, ad::include);
