@@ -129,7 +129,7 @@ void CopyFileEfficiently(const string &Filename, const int nExtra, const string 
 
     /* Need to add the skipdet column */
     ColumnNames.push_back("SKIPDET");
-    ColumnFormats.push_back("1B");
+    ColumnFormats.push_back("1I");
     ColumnUnits.push_back("");
 
     /*  create the new hdu */
