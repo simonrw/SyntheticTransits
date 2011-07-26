@@ -190,67 +190,67 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00127"></a>00127         ColumnUnits.push_back(i-&gt;second-&gt;unit());
 <a name="l00128"></a>00128     }
 <a name="l00129"></a>00129 
-<a name="l00130"></a>00130     <span class="comment">/*  create the new hdu */</span>
-<a name="l00131"></a>00131     Table *NewCatalogueHDU = pOutfile-&gt;addTable(<span class="stringliteral">&quot;CATALOGUE&quot;</span>, nTotal, ColumnNames, ColumnFormats, ColumnUnits);
-<a name="l00132"></a>00132 
-<a name="l00133"></a>00133     <span class="comment">/*  copy the data across */</span>
-<a name="l00134"></a>00134     <span class="keywordflow">for</span> (ColumnMap::const_iterator i=Columns.begin();
-<a name="l00135"></a>00135             i!=Columns.end();
-<a name="l00136"></a>00136             ++i)
-<a name="l00137"></a>00137     {
-<a name="l00138"></a>00138         Column &amp;NewColumn = NewCatalogueHDU-&gt;column(i-&gt;first);
+<a name="l00130"></a>00130     <span class="comment">/* Need to add the skipdet column */</span>
+<a name="l00131"></a>00131     ColumnNames.push_back(<span class="stringliteral">&quot;SKIPDET&quot;</span>);
+<a name="l00132"></a>00132     ColumnFormats.push_back(<span class="stringliteral">&quot;1I&quot;</span>);
+<a name="l00133"></a>00133     ColumnUnits.push_back(<span class="stringliteral">&quot;&quot;</span>);
+<a name="l00134"></a>00134 
+<a name="l00135"></a>00135     <span class="comment">/*  create the new hdu */</span>
+<a name="l00136"></a>00136     Table *NewCatalogueHDU = pOutfile-&gt;addTable(<span class="stringliteral">&quot;CATALOGUE&quot;</span>, nTotal, ColumnNames, ColumnFormats, ColumnUnits);
+<a name="l00137"></a>00137 
+<a name="l00138"></a>00138 
 <a name="l00139"></a>00139 
-<a name="l00140"></a>00140         <span class="comment">/*  get the data type */</span>
-<a name="l00141"></a>00141         <span class="keywordtype">string</span> Format = i-&gt;second-&gt;format();
-<a name="l00142"></a>00142 
-<a name="l00143"></a>00143         <span class="keywordflow">if</span> (Format == <span class="stringliteral">&quot;1J&quot;</span>)
-<a name="l00144"></a>00144         {
-<a name="l00145"></a>00145             <span class="comment">/*  data type is long */</span>
-<a name="l00146"></a>00146             vector&lt;long&gt; data;
-<a name="l00147"></a>00147             i-&gt;second-&gt;read(data, 1, nObjects);
-<a name="l00148"></a>00148             NewColumn.write(data, 1);
+<a name="l00140"></a>00140     <span class="comment">/*  copy the data across */</span>
+<a name="l00141"></a>00141     <span class="keywordflow">for</span> (ColumnMap::const_iterator i=Columns.begin();
+<a name="l00142"></a>00142             i!=Columns.end();
+<a name="l00143"></a>00143             ++i)
+<a name="l00144"></a>00144     {
+<a name="l00145"></a>00145         Column &amp;NewColumn = NewCatalogueHDU-&gt;column(i-&gt;first);
+<a name="l00146"></a>00146 
+<a name="l00147"></a>00147         <span class="comment">/*  get the data type */</span>
+<a name="l00148"></a>00148         <span class="keywordtype">string</span> Format = i-&gt;second-&gt;format();
 <a name="l00149"></a>00149 
-<a name="l00150"></a>00150         }
-<a name="l00151"></a>00151         <span class="keywordflow">else</span> <span class="keywordflow">if</span> (Format == <span class="stringliteral">&quot;1I&quot;</span>)
-<a name="l00152"></a>00152         {
-<a name="l00153"></a>00153             <span class="comment">/*  data type is int */</span>
-<a name="l00154"></a>00154             vector&lt;int&gt; data;
-<a name="l00155"></a>00155             i-&gt;second-&gt;read(data, 1, nObjects);
-<a name="l00156"></a>00156             NewColumn.write(data, 1);
+<a name="l00150"></a>00150         <span class="keywordflow">if</span> (Format == <span class="stringliteral">&quot;1J&quot;</span>)
+<a name="l00151"></a>00151         {
+<a name="l00152"></a>00152             <span class="comment">/*  data type is long */</span>
+<a name="l00153"></a>00153             vector&lt;long&gt; data;
+<a name="l00154"></a>00154             i-&gt;second-&gt;read(data, 1, nObjects);
+<a name="l00155"></a>00155             NewColumn.write(data, 1);
+<a name="l00156"></a>00156 
 <a name="l00157"></a>00157         }
-<a name="l00158"></a>00158         <span class="keywordflow">else</span> <span class="keywordflow">if</span> (Format == <span class="stringliteral">&quot;1E&quot;</span>)
+<a name="l00158"></a>00158         <span class="keywordflow">else</span> <span class="keywordflow">if</span> (Format == <span class="stringliteral">&quot;1I&quot;</span>)
 <a name="l00159"></a>00159         {
-<a name="l00160"></a>00160             <span class="comment">/*  data type is float */</span>
-<a name="l00161"></a>00161             vector&lt;float&gt; data;
+<a name="l00160"></a>00160             <span class="comment">/*  data type is int */</span>
+<a name="l00161"></a>00161             vector&lt;int&gt; data;
 <a name="l00162"></a>00162             i-&gt;second-&gt;read(data, 1, nObjects);
 <a name="l00163"></a>00163             NewColumn.write(data, 1);
 <a name="l00164"></a>00164         }
-<a name="l00165"></a>00165         <span class="keywordflow">else</span> <span class="keywordflow">if</span> (Format == <span class="stringliteral">&quot;26A&quot;</span>)
+<a name="l00165"></a>00165         <span class="keywordflow">else</span> <span class="keywordflow">if</span> (Format == <span class="stringliteral">&quot;1E&quot;</span>)
 <a name="l00166"></a>00166         {
-<a name="l00167"></a>00167             <span class="comment">/*  data type is string */</span>
-<a name="l00168"></a>00168             vector&lt;string&gt; data;
+<a name="l00167"></a>00167             <span class="comment">/*  data type is float */</span>
+<a name="l00168"></a>00168             vector&lt;float&gt; data;
 <a name="l00169"></a>00169             i-&gt;second-&gt;read(data, 1, nObjects);
 <a name="l00170"></a>00170             NewColumn.write(data, 1);
 <a name="l00171"></a>00171         }
-<a name="l00172"></a>00172         <span class="keywordflow">else</span> <span class="keywordflow">if</span> (Format == <span class="stringliteral">&quot;1D&quot;</span>)
+<a name="l00172"></a>00172         <span class="keywordflow">else</span> <span class="keywordflow">if</span> (Format == <span class="stringliteral">&quot;26A&quot;</span>)
 <a name="l00173"></a>00173         {
-<a name="l00174"></a>00174             <span class="comment">/*  data type is double */</span>
-<a name="l00175"></a>00175             vector&lt;double&gt; data;
+<a name="l00174"></a>00174             <span class="comment">/*  data type is string */</span>
+<a name="l00175"></a>00175             vector&lt;string&gt; data;
 <a name="l00176"></a>00176             i-&gt;second-&gt;read(data, 1, nObjects);
 <a name="l00177"></a>00177             NewColumn.write(data, 1);
 <a name="l00178"></a>00178         }
-<a name="l00179"></a>00179         <span class="keywordflow">else</span>
+<a name="l00179"></a>00179         <span class="keywordflow">else</span> <span class="keywordflow">if</span> (Format == <span class="stringliteral">&quot;1D&quot;</span>)
 <a name="l00180"></a>00180         {
-<a name="l00181"></a>00181             cerr &lt;&lt; <span class="stringliteral">&quot;Unknown data type: &quot;</span> &lt;&lt; Format &lt;&lt; endl;
-<a name="l00182"></a>00182         }
-<a name="l00183"></a>00183     }
-<a name="l00184"></a>00184 
-<a name="l00185"></a>00185 
-<a name="l00186"></a>00186 
-<a name="l00187"></a>00187 
-<a name="l00188"></a>00188 
-<a name="l00189"></a>00189 
-<a name="l00190"></a>00190 
+<a name="l00181"></a>00181             <span class="comment">/*  data type is double */</span>
+<a name="l00182"></a>00182             vector&lt;double&gt; data;
+<a name="l00183"></a>00183             i-&gt;second-&gt;read(data, 1, nObjects);
+<a name="l00184"></a>00184             NewColumn.write(data, 1);
+<a name="l00185"></a>00185         }
+<a name="l00186"></a>00186         <span class="keywordflow">else</span>
+<a name="l00187"></a>00187         {
+<a name="l00188"></a>00188             cerr &lt;&lt; <span class="stringliteral">&quot;Unknown data type: &quot;</span> &lt;&lt; Format &lt;&lt; endl;
+<a name="l00189"></a>00189         }
+<a name="l00190"></a>00190     }
 <a name="l00191"></a>00191 
 <a name="l00192"></a>00192 
 <a name="l00193"></a>00193 
@@ -261,74 +261,81 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00198"></a>00198 
 <a name="l00199"></a>00199 
 <a name="l00200"></a>00200 
-<a name="l00201"></a>00201     <span class="comment">/* Creating the imagelist hdu */</span>
-<a name="l00202"></a>00202     <span class="comment">/*  ******************************************************************************** */</span>
-<a name="l00203"></a>00203     <span class="comment">/*  can just copy the hdu directly across */</span>
-<a name="l00204"></a>00204     pOutfile-&gt;copy(ImagelistHDU);
+<a name="l00201"></a>00201 
+<a name="l00202"></a>00202 
+<a name="l00203"></a>00203 
+<a name="l00204"></a>00204 
 <a name="l00205"></a>00205 
-<a name="l00206"></a>00206     <span class="comment">/*  now copy the image hdus one by one */</span>
-<a name="l00207"></a>00207     <a class="code" href="CopyFileEfficiently_8cpp.html#a4cce417a424609bf375981959799ee78">StringVector</a> ImageHDUNames;
-<a name="l00208"></a>00208     ImageHDUNames.push_back(<span class="stringliteral">&quot;HJD&quot;</span>);
-<a name="l00209"></a>00209     ImageHDUNames.push_back(<span class="stringliteral">&quot;FLUX&quot;</span>);
-<a name="l00210"></a>00210     ImageHDUNames.push_back(<span class="stringliteral">&quot;FLUXERR&quot;</span>);
-<a name="l00211"></a>00211     ImageHDUNames.push_back(<span class="stringliteral">&quot;CCDX&quot;</span>);
-<a name="l00212"></a>00212     ImageHDUNames.push_back(<span class="stringliteral">&quot;CCDY&quot;</span>);
-<a name="l00213"></a>00213     ImageHDUNames.push_back(<span class="stringliteral">&quot;QUALITY&quot;</span>);
-<a name="l00214"></a>00214     ImageHDUNames.push_back(<span class="stringliteral">&quot;SKYBKG&quot;</span>);
-<a name="l00215"></a>00215 
-<a name="l00216"></a>00216     vector&lt;long&gt; naxes(2);
-<a name="l00217"></a>00217     naxes[0] = nFrames;
-<a name="l00218"></a>00218     naxes[1] = nTotal;
-<a name="l00219"></a>00219 
-<a name="l00220"></a>00220 
-<a name="l00221"></a>00221     <span class="keywordflow">for</span> (StringVector::const_iterator i=ImageHDUNames.begin();
-<a name="l00222"></a>00222             i!=ImageHDUNames.end();
-<a name="l00223"></a>00223             ++i)
-<a name="l00224"></a>00224     {
-<a name="l00225"></a>00225         <span class="comment">/*  get the bitpix of the original hdu */</span>
-<a name="l00226"></a>00226         cout &lt;&lt; <span class="stringliteral">&quot;Creating the &quot;</span> &lt;&lt; *i &lt;&lt; <span class="stringliteral">&quot; HDU&quot;</span> &lt;&lt; endl;
-<a name="l00227"></a>00227         <span class="keyword">const</span> <span class="keywordtype">long</span> bitpix = pInfile-&gt;extension(*i).bitpix();
-<a name="l00228"></a>00228         cout &lt;&lt; <span class="stringliteral">&quot;HDU Format: &quot;</span> &lt;&lt; ImageTypes[bitpix] &lt;&lt; endl;
-<a name="l00229"></a>00229 
-<a name="l00230"></a>00230 
-<a name="l00231"></a>00231         <span class="comment">/*  add the hdu */</span>
-<a name="l00232"></a>00232         ExtHDU *NewHDU = pOutfile-&gt;addImage(*i, bitpix, naxes);
-<a name="l00233"></a>00233         ExtHDU &amp;OldHDU = pInfile-&gt;extension(*i);
-<a name="l00234"></a>00234         fitsfile *infptr = pInfile-&gt;fitsPointer();
-<a name="l00235"></a>00235         fitsfile *outfptr = pOutfile-&gt;fitsPointer();
+<a name="l00206"></a>00206 
+<a name="l00207"></a>00207 
+<a name="l00208"></a>00208     <span class="comment">/* Creating the imagelist hdu */</span>
+<a name="l00209"></a>00209     <span class="comment">/*  ******************************************************************************** */</span>
+<a name="l00210"></a>00210     <span class="comment">/*  can just copy the hdu directly across */</span>
+<a name="l00211"></a>00211     pOutfile-&gt;copy(ImagelistHDU);
+<a name="l00212"></a>00212 
+<a name="l00213"></a>00213     <span class="comment">/*  now copy the image hdus one by one */</span>
+<a name="l00214"></a>00214     <a class="code" href="CopyFileEfficiently_8cpp.html#a4cce417a424609bf375981959799ee78">StringVector</a> ImageHDUNames;
+<a name="l00215"></a>00215     ImageHDUNames.push_back(<span class="stringliteral">&quot;HJD&quot;</span>);
+<a name="l00216"></a>00216     ImageHDUNames.push_back(<span class="stringliteral">&quot;FLUX&quot;</span>);
+<a name="l00217"></a>00217     ImageHDUNames.push_back(<span class="stringliteral">&quot;FLUXERR&quot;</span>);
+<a name="l00218"></a>00218     ImageHDUNames.push_back(<span class="stringliteral">&quot;CCDX&quot;</span>);
+<a name="l00219"></a>00219     ImageHDUNames.push_back(<span class="stringliteral">&quot;CCDY&quot;</span>);
+<a name="l00220"></a>00220     ImageHDUNames.push_back(<span class="stringliteral">&quot;QUALITY&quot;</span>);
+<a name="l00221"></a>00221     ImageHDUNames.push_back(<span class="stringliteral">&quot;SKYBKG&quot;</span>);
+<a name="l00222"></a>00222 
+<a name="l00223"></a>00223     vector&lt;long&gt; naxes(2);
+<a name="l00224"></a>00224     naxes[0] = nFrames;
+<a name="l00225"></a>00225     naxes[1] = nTotal;
+<a name="l00226"></a>00226 
+<a name="l00227"></a>00227 
+<a name="l00228"></a>00228     <span class="keywordflow">for</span> (StringVector::const_iterator i=ImageHDUNames.begin();
+<a name="l00229"></a>00229             i!=ImageHDUNames.end();
+<a name="l00230"></a>00230             ++i)
+<a name="l00231"></a>00231     {
+<a name="l00232"></a>00232         <span class="comment">/*  get the bitpix of the original hdu */</span>
+<a name="l00233"></a>00233         cout &lt;&lt; <span class="stringliteral">&quot;Creating the &quot;</span> &lt;&lt; *i &lt;&lt; <span class="stringliteral">&quot; HDU&quot;</span> &lt;&lt; endl;
+<a name="l00234"></a>00234         <span class="keyword">const</span> <span class="keywordtype">long</span> bitpix = pInfile-&gt;extension(*i).bitpix();
+<a name="l00235"></a>00235         cout &lt;&lt; <span class="stringliteral">&quot;HDU Format: &quot;</span> &lt;&lt; ImageTypes[bitpix] &lt;&lt; endl;
 <a name="l00236"></a>00236 
-<a name="l00237"></a>00237         <span class="comment">/*  copy the data across one line at a time */</span>
-<a name="l00238"></a>00238         <span class="keywordflow">switch</span> (bitpix)
-<a name="l00239"></a>00239         {
-<a name="l00240"></a>00240             <span class="keywordflow">case</span> BYTE_IMG:
-<a name="l00241"></a>00241                 CopyImageData&lt;unsigned int&gt;(OldHDU, *NewHDU, infptr, outfptr, AllowedSystemMemory);
-<a name="l00242"></a>00242                 <span class="keywordflow">break</span>;
-<a name="l00243"></a>00243             <span class="keywordflow">case</span> SHORT_IMG:
-<a name="l00244"></a>00244                 CopyImageData&lt;int&gt;(OldHDU, *NewHDU, infptr, outfptr, AllowedSystemMemory);
-<a name="l00245"></a>00245                 <span class="keywordflow">break</span>;
-<a name="l00246"></a>00246             <span class="keywordflow">case</span> LONG_IMG:
-<a name="l00247"></a>00247                 CopyImageData&lt;long&gt;(OldHDU, *NewHDU, infptr, outfptr, AllowedSystemMemory);
-<a name="l00248"></a>00248                 <span class="keywordflow">break</span>;
-<a name="l00249"></a>00249             <span class="keywordflow">case</span> LONGLONG_IMG:
-<a name="l00250"></a>00250                 CopyImageData&lt;long long&gt;(OldHDU, *NewHDU, infptr, outfptr, AllowedSystemMemory);
-<a name="l00251"></a>00251                 <span class="keywordflow">break</span>;
-<a name="l00252"></a>00252             <span class="keywordflow">case</span> FLOAT_IMG:
-<a name="l00253"></a>00253                 CopyImageData&lt;float&gt;(OldHDU, *NewHDU, infptr, outfptr, AllowedSystemMemory);
-<a name="l00254"></a>00254                 <span class="keywordflow">break</span>;
-<a name="l00255"></a>00255             <span class="keywordflow">case</span> DOUBLE_IMG:
-<a name="l00256"></a>00256                 CopyImageData&lt;double&gt;(OldHDU, *NewHDU, infptr, outfptr, AllowedSystemMemory);
-<a name="l00257"></a>00257                 <span class="keywordflow">break</span>;
-<a name="l00258"></a>00258             <span class="keywordflow">default</span>:
-<a name="l00259"></a>00259                 cerr &lt;&lt; <span class="stringliteral">&quot;Unknown HDU type encountered: &quot;</span> &lt;&lt; bitpix &lt;&lt; endl;
-<a name="l00260"></a>00260         }
-<a name="l00261"></a>00261 
-<a name="l00262"></a>00262     }
-<a name="l00263"></a>00263 
-<a name="l00264"></a>00264 
-<a name="l00265"></a>00265 
-<a name="l00266"></a>00266 
-<a name="l00267"></a>00267 }
+<a name="l00237"></a>00237 
+<a name="l00238"></a>00238         <span class="comment">/*  add the hdu */</span>
+<a name="l00239"></a>00239         ExtHDU *NewHDU = pOutfile-&gt;addImage(*i, bitpix, naxes);
+<a name="l00240"></a>00240         ExtHDU &amp;OldHDU = pInfile-&gt;extension(*i);
+<a name="l00241"></a>00241         fitsfile *infptr = pInfile-&gt;fitsPointer();
+<a name="l00242"></a>00242         fitsfile *outfptr = pOutfile-&gt;fitsPointer();
+<a name="l00243"></a>00243 
+<a name="l00244"></a>00244         <span class="comment">/*  copy the data across one line at a time */</span>
+<a name="l00245"></a>00245         <span class="keywordflow">switch</span> (bitpix)
+<a name="l00246"></a>00246         {
+<a name="l00247"></a>00247             <span class="keywordflow">case</span> BYTE_IMG:
+<a name="l00248"></a>00248                 CopyImageData&lt;unsigned int&gt;(OldHDU, *NewHDU, infptr, outfptr, AllowedSystemMemory);
+<a name="l00249"></a>00249                 <span class="keywordflow">break</span>;
+<a name="l00250"></a>00250             <span class="keywordflow">case</span> SHORT_IMG:
+<a name="l00251"></a>00251                 CopyImageData&lt;int&gt;(OldHDU, *NewHDU, infptr, outfptr, AllowedSystemMemory);
+<a name="l00252"></a>00252                 <span class="keywordflow">break</span>;
+<a name="l00253"></a>00253             <span class="keywordflow">case</span> LONG_IMG:
+<a name="l00254"></a>00254                 CopyImageData&lt;long&gt;(OldHDU, *NewHDU, infptr, outfptr, AllowedSystemMemory);
+<a name="l00255"></a>00255                 <span class="keywordflow">break</span>;
+<a name="l00256"></a>00256             <span class="keywordflow">case</span> LONGLONG_IMG:
+<a name="l00257"></a>00257                 CopyImageData&lt;long long&gt;(OldHDU, *NewHDU, infptr, outfptr, AllowedSystemMemory);
+<a name="l00258"></a>00258                 <span class="keywordflow">break</span>;
+<a name="l00259"></a>00259             <span class="keywordflow">case</span> FLOAT_IMG:
+<a name="l00260"></a>00260                 CopyImageData&lt;float&gt;(OldHDU, *NewHDU, infptr, outfptr, AllowedSystemMemory);
+<a name="l00261"></a>00261                 <span class="keywordflow">break</span>;
+<a name="l00262"></a>00262             <span class="keywordflow">case</span> DOUBLE_IMG:
+<a name="l00263"></a>00263                 CopyImageData&lt;double&gt;(OldHDU, *NewHDU, infptr, outfptr, AllowedSystemMemory);
+<a name="l00264"></a>00264                 <span class="keywordflow">break</span>;
+<a name="l00265"></a>00265             <span class="keywordflow">default</span>:
+<a name="l00266"></a>00266                 cerr &lt;&lt; <span class="stringliteral">&quot;Unknown HDU type encountered: &quot;</span> &lt;&lt; bitpix &lt;&lt; endl;
+<a name="l00267"></a>00267         }
 <a name="l00268"></a>00268 
+<a name="l00269"></a>00269     }
+<a name="l00270"></a>00270 
+<a name="l00271"></a>00271 
+<a name="l00272"></a>00272 
+<a name="l00273"></a>00273 
+<a name="l00274"></a>00274 }
+<a name="l00275"></a>00275 
 </pre></div></div>
 </div>
 <!-- window showing the filter options -->
@@ -345,7 +352,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Mon Jul 25 2011 10:35:17 for Synthetic lightcurves by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Tue Jul 26 2011 12:24:23 for Synthetic lightcurves by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

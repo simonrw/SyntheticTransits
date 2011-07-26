@@ -83,319 +83,319 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00020"></a>00020 <span class="preprocessor">#include &quot;<a class="code" href="GetSystemMemory_8h.html">GetSystemMemory.h</a>&quot;</span>
 <a name="l00021"></a>00021 <span class="preprocessor">#include &quot;<a class="code" href="CopyFileEfficiently_8h.html">CopyFileEfficiently.h</a>&quot;</span>
 <a name="l00022"></a>00022 <span class="preprocessor">#include &quot;<a class="code" href="ValidXML_8h.html">ValidXML.h</a>&quot;</span>
-<a name="l00023"></a>00023 
+<a name="l00023"></a>00023 <span class="preprocessor">#include &quot;<a class="code" href="ObjectSkipDefs_8h.html">ObjectSkipDefs.h</a>&quot;</span>
 <a name="l00024"></a>00024 
 <a name="l00025"></a>00025 
-<a name="l00026"></a>00026 <span class="keyword">using namespace </span>std;
-<a name="l00027"></a>00027 <span class="keyword">using namespace </span>CCfits;
-<a name="l00028"></a>00028 <span class="keyword">namespace </span>bf = boost::filesystem;
-<a name="l00029"></a>00029 
-<a name="l00030"></a>00030 
+<a name="l00026"></a>00026 
+<a name="l00027"></a>00027 <span class="keyword">using namespace </span>std;
+<a name="l00028"></a>00028 <span class="keyword">using namespace </span>CCfits;
+<a name="l00029"></a>00029 <span class="keyword">namespace </span>bf = boost::filesystem;
+<a name="l00030"></a>00030 <span class="keyword">namespace </span>ad = AlterDetrending;
 <a name="l00031"></a>00031 
 <a name="l00032"></a>00032 
 <a name="l00033"></a>00033 
-<a name="l00034"></a><a class="code" href="Application__Go_8cpp.html#a7e02205e8bcf457e5057637b23bfeaa0">00034</a> <span class="keyword">typedef</span> list&lt;string&gt; <a class="code" href="Application__CopyObjectData_8cpp.html#a7e02205e8bcf457e5057637b23bfeaa0">StringList</a>;
+<a name="l00034"></a>00034 
 <a name="l00035"></a>00035 
-<a name="l00036"></a>00036 
-<a name="l00037"></a>00037 <span class="comment">/* steps</span>
-<a name="l00038"></a>00038 <span class="comment"> *</span>
-<a name="l00039"></a>00039 <span class="comment"> * Read in the xml file and generate a model lightcurve</span>
+<a name="l00036"></a><a class="code" href="Application__Go_8cpp.html#a7e02205e8bcf457e5057637b23bfeaa0">00036</a> <span class="keyword">typedef</span> list&lt;string&gt; <a class="code" href="Application__CopyObjectData_8cpp.html#a7e02205e8bcf457e5057637b23bfeaa0">StringList</a>;
+<a name="l00037"></a>00037 
+<a name="l00038"></a>00038 
+<a name="l00039"></a>00039 <span class="comment">/* steps</span>
 <a name="l00040"></a>00040 <span class="comment"> *</span>
-<a name="l00041"></a>00041 <span class="comment"> * Open data file</span>
-<a name="l00042"></a>00042 <span class="comment"> * - if new file is selected then directly copy the file to a</span>
-<a name="l00043"></a>00043 <span class="comment"> *   new location</span>
-<a name="l00044"></a>00044 <span class="comment"> *</span>
-<a name="l00045"></a>00045 <span class="comment"> * Select the object in the file</span>
+<a name="l00041"></a>00041 <span class="comment"> * Read in the xml file and generate a model lightcurve</span>
+<a name="l00042"></a>00042 <span class="comment"> *</span>
+<a name="l00043"></a>00043 <span class="comment"> * Open data file</span>
+<a name="l00044"></a>00044 <span class="comment"> * - if new file is selected then directly copy the file to a</span>
+<a name="l00045"></a>00045 <span class="comment"> *   new location</span>
 <a name="l00046"></a>00046 <span class="comment"> *</span>
-<a name="l00047"></a>00047 <span class="comment"> * Subtract the subtracting model</span>
+<a name="l00047"></a>00047 <span class="comment"> * Select the object in the file</span>
 <a name="l00048"></a>00048 <span class="comment"> *</span>
-<a name="l00049"></a>00049 <span class="comment"> * (optionally) Add the adding model </span>
+<a name="l00049"></a>00049 <span class="comment"> * Subtract the subtracting model</span>
 <a name="l00050"></a>00050 <span class="comment"> *</span>
-<a name="l00051"></a>00051 <span class="comment"> * Close the file */</span>
-<a name="l00052"></a>00052 
-<a name="l00053"></a>00053 
+<a name="l00051"></a>00051 <span class="comment"> * (optionally) Add the adding model </span>
+<a name="l00052"></a>00052 <span class="comment"> *</span>
+<a name="l00053"></a>00053 <span class="comment"> * Close the file */</span>
 <a name="l00054"></a>00054 
 <a name="l00055"></a>00055 
 <a name="l00056"></a>00056 
 <a name="l00057"></a>00057 
-<a name="l00061"></a><a class="code" href="Application__Go_8cpp.html#aad5dc74d2731c99dacaa70e27b61ef28">00061</a> <span class="keywordtype">int</span> <a class="code" href="Application__Go_8cpp.html#aad5dc74d2731c99dacaa70e27b61ef28" title="Function to get the number of objects in a fits file.">getNObjects</a>(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;filename)
-<a name="l00062"></a>00062 {
-<a name="l00063"></a>00063     <span class="keywordtype">int</span> nObjects = -1;
-<a name="l00064"></a>00064     <span class="comment">/*  assume the number of objects is just the number of entries in the</span>
-<a name="l00065"></a>00065 <span class="comment">     *  catalogue hdu */</span>
-<a name="l00066"></a>00066     auto_ptr&lt;FITS&gt; pInfile(<span class="keyword">new</span> FITS(filename, Read));
-<a name="l00067"></a>00067 
-<a name="l00068"></a>00068     ExtHDU &amp;CatalogueHDU = pInfile-&gt;extension(<span class="stringliteral">&quot;CATALOGUE&quot;</span>);
-<a name="l00069"></a>00069     nObjects = CatalogueHDU.rows();
-<a name="l00070"></a>00070 
-<a name="l00071"></a>00071     <span class="keywordflow">return</span> nObjects;
-<a name="l00072"></a>00072 }
-<a name="l00073"></a>00073 
-<a name="l00074"></a>00074 
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059 
+<a name="l00063"></a><a class="code" href="Application__Go_8cpp.html#aad5dc74d2731c99dacaa70e27b61ef28">00063</a> <span class="keywordtype">int</span> <a class="code" href="Application__Go_8cpp.html#aad5dc74d2731c99dacaa70e27b61ef28" title="Function to get the number of objects in a fits file.">getNObjects</a>(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;filename)
+<a name="l00064"></a>00064 {
+<a name="l00065"></a>00065     <span class="keywordtype">int</span> nObjects = -1;
+<a name="l00066"></a>00066     <span class="comment">/*  assume the number of objects is just the number of entries in the</span>
+<a name="l00067"></a>00067 <span class="comment">     *  catalogue hdu */</span>
+<a name="l00068"></a>00068     auto_ptr&lt;FITS&gt; pInfile(<span class="keyword">new</span> FITS(filename, Read));
+<a name="l00069"></a>00069 
+<a name="l00070"></a>00070     ExtHDU &amp;CatalogueHDU = pInfile-&gt;extension(<span class="stringliteral">&quot;CATALOGUE&quot;</span>);
+<a name="l00071"></a>00071     nObjects = CatalogueHDU.rows();
+<a name="l00072"></a>00072 
+<a name="l00073"></a>00073     <span class="keywordflow">return</span> nObjects;
+<a name="l00074"></a>00074 }
 <a name="l00075"></a>00075 
-<a name="l00079"></a><a class="code" href="classApplication.html#a317a13efcc06c55837ece16f52c78f69">00079</a> <span class="keywordtype">int</span> <a class="code" href="classApplication.html#a317a13efcc06c55837ece16f52c78f69" title="The main function, abstracted from the main function for good separation.">Application::go</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[])
-<a name="l00080"></a>00080 {
-<a name="l00081"></a>00081     <span class="comment">/* new main function */</span>
-<a name="l00082"></a>00082     TCLAP::CmdLine cmd(<span class="stringliteral">&quot;Synthetic lightcurves&quot;</span>, <span class="charliteral">&#39; &#39;</span>, <span class="stringliteral">&quot;1.0&quot;</span>);
-<a name="l00083"></a>00083     TCLAP::ValueArg&lt;float&gt; memlimit_arg(<span class="stringliteral">&quot;M&quot;</span>, <span class="stringliteral">&quot;memorylimit&quot;</span>, <span class="stringliteral">&quot;Fraction of system memory to use&quot;</span>, <span class="keyword">false</span>, 0.1, <span class="stringliteral">&quot;0-1&quot;</span>, cmd);
-<a name="l00084"></a>00084     TCLAP::SwitchArg wasptreatment_arg(<span class="stringliteral">&quot;w&quot;</span>, <span class="stringliteral">&quot;wasp&quot;</span>, <span class="stringliteral">&quot;Do not treat as WASP object&quot;</span>, cmd, <span class="keyword">true</span>);
-<a name="l00085"></a>00085     TCLAP::ValueArg&lt;string&gt; output_arg(<span class="stringliteral">&quot;o&quot;</span>, <span class="stringliteral">&quot;output&quot;</span>, <span class="stringliteral">&quot;Optional output file&quot;</span>, <span class="keyword">false</span>, <span class="stringliteral">&quot;output.fits&quot;</span>, <span class="stringliteral">&quot;Fits filename&quot;</span>, cmd);
-<a name="l00086"></a>00086     TCLAP::ValueArg&lt;string&gt; objectid_arg(<span class="stringliteral">&quot;O&quot;</span>, <span class="stringliteral">&quot;object&quot;</span>, <span class="stringliteral">&quot;Object to alter&quot;</span>, <span class="keyword">true</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;Object identifier&quot;</span>, cmd);
-<a name="l00087"></a>00087     TCLAP::SwitchArg replace_arg(<span class="stringliteral">&quot;r&quot;</span>, <span class="stringliteral">&quot;replace&quot;</span>, <span class="stringliteral">&quot;Replace the lightcurve instead of appending to the end of the file&quot;</span>, cmd, <span class="keyword">false</span>);
-<a name="l00088"></a>00088     TCLAP::ValueArg&lt;string&gt; subModel_arg(<span class="stringliteral">&quot;s&quot;</span>, <span class="stringliteral">&quot;submodel&quot;</span>, <span class="stringliteral">&quot;Model to subtract&quot;</span>, <span class="keyword">true</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;Model xml file&quot;</span>, cmd);
-<a name="l00089"></a>00089     TCLAP::ValueArg&lt;string&gt; addModelFilename_arg(<span class="stringliteral">&quot;a&quot;</span>, <span class="stringliteral">&quot;addmodels&quot;</span>, <span class="stringliteral">&quot;List of model files&quot;</span>, <span class="keyword">true</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;List of files&quot;</span>, cmd);
-<a name="l00090"></a>00090     TCLAP::UnlabeledValueArg&lt;string&gt; filename_arg(<span class="stringliteral">&quot;file&quot;</span>, <span class="stringliteral">&quot;File&quot;</span>, <span class="keyword">true</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;Fits file&quot;</span>, cmd);
-<a name="l00091"></a>00091 
-<a name="l00092"></a>00092 
+<a name="l00076"></a>00076 
+<a name="l00077"></a>00077 
+<a name="l00081"></a><a class="code" href="classApplication.html#a317a13efcc06c55837ece16f52c78f69">00081</a> <span class="keywordtype">int</span> <a class="code" href="classApplication.html#a317a13efcc06c55837ece16f52c78f69" title="The main function, abstracted from the main function for good separation.">Application::go</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[])
+<a name="l00082"></a>00082 {
+<a name="l00083"></a>00083     <span class="comment">/* new main function */</span>
+<a name="l00084"></a>00084     TCLAP::CmdLine cmd(<span class="stringliteral">&quot;Synthetic lightcurves&quot;</span>, <span class="charliteral">&#39; &#39;</span>, <span class="stringliteral">&quot;1.0&quot;</span>);
+<a name="l00085"></a>00085     TCLAP::ValueArg&lt;float&gt; memlimit_arg(<span class="stringliteral">&quot;M&quot;</span>, <span class="stringliteral">&quot;memorylimit&quot;</span>, <span class="stringliteral">&quot;Fraction of system memory to use&quot;</span>, <span class="keyword">false</span>, 0.1, <span class="stringliteral">&quot;0-1&quot;</span>, cmd);
+<a name="l00086"></a>00086     TCLAP::SwitchArg wasptreatment_arg(<span class="stringliteral">&quot;w&quot;</span>, <span class="stringliteral">&quot;wasp&quot;</span>, <span class="stringliteral">&quot;Do not treat as WASP object&quot;</span>, cmd, <span class="keyword">true</span>);
+<a name="l00087"></a>00087     TCLAP::ValueArg&lt;string&gt; output_arg(<span class="stringliteral">&quot;o&quot;</span>, <span class="stringliteral">&quot;output&quot;</span>, <span class="stringliteral">&quot;Optional output file&quot;</span>, <span class="keyword">false</span>, <span class="stringliteral">&quot;output.fits&quot;</span>, <span class="stringliteral">&quot;Fits filename&quot;</span>, cmd);
+<a name="l00088"></a>00088     TCLAP::ValueArg&lt;string&gt; objectid_arg(<span class="stringliteral">&quot;O&quot;</span>, <span class="stringliteral">&quot;object&quot;</span>, <span class="stringliteral">&quot;Object to alter&quot;</span>, <span class="keyword">true</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;Object identifier&quot;</span>, cmd);
+<a name="l00089"></a>00089     TCLAP::SwitchArg replace_arg(<span class="stringliteral">&quot;r&quot;</span>, <span class="stringliteral">&quot;replace&quot;</span>, <span class="stringliteral">&quot;Replace the lightcurve instead of appending to the end of the file&quot;</span>, cmd, <span class="keyword">false</span>);
+<a name="l00090"></a>00090     TCLAP::ValueArg&lt;string&gt; subModel_arg(<span class="stringliteral">&quot;s&quot;</span>, <span class="stringliteral">&quot;submodel&quot;</span>, <span class="stringliteral">&quot;Model to subtract&quot;</span>, <span class="keyword">true</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;Model xml file&quot;</span>, cmd);
+<a name="l00091"></a>00091     TCLAP::ValueArg&lt;string&gt; addModelFilename_arg(<span class="stringliteral">&quot;a&quot;</span>, <span class="stringliteral">&quot;addmodels&quot;</span>, <span class="stringliteral">&quot;List of model files&quot;</span>, <span class="keyword">true</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;List of files&quot;</span>, cmd);
+<a name="l00092"></a>00092     TCLAP::UnlabeledValueArg&lt;string&gt; filename_arg(<span class="stringliteral">&quot;file&quot;</span>, <span class="stringliteral">&quot;File&quot;</span>, <span class="keyword">true</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;Fits file&quot;</span>, cmd);
 <a name="l00093"></a>00093 
-<a name="l00094"></a>00094     cmd.parse(argc, argv);
+<a name="l00094"></a>00094 
 <a name="l00095"></a>00095 
-<a name="l00096"></a>00096     <span class="comment">/*  get the system memory */</span>
-<a name="l00097"></a>00097     <span class="keywordtype">long</span> SystemMemory = <a class="code" href="GetSystemMemory_8cpp.html#a61801d4d0fd0a0b0de1dfed288dbb120" title="Returns the system memory.">getTotalSystemMemory</a>();
-<a name="l00098"></a>00098 
-<a name="l00099"></a>00099     cout  &lt;&lt; <span class="stringliteral">&quot;System memory: &quot;</span> &lt;&lt; SystemMemory / 1024. / 1024. &lt;&lt; <span class="stringliteral">&quot; MB&quot;</span> &lt;&lt; endl;
-<a name="l00100"></a>00100     <span class="keywordtype">float</span> MemFraction = memlimit_arg.getValue();
-<a name="l00101"></a>00101 
-<a name="l00102"></a>00102     <span class="comment">/*  make sure this is within the range 0-1 */</span>
-<a name="l00103"></a>00103     <span class="keywordflow">if</span> ((MemFraction &lt;= 0) || (MemFraction &gt; 1))
-<a name="l00104"></a>00104     {
-<a name="l00105"></a>00105         <span class="keywordflow">throw</span> <a class="code" href="structMemoryException.html" title="Memory exception if the user requires less than 0 or more than all of the memory.">MemoryException</a>(<span class="stringliteral">&quot;Allowed memory is within range 0-1&quot;</span>);
-<a name="l00106"></a>00106     }
-<a name="l00107"></a>00107 
-<a name="l00108"></a>00108     <span class="comment">//float AvailableMemory = MemFraction * SystemMemory;</span>
-<a name="l00109"></a>00109     <span class="comment">//cout &lt;&lt; &quot;Using &quot; &lt;&lt; AvailableMemory / 1024. / 1024. &lt;&lt; &quot; MB of memory&quot; &lt;&lt; endl;</span>
-<a name="l00110"></a>00110 
-<a name="l00111"></a>00111     <span class="comment">/*  need to deal with whether the addmodel argument is null or not */</span>
-<a name="l00112"></a>00112     <span class="comment">/*  if the model argument is NULL then do not add a model into the lightcurve */</span>
-<a name="l00113"></a>00113     <span class="keywordtype">bool</span> addModelFlag = <span class="keyword">true</span>;
-<a name="l00114"></a>00114     <span class="keywordflow">if</span> (addModelFilename_arg.getValue() == <span class="stringliteral">&quot;NULL&quot;</span>)
-<a name="l00115"></a>00115     {
-<a name="l00116"></a>00116         <span class="comment">/*  Not adding a model into the lightcurve */</span>
-<a name="l00117"></a>00117         addModelFlag = <span class="keyword">false</span>;
-<a name="l00118"></a>00118         cout &lt;&lt; <span class="stringliteral">&quot;Not adding a transit&quot;</span> &lt;&lt; endl;
-<a name="l00119"></a>00119     }
-<a name="l00120"></a>00120 
-<a name="l00121"></a>00121     <span class="comment">/********************************************************************************* </span>
-<a name="l00122"></a>00122 <span class="comment">     * LOCATION FOR COMMON CODE TO BOTH BRANCHES</span>
-<a name="l00123"></a>00123 <span class="comment">    *********************************************************************************/</span>
-<a name="l00124"></a>00124     <span class="comment">/*  need a subtraction model whatever happens */</span>
-<a name="l00125"></a>00125     <a class="code" href="classLightcurve.html" title="Lightcurve class which stores information about a single object.">Lightcurve</a> SubModel = GenerateModel(subModel_arg.getValue());
-<a name="l00126"></a>00126 
-<a name="l00127"></a>00127     <span class="comment">/*  print if the object is from wasp or not */</span>
-<a name="l00128"></a>00128     <span class="keyword">const</span> <span class="keywordtype">bool</span> asWASP = wasptreatment_arg.getValue();
-<a name="l00129"></a>00129     <span class="keywordflow">if</span> (asWASP)
-<a name="l00130"></a>00130         cout &lt;&lt; <span class="stringliteral">&quot;WASP object chosen&quot;</span> &lt;&lt; endl;
-<a name="l00131"></a>00131     <span class="keywordflow">else</span>
-<a name="l00132"></a>00132         cout &lt;&lt; <span class="stringliteral">&quot;Non-WASP object chosen&quot;</span> &lt;&lt; endl;
-<a name="l00133"></a>00133 
-<a name="l00134"></a>00134     <span class="comment">/*  need to get the number of objects that were originally in the </span>
-<a name="l00135"></a>00135 <span class="comment">     *  file so we know which index to add the nExtra objects at */</span>
-<a name="l00136"></a>00136     <span class="keyword">const</span> <span class="keywordtype">int</span> nObjects = <a class="code" href="Application__Go_8cpp.html#aad5dc74d2731c99dacaa70e27b61ef28" title="Function to get the number of objects in a fits file.">getNObjects</a>(filename_arg.getValue());
-<a name="l00137"></a>00137 
-<a name="l00138"></a>00138     <span class="comment">/*  string for storing the filename */</span>
-<a name="l00139"></a>00139     <span class="keywordtype">string</span> DataFilename = output_arg.getValue();
-<a name="l00140"></a>00140 
-<a name="l00141"></a>00141     <span class="comment">/*  if the addmodel argument is not NULL and the replace argument is true</span>
-<a name="l00142"></a>00142 <span class="comment">     *  then the user must specify a single model file for replacement */</span>
-<a name="l00143"></a>00143     <span class="keywordflow">if</span> (addModelFlag &amp;&amp; replace_arg.getValue())
-<a name="l00144"></a>00144     {
-<a name="l00145"></a>00145         <span class="comment">/*  add model argument must point to a valid xml file */</span>
-<a name="l00146"></a>00146         <span class="keywordflow">if</span> (!<a class="code" href="ValidXML_8cpp.html#a056e735bb699f74a4a66aec2ccaf89b8" title="Function will check if a file is a valid xml file.">ValidXML</a>(addModelFilename_arg.getValue()))
-<a name="l00147"></a>00147         {
-<a name="l00148"></a>00148             <span class="keywordflow">throw</span> <a class="code" href="structNotValidXMLFile.html" title="Exception thrown if a file is not a vaild file.">NotValidXMLFile</a>(<span class="stringliteral">&quot;Model to add in this mode must be a valid config file&quot;</span>);
-<a name="l00149"></a>00149         }
-<a name="l00150"></a>00150 
-<a name="l00151"></a>00151         <span class="comment">/* no extra lightcurves will be added */</span>
-<a name="l00152"></a>00152         <span class="keyword">const</span> <span class="keywordtype">int</span> nExtra = 0; 
-<a name="l00153"></a>00153 
-<a name="l00154"></a>00154         <span class="comment">/*  now copy the file across */</span>
-<a name="l00155"></a>00155         <span class="comment">/*  exclamation mark ensures the file is overwritten if it exists */</span>
-<a name="l00156"></a>00156         <a class="code" href="CopyFileEfficiently_8cpp.html#a65effe17c58c87603bb80622c8a6d3b7">CopyFileEfficiently</a>(filename_arg.getValue(), nExtra, <span class="stringliteral">&quot;!&quot;</span> + DataFilename, MemFraction);
-<a name="l00157"></a>00157 
-<a name="l00158"></a>00158         <span class="comment">/*  now subtract the original model including the setup */</span>
-<a name="l00159"></a>00159         <span class="comment">/*  open the fits file */</span>
-<a name="l00160"></a>00160         mInfile = auto_ptr&lt;FITS&gt;(<span class="keyword">new</span> FITS(DataFilename, Write));
-<a name="l00161"></a>00161         fptr = mInfile-&gt;fitsPointer();
-<a name="l00162"></a>00162 
-<a name="l00163"></a>00163         <span class="comment">/*  get the desired index */</span>
-<a name="l00164"></a>00164         mObjectIndex = ObjectIndex(objectid_arg.getValue());
-<a name="l00165"></a>00165         cout &lt;&lt; <span class="stringliteral">&quot;Object found at index: &quot;</span> &lt;&lt; mObjectIndex &lt;&lt; endl;
-<a name="l00166"></a>00166 
-<a name="l00167"></a>00167         <span class="comment">/*  extract the flux */</span>
-<a name="l00168"></a>00168         <a class="code" href="classLightcurve.html" title="Lightcurve class which stores information about a single object.">Lightcurve</a> ChosenObject = getObject();
-<a name="l00169"></a>00169 
-<a name="l00170"></a>00170         <span class="comment">/*  update the period and epoch */</span>
-<a name="l00171"></a>00171         ChosenObject.<a class="code" href="classLightcurve.html#a6e8ac482decf1bbcc3f4eea9a4818646" title="Orbital period (days)">period</a> = SubModel.<a class="code" href="classLightcurve.html#a6e8ac482decf1bbcc3f4eea9a4818646" title="Orbital period (days)">period</a>;
-<a name="l00172"></a>00172         ChosenObject.<a class="code" href="classLightcurve.html#aeb03d82f5ff13e75bbb40af674f6597a" title="Point of mid transit (days)">epoch</a> = SubModel.<a class="code" href="classLightcurve.html#aeb03d82f5ff13e75bbb40af674f6597a" title="Point of mid transit (days)">epoch</a>;
-<a name="l00173"></a>00173 
-<a name="l00174"></a>00174         <span class="keywordflow">if</span> (asWASP)
-<a name="l00175"></a>00175             ChosenObject.<a class="code" href="classLightcurve.html#a54903f9ec0b5fc7b8080cacc332752ec" title="Treat the object as a WASP object Basically means the jd is actually wd.">asWASP</a> = <span class="keyword">true</span>;
-<a name="l00176"></a>00176         <span class="keywordflow">else</span>
-<a name="l00177"></a>00177             ChosenObject.<a class="code" href="classLightcurve.html#a54903f9ec0b5fc7b8080cacc332752ec" title="Treat the object as a WASP object Basically means the jd is actually wd.">asWASP</a> = <span class="keyword">false</span>;
-<a name="l00178"></a>00178 
-<a name="l00179"></a>00179         SubModel.<a class="code" href="classLightcurve.html#a54903f9ec0b5fc7b8080cacc332752ec" title="Treat the object as a WASP object Basically means the jd is actually wd.">asWASP</a> = <span class="keyword">false</span>;
+<a name="l00096"></a>00096     cmd.parse(argc, argv);
+<a name="l00097"></a>00097 
+<a name="l00098"></a>00098     <span class="comment">/*  get the system memory */</span>
+<a name="l00099"></a>00099     <span class="keywordtype">long</span> SystemMemory = <a class="code" href="GetSystemMemory_8cpp.html#a61801d4d0fd0a0b0de1dfed288dbb120" title="Returns the system memory.">getTotalSystemMemory</a>();
+<a name="l00100"></a>00100 
+<a name="l00101"></a>00101     cout  &lt;&lt; <span class="stringliteral">&quot;System memory: &quot;</span> &lt;&lt; SystemMemory / 1024. / 1024. &lt;&lt; <span class="stringliteral">&quot; MB&quot;</span> &lt;&lt; endl;
+<a name="l00102"></a>00102     <span class="keywordtype">float</span> MemFraction = memlimit_arg.getValue();
+<a name="l00103"></a>00103 
+<a name="l00104"></a>00104     <span class="comment">/*  make sure this is within the range 0-1 */</span>
+<a name="l00105"></a>00105     <span class="keywordflow">if</span> ((MemFraction &lt;= 0) || (MemFraction &gt; 1))
+<a name="l00106"></a>00106     {
+<a name="l00107"></a>00107         <span class="keywordflow">throw</span> <a class="code" href="structMemoryException.html" title="Memory exception if the user requires less than 0 or more than all of the memory.">MemoryException</a>(<span class="stringliteral">&quot;Allowed memory is within range 0-1&quot;</span>);
+<a name="l00108"></a>00108     }
+<a name="l00109"></a>00109 
+<a name="l00110"></a>00110     <span class="comment">//float AvailableMemory = MemFraction * SystemMemory;</span>
+<a name="l00111"></a>00111     <span class="comment">//cout &lt;&lt; &quot;Using &quot; &lt;&lt; AvailableMemory / 1024. / 1024. &lt;&lt; &quot; MB of memory&quot; &lt;&lt; endl;</span>
+<a name="l00112"></a>00112 
+<a name="l00113"></a>00113     <span class="comment">/*  need to deal with whether the addmodel argument is null or not */</span>
+<a name="l00114"></a>00114     <span class="comment">/*  if the model argument is NULL then do not add a model into the lightcurve */</span>
+<a name="l00115"></a>00115     <span class="keywordtype">bool</span> addModelFlag = <span class="keyword">true</span>;
+<a name="l00116"></a>00116     <span class="keywordflow">if</span> (addModelFilename_arg.getValue() == <span class="stringliteral">&quot;NULL&quot;</span>)
+<a name="l00117"></a>00117     {
+<a name="l00118"></a>00118         <span class="comment">/*  Not adding a model into the lightcurve */</span>
+<a name="l00119"></a>00119         addModelFlag = <span class="keyword">false</span>;
+<a name="l00120"></a>00120         cout &lt;&lt; <span class="stringliteral">&quot;Not adding a transit&quot;</span> &lt;&lt; endl;
+<a name="l00121"></a>00121     }
+<a name="l00122"></a>00122 
+<a name="l00123"></a>00123     <span class="comment">/********************************************************************************* </span>
+<a name="l00124"></a>00124 <span class="comment">     * LOCATION FOR COMMON CODE TO BOTH BRANCHES</span>
+<a name="l00125"></a>00125 <span class="comment">    *********************************************************************************/</span>
+<a name="l00126"></a>00126     <span class="comment">/*  need a subtraction model whatever happens */</span>
+<a name="l00127"></a>00127     <a class="code" href="classLightcurve.html" title="Lightcurve class which stores information about a single object.">Lightcurve</a> SubModel = GenerateModel(subModel_arg.getValue());
+<a name="l00128"></a>00128 
+<a name="l00129"></a>00129     <span class="comment">/*  print if the object is from wasp or not */</span>
+<a name="l00130"></a>00130     <span class="keyword">const</span> <span class="keywordtype">bool</span> asWASP = wasptreatment_arg.getValue();
+<a name="l00131"></a>00131     <span class="keywordflow">if</span> (asWASP)
+<a name="l00132"></a>00132         cout &lt;&lt; <span class="stringliteral">&quot;WASP object chosen&quot;</span> &lt;&lt; endl;
+<a name="l00133"></a>00133     <span class="keywordflow">else</span>
+<a name="l00134"></a>00134         cout &lt;&lt; <span class="stringliteral">&quot;Non-WASP object chosen&quot;</span> &lt;&lt; endl;
+<a name="l00135"></a>00135 
+<a name="l00136"></a>00136     <span class="comment">/*  need to get the number of objects that were originally in the </span>
+<a name="l00137"></a>00137 <span class="comment">     *  file so we know which index to add the nExtra objects at */</span>
+<a name="l00138"></a>00138     <span class="keyword">const</span> <span class="keywordtype">int</span> nObjects = <a class="code" href="Application__Go_8cpp.html#aad5dc74d2731c99dacaa70e27b61ef28" title="Function to get the number of objects in a fits file.">getNObjects</a>(filename_arg.getValue());
+<a name="l00139"></a>00139 
+<a name="l00140"></a>00140     <span class="comment">/*  string for storing the filename */</span>
+<a name="l00141"></a>00141     <span class="keywordtype">string</span> DataFilename = output_arg.getValue();
+<a name="l00142"></a>00142 
+<a name="l00143"></a>00143     <span class="comment">/*  if the addmodel argument is not NULL and the replace argument is true</span>
+<a name="l00144"></a>00144 <span class="comment">     *  then the user must specify a single model file for replacement */</span>
+<a name="l00145"></a>00145     <span class="keywordflow">if</span> (addModelFlag &amp;&amp; replace_arg.getValue())
+<a name="l00146"></a>00146     {
+<a name="l00147"></a>00147         <span class="comment">/*  add model argument must point to a valid xml file */</span>
+<a name="l00148"></a>00148         <span class="keywordflow">if</span> (!<a class="code" href="ValidXML_8cpp.html#a056e735bb699f74a4a66aec2ccaf89b8" title="Function will check if a file is a valid xml file.">ValidXML</a>(addModelFilename_arg.getValue()))
+<a name="l00149"></a>00149         {
+<a name="l00150"></a>00150             <span class="keywordflow">throw</span> <a class="code" href="structNotValidXMLFile.html" title="Exception thrown if a file is not a vaild file.">NotValidXMLFile</a>(<span class="stringliteral">&quot;Model to add in this mode must be a valid config file&quot;</span>);
+<a name="l00151"></a>00151         }
+<a name="l00152"></a>00152 
+<a name="l00153"></a>00153         <span class="comment">/* no extra lightcurves will be added */</span>
+<a name="l00154"></a>00154         <span class="keyword">const</span> <span class="keywordtype">int</span> nExtra = 0; 
+<a name="l00155"></a>00155 
+<a name="l00156"></a>00156         <span class="comment">/*  now copy the file across */</span>
+<a name="l00157"></a>00157         <span class="comment">/*  exclamation mark ensures the file is overwritten if it exists */</span>
+<a name="l00158"></a>00158         <a class="code" href="CopyFileEfficiently_8cpp.html#a65effe17c58c87603bb80622c8a6d3b7">CopyFileEfficiently</a>(filename_arg.getValue(), nExtra, <span class="stringliteral">&quot;!&quot;</span> + DataFilename, MemFraction);
+<a name="l00159"></a>00159 
+<a name="l00160"></a>00160         <span class="comment">/*  now subtract the original model including the setup */</span>
+<a name="l00161"></a>00161         <span class="comment">/*  open the fits file */</span>
+<a name="l00162"></a>00162         mInfile = auto_ptr&lt;FITS&gt;(<span class="keyword">new</span> FITS(DataFilename, Write));
+<a name="l00163"></a>00163         fptr = mInfile-&gt;fitsPointer();
+<a name="l00164"></a>00164 
+<a name="l00165"></a>00165         <span class="comment">/*  get the desired index */</span>
+<a name="l00166"></a>00166         mObjectIndex = ObjectIndex(objectid_arg.getValue());
+<a name="l00167"></a>00167         cout &lt;&lt; <span class="stringliteral">&quot;Object found at index: &quot;</span> &lt;&lt; mObjectIndex &lt;&lt; endl;
+<a name="l00168"></a>00168 
+<a name="l00169"></a>00169         <span class="comment">/*  extract the flux */</span>
+<a name="l00170"></a>00170         <a class="code" href="classLightcurve.html" title="Lightcurve class which stores information about a single object.">Lightcurve</a> ChosenObject = getObject();
+<a name="l00171"></a>00171 
+<a name="l00172"></a>00172         <span class="comment">/*  update the period and epoch */</span>
+<a name="l00173"></a>00173         ChosenObject.<a class="code" href="classLightcurve.html#a6e8ac482decf1bbcc3f4eea9a4818646" title="Orbital period (days)">period</a> = SubModel.<a class="code" href="classLightcurve.html#a6e8ac482decf1bbcc3f4eea9a4818646" title="Orbital period (days)">period</a>;
+<a name="l00174"></a>00174         ChosenObject.<a class="code" href="classLightcurve.html#aeb03d82f5ff13e75bbb40af674f6597a" title="Point of mid transit (days)">epoch</a> = SubModel.<a class="code" href="classLightcurve.html#aeb03d82f5ff13e75bbb40af674f6597a" title="Point of mid transit (days)">epoch</a>;
+<a name="l00175"></a>00175 
+<a name="l00176"></a>00176         <span class="keywordflow">if</span> (asWASP)
+<a name="l00177"></a>00177             ChosenObject.<a class="code" href="classLightcurve.html#a54903f9ec0b5fc7b8080cacc332752ec" title="Treat the object as a WASP object Basically means the jd is actually wd.">asWASP</a> = <span class="keyword">true</span>;
+<a name="l00178"></a>00178         <span class="keywordflow">else</span>
+<a name="l00179"></a>00179             ChosenObject.<a class="code" href="classLightcurve.html#a54903f9ec0b5fc7b8080cacc332752ec" title="Treat the object as a WASP object Basically means the jd is actually wd.">asWASP</a> = <span class="keyword">false</span>;
 <a name="l00180"></a>00180 
-<a name="l00181"></a>00181         <a class="code" href="classLightcurve.html" title="Lightcurve class which stores information about a single object.">Lightcurve</a> LCRemoved = <a class="code" href="AlterTransit_8cpp.html#a3a8c7372713c9dea27e5a8e81f365acb" title="Function to remove a transit from a lightcurve.">RemoveTransit</a>(ChosenObject, SubModel);
-<a name="l00182"></a>00182         LCRemoved.<a class="code" href="classLightcurve.html#a54903f9ec0b5fc7b8080cacc332752ec" title="Treat the object as a WASP object Basically means the jd is actually wd.">asWASP</a> = ChosenObject.<a class="code" href="classLightcurve.html#a54903f9ec0b5fc7b8080cacc332752ec" title="Treat the object as a WASP object Basically means the jd is actually wd.">asWASP</a>;
-<a name="l00183"></a>00183         <span class="comment">/* TODO: Consider putting the setup into the remove transits function itself */</span>
-<a name="l00184"></a>00184 
-<a name="l00185"></a>00185         <span class="comment">/*  now need to add the model to the lightcurve */</span>
-<a name="l00186"></a>00186         <a class="code" href="classLightcurve.html" title="Lightcurve class which stores information about a single object.">Lightcurve</a> AddModel = GenerateModel(addModelFilename_arg.getValue());
-<a name="l00187"></a>00187         AddModel.<a class="code" href="classLightcurve.html#a54903f9ec0b5fc7b8080cacc332752ec" title="Treat the object as a WASP object Basically means the jd is actually wd.">asWASP</a> = <span class="keyword">false</span>;
-<a name="l00188"></a>00188         LCRemoved.<a class="code" href="classLightcurve.html#a6e8ac482decf1bbcc3f4eea9a4818646" title="Orbital period (days)">period</a> = AddModel.<a class="code" href="classLightcurve.html#a6e8ac482decf1bbcc3f4eea9a4818646" title="Orbital period (days)">period</a>;
-<a name="l00189"></a>00189         LCRemoved.<a class="code" href="classLightcurve.html#aeb03d82f5ff13e75bbb40af674f6597a" title="Point of mid transit (days)">epoch</a> = AddModel.<a class="code" href="classLightcurve.html#aeb03d82f5ff13e75bbb40af674f6597a" title="Point of mid transit (days)">epoch</a>;
-<a name="l00190"></a>00190         <a class="code" href="classLightcurve.html" title="Lightcurve class which stores information about a single object.">Lightcurve</a> SyntheticLightcurve = <a class="code" href="AlterTransit_8cpp.html#abeb36a203c65247c1c9b69009be575c7" title="Function to add a transit from a lightcurve.">AddTransit</a>(LCRemoved, AddModel);
-<a name="l00191"></a>00191         SyntheticLightcurve.<a class="code" href="classLightcurve.html#a5ea808adfccc9ac58982d4dd8dfa4d72" title="Radius (Jupiter radii)">radius</a> = AddModel.<a class="code" href="classLightcurve.html#a5ea808adfccc9ac58982d4dd8dfa4d72" title="Radius (Jupiter radii)">radius</a>;
-<a name="l00192"></a>00192 
-<a name="l00193"></a>00193         UpdateFile(SyntheticLightcurve);
-<a name="l00194"></a>00194     }
-<a name="l00195"></a>00195     <span class="keywordflow">else</span>
-<a name="l00196"></a>00196     {
-<a name="l00197"></a>00197         <span class="comment">/* Branch for appending multiple lightcurves */</span>
-<a name="l00198"></a>00198         <span class="comment">/* If the addmodel argument points to a valid xml file then </span>
-<a name="l00199"></a>00199 <span class="comment">         * raise an error */</span>
-<a name="l00200"></a>00200         <span class="keywordflow">if</span> (<a class="code" href="ValidXML_8cpp.html#a056e735bb699f74a4a66aec2ccaf89b8" title="Function will check if a file is a valid xml file.">ValidXML</a>(addModelFilename_arg.getValue()))
-<a name="l00201"></a>00201         {
-<a name="l00202"></a>00202             <span class="keywordflow">throw</span> <a class="code" href="structUsageError.html" title="Exception for poor user input.">UsageError</a>(<span class="stringliteral">&quot;Single model file specified, this mode requires &quot;</span>
-<a name="l00203"></a>00203                     <span class="stringliteral">&quot;multiple model files. Perhaps you wanted -r/--replace mode?&quot;</span>);
-<a name="l00204"></a>00204         }
-<a name="l00205"></a>00205 
-<a name="l00206"></a>00206 
-<a name="l00207"></a>00207         <span class="comment">/*  need to get the list of extra models to add */</span>
-<a name="l00208"></a>00208         <span class="keywordtype">int</span> nExtra = 0;
-<a name="l00209"></a>00209 
-<a name="l00210"></a>00210 
-<a name="l00211"></a>00211         <a class="code" href="Application__CopyObjectData_8cpp.html#a7e02205e8bcf457e5057637b23bfeaa0">StringList</a> AddModelFilenames;
+<a name="l00181"></a>00181         SubModel.<a class="code" href="classLightcurve.html#a54903f9ec0b5fc7b8080cacc332752ec" title="Treat the object as a WASP object Basically means the jd is actually wd.">asWASP</a> = <span class="keyword">false</span>;
+<a name="l00182"></a>00182 
+<a name="l00183"></a>00183         <a class="code" href="classLightcurve.html" title="Lightcurve class which stores information about a single object.">Lightcurve</a> LCRemoved = <a class="code" href="AlterTransit_8cpp.html#a3a8c7372713c9dea27e5a8e81f365acb" title="Function to remove a transit from a lightcurve.">RemoveTransit</a>(ChosenObject, SubModel);
+<a name="l00184"></a>00184         LCRemoved.<a class="code" href="classLightcurve.html#a54903f9ec0b5fc7b8080cacc332752ec" title="Treat the object as a WASP object Basically means the jd is actually wd.">asWASP</a> = ChosenObject.<a class="code" href="classLightcurve.html#a54903f9ec0b5fc7b8080cacc332752ec" title="Treat the object as a WASP object Basically means the jd is actually wd.">asWASP</a>;
+<a name="l00185"></a>00185         <span class="comment">/* TODO: Consider putting the setup into the remove transits function itself */</span>
+<a name="l00186"></a>00186 
+<a name="l00187"></a>00187         <span class="comment">/*  now need to add the model to the lightcurve */</span>
+<a name="l00188"></a>00188         <a class="code" href="classLightcurve.html" title="Lightcurve class which stores information about a single object.">Lightcurve</a> AddModel = GenerateModel(addModelFilename_arg.getValue());
+<a name="l00189"></a>00189         AddModel.<a class="code" href="classLightcurve.html#a54903f9ec0b5fc7b8080cacc332752ec" title="Treat the object as a WASP object Basically means the jd is actually wd.">asWASP</a> = <span class="keyword">false</span>;
+<a name="l00190"></a>00190         LCRemoved.<a class="code" href="classLightcurve.html#a6e8ac482decf1bbcc3f4eea9a4818646" title="Orbital period (days)">period</a> = AddModel.<a class="code" href="classLightcurve.html#a6e8ac482decf1bbcc3f4eea9a4818646" title="Orbital period (days)">period</a>;
+<a name="l00191"></a>00191         LCRemoved.<a class="code" href="classLightcurve.html#aeb03d82f5ff13e75bbb40af674f6597a" title="Point of mid transit (days)">epoch</a> = AddModel.<a class="code" href="classLightcurve.html#aeb03d82f5ff13e75bbb40af674f6597a" title="Point of mid transit (days)">epoch</a>;
+<a name="l00192"></a>00192         <a class="code" href="classLightcurve.html" title="Lightcurve class which stores information about a single object.">Lightcurve</a> SyntheticLightcurve = <a class="code" href="AlterTransit_8cpp.html#abeb36a203c65247c1c9b69009be575c7" title="Function to add a transit from a lightcurve.">AddTransit</a>(LCRemoved, AddModel);
+<a name="l00193"></a>00193         SyntheticLightcurve.<a class="code" href="classLightcurve.html#a5ea808adfccc9ac58982d4dd8dfa4d72" title="Radius (Jupiter radii)">radius</a> = AddModel.<a class="code" href="classLightcurve.html#a5ea808adfccc9ac58982d4dd8dfa4d72" title="Radius (Jupiter radii)">radius</a>;
+<a name="l00194"></a>00194 
+<a name="l00195"></a>00195         UpdateFile(SyntheticLightcurve);
+<a name="l00196"></a>00196     }
+<a name="l00197"></a>00197     <span class="keywordflow">else</span>
+<a name="l00198"></a>00198     {
+<a name="l00199"></a>00199         <span class="comment">/* Branch for appending multiple lightcurves */</span>
+<a name="l00200"></a>00200         <span class="comment">/* If the addmodel argument points to a valid xml file then </span>
+<a name="l00201"></a>00201 <span class="comment">         * raise an error */</span>
+<a name="l00202"></a>00202         <span class="keywordflow">if</span> (<a class="code" href="ValidXML_8cpp.html#a056e735bb699f74a4a66aec2ccaf89b8" title="Function will check if a file is a valid xml file.">ValidXML</a>(addModelFilename_arg.getValue()))
+<a name="l00203"></a>00203         {
+<a name="l00204"></a>00204             <span class="keywordflow">throw</span> <a class="code" href="structUsageError.html" title="Exception for poor user input.">UsageError</a>(<span class="stringliteral">&quot;Single model file specified, this mode requires &quot;</span>
+<a name="l00205"></a>00205                     <span class="stringliteral">&quot;multiple model files. Perhaps you wanted -r/--replace mode?&quot;</span>);
+<a name="l00206"></a>00206         }
+<a name="l00207"></a>00207 
+<a name="l00208"></a>00208 
+<a name="l00209"></a>00209         <span class="comment">/*  need to get the list of extra models to add */</span>
+<a name="l00210"></a>00210         <span class="keywordtype">int</span> nExtra = 0;
+<a name="l00211"></a>00211 
 <a name="l00212"></a>00212 
-<a name="l00213"></a>00213         <span class="comment">/*  need to get the path of the models list file */</span>
-<a name="l00214"></a>00214         bf::path BasePath = bf::path(addModelFilename_arg.getValue()).parent_path();
-<a name="l00215"></a>00215         cout &lt;&lt; <span class="stringliteral">&quot;Using base path: &quot;</span> &lt;&lt; BasePath &lt;&lt; endl;
-<a name="l00216"></a>00216 
-<a name="l00217"></a>00217 
+<a name="l00213"></a>00213         <a class="code" href="Application__CopyObjectData_8cpp.html#a7e02205e8bcf457e5057637b23bfeaa0">StringList</a> AddModelFilenames;
+<a name="l00214"></a>00214 
+<a name="l00215"></a>00215         <span class="comment">/*  need to get the path of the models list file */</span>
+<a name="l00216"></a>00216         bf::path BasePath = bf::path(addModelFilename_arg.getValue()).parent_path();
+<a name="l00217"></a>00217         cout &lt;&lt; <span class="stringliteral">&quot;Using base path: &quot;</span> &lt;&lt; BasePath &lt;&lt; endl;
 <a name="l00218"></a>00218 
 <a name="l00219"></a>00219 
-<a name="l00220"></a>00220         <span class="keywordflow">if</span> (addModelFlag)
-<a name="l00221"></a>00221         {
-<a name="l00222"></a>00222             ifstream ModelsListFile(addModelFilename_arg.getValue().c_str());
-<a name="l00223"></a>00223             <span class="keywordflow">if</span> (!ModelsListFile.is_open())
-<a name="l00224"></a>00224             {
-<a name="l00225"></a>00225                 <span class="keywordflow">throw</span> <a class="code" href="structFileNotOpen.html" title="Exception for a bad filename given.">FileNotOpen</a>(<span class="stringliteral">&quot;Cannot open list of model files for reading&quot;</span>);
-<a name="l00226"></a>00226             }
-<a name="l00227"></a>00227 
-<a name="l00228"></a>00228             <span class="keywordtype">string</span> line;
-<a name="l00229"></a>00229             <span class="keywordflow">while</span> (getline(ModelsListFile, line))
-<a name="l00230"></a>00230             {
-<a name="l00231"></a>00231                 bf::path FullPath = BasePath / bf::path(line);
-<a name="l00232"></a>00232 
-<a name="l00233"></a>00233 
-<a name="l00234"></a>00234                 AddModelFilenames.push_back(FullPath.string());
-<a name="l00235"></a>00235                 nExtra++;
-<a name="l00236"></a>00236             }
-<a name="l00237"></a>00237 
-<a name="l00238"></a>00238 
-<a name="l00239"></a>00239             cout &lt;&lt; nExtra &lt;&lt; <span class="stringliteral">&quot; lightcurves will be appended to the file&quot;</span> &lt;&lt; endl;
+<a name="l00220"></a>00220 
+<a name="l00221"></a>00221 
+<a name="l00222"></a>00222         <span class="keywordflow">if</span> (addModelFlag)
+<a name="l00223"></a>00223         {
+<a name="l00224"></a>00224             ifstream ModelsListFile(addModelFilename_arg.getValue().c_str());
+<a name="l00225"></a>00225             <span class="keywordflow">if</span> (!ModelsListFile.is_open())
+<a name="l00226"></a>00226             {
+<a name="l00227"></a>00227                 <span class="keywordflow">throw</span> <a class="code" href="structFileNotOpen.html" title="Exception for a bad filename given.">FileNotOpen</a>(<span class="stringliteral">&quot;Cannot open list of model files for reading&quot;</span>);
+<a name="l00228"></a>00228             }
+<a name="l00229"></a>00229 
+<a name="l00230"></a>00230             <span class="keywordtype">string</span> line;
+<a name="l00231"></a>00231             <span class="keywordflow">while</span> (getline(ModelsListFile, line))
+<a name="l00232"></a>00232             {
+<a name="l00233"></a>00233                 bf::path FullPath = BasePath / bf::path(line);
+<a name="l00234"></a>00234 
+<a name="l00235"></a>00235 
+<a name="l00236"></a>00236                 AddModelFilenames.push_back(FullPath.string());
+<a name="l00237"></a>00237                 nExtra++;
+<a name="l00238"></a>00238             }
+<a name="l00239"></a>00239 
 <a name="l00240"></a>00240 
-<a name="l00241"></a>00241 
-<a name="l00242"></a>00242         }
+<a name="l00241"></a>00241             cout &lt;&lt; nExtra &lt;&lt; <span class="stringliteral">&quot; lightcurves will be appended to the file&quot;</span> &lt;&lt; endl;
+<a name="l00242"></a>00242 
 <a name="l00243"></a>00243 
-<a name="l00244"></a>00244 
+<a name="l00244"></a>00244         }
 <a name="l00245"></a>00245 
 <a name="l00246"></a>00246 
 <a name="l00247"></a>00247 
 <a name="l00248"></a>00248 
-<a name="l00249"></a>00249         <span class="comment">/*  now copy the file across */</span>
-<a name="l00250"></a>00250         <span class="comment">/*  exclamation mark ensures the file is overwritten if it exists */</span>
-<a name="l00251"></a>00251         <a class="code" href="CopyFileEfficiently_8cpp.html#a65effe17c58c87603bb80622c8a6d3b7">CopyFileEfficiently</a>(filename_arg.getValue(), nExtra, <span class="stringliteral">&quot;!&quot;</span> + DataFilename, MemFraction);
-<a name="l00252"></a>00252 
-<a name="l00253"></a>00253         <span class="comment">/*  open the fits file */</span>
-<a name="l00254"></a>00254         mInfile = auto_ptr&lt;FITS&gt;(<span class="keyword">new</span> FITS(DataFilename, Write));
-<a name="l00255"></a>00255         fptr = mInfile-&gt;fitsPointer();
-<a name="l00256"></a>00256 
-<a name="l00257"></a>00257         <span class="comment">/*  get the desired index */</span>
-<a name="l00258"></a>00258         mObjectIndex = ObjectIndex(objectid_arg.getValue());
-<a name="l00259"></a>00259         cout &lt;&lt; <span class="stringliteral">&quot;Object found at index: &quot;</span> &lt;&lt; mObjectIndex &lt;&lt; endl;
-<a name="l00260"></a>00260 
-<a name="l00261"></a>00261         <span class="comment">/*  extract the flux */</span>
-<a name="l00262"></a>00262         <a class="code" href="classLightcurve.html" title="Lightcurve class which stores information about a single object.">Lightcurve</a> ChosenObject = getObject();
-<a name="l00263"></a>00263 
-<a name="l00264"></a>00264         <span class="comment">/*  update the period and epoch */</span>
-<a name="l00265"></a>00265         ChosenObject.<a class="code" href="classLightcurve.html#a6e8ac482decf1bbcc3f4eea9a4818646" title="Orbital period (days)">period</a> = SubModel.<a class="code" href="classLightcurve.html#a6e8ac482decf1bbcc3f4eea9a4818646" title="Orbital period (days)">period</a>;
-<a name="l00266"></a>00266         ChosenObject.<a class="code" href="classLightcurve.html#aeb03d82f5ff13e75bbb40af674f6597a" title="Point of mid transit (days)">epoch</a> = SubModel.<a class="code" href="classLightcurve.html#aeb03d82f5ff13e75bbb40af674f6597a" title="Point of mid transit (days)">epoch</a>;
-<a name="l00267"></a>00267 
-<a name="l00268"></a>00268         <span class="keywordflow">if</span> (asWASP)
-<a name="l00269"></a>00269             ChosenObject.<a class="code" href="classLightcurve.html#a54903f9ec0b5fc7b8080cacc332752ec" title="Treat the object as a WASP object Basically means the jd is actually wd.">asWASP</a> = <span class="keyword">true</span>;
-<a name="l00270"></a>00270         <span class="keywordflow">else</span>
-<a name="l00271"></a>00271             ChosenObject.<a class="code" href="classLightcurve.html#a54903f9ec0b5fc7b8080cacc332752ec" title="Treat the object as a WASP object Basically means the jd is actually wd.">asWASP</a> = <span class="keyword">false</span>;
-<a name="l00272"></a>00272 
-<a name="l00273"></a>00273         SubModel.<a class="code" href="classLightcurve.html#a54903f9ec0b5fc7b8080cacc332752ec" title="Treat the object as a WASP object Basically means the jd is actually wd.">asWASP</a> = <span class="keyword">false</span>;
-<a name="l00274"></a>00274 
-<a name="l00275"></a>00275         <a class="code" href="classLightcurve.html" title="Lightcurve class which stores information about a single object.">Lightcurve</a> LCRemoved = <a class="code" href="AlterTransit_8cpp.html#a3a8c7372713c9dea27e5a8e81f365acb" title="Function to remove a transit from a lightcurve.">RemoveTransit</a>(ChosenObject, SubModel);
-<a name="l00276"></a>00276         LCRemoved.<a class="code" href="classLightcurve.html#a54903f9ec0b5fc7b8080cacc332752ec" title="Treat the object as a WASP object Basically means the jd is actually wd.">asWASP</a> = ChosenObject.<a class="code" href="classLightcurve.html#a54903f9ec0b5fc7b8080cacc332752ec" title="Treat the object as a WASP object Basically means the jd is actually wd.">asWASP</a>;
-<a name="l00277"></a>00277 
-<a name="l00278"></a>00278         <span class="keywordflow">if</span> (!addModelFlag)
-<a name="l00279"></a>00279         {
-<a name="l00280"></a>00280             <span class="comment">/*  if the add model is NULL then just update the original lightcurve </span>
-<a name="l00281"></a>00281 <span class="comment">             *  with the new flux */</span>
-<a name="l00282"></a>00282             UpdateFile(LCRemoved);
-<a name="l00283"></a>00283         }
-<a name="l00284"></a>00284         <span class="keywordflow">else</span>
+<a name="l00249"></a>00249 
+<a name="l00250"></a>00250 
+<a name="l00251"></a>00251         <span class="comment">/*  now copy the file across */</span>
+<a name="l00252"></a>00252         <span class="comment">/*  exclamation mark ensures the file is overwritten if it exists */</span>
+<a name="l00253"></a>00253         <a class="code" href="CopyFileEfficiently_8cpp.html#a65effe17c58c87603bb80622c8a6d3b7">CopyFileEfficiently</a>(filename_arg.getValue(), nExtra, <span class="stringliteral">&quot;!&quot;</span> + DataFilename, MemFraction);
+<a name="l00254"></a>00254 
+<a name="l00255"></a>00255         <span class="comment">/*  open the fits file */</span>
+<a name="l00256"></a>00256         mInfile = auto_ptr&lt;FITS&gt;(<span class="keyword">new</span> FITS(DataFilename, Write));
+<a name="l00257"></a>00257         fptr = mInfile-&gt;fitsPointer();
+<a name="l00258"></a>00258 
+<a name="l00259"></a>00259         <span class="comment">/*  get the desired index */</span>
+<a name="l00260"></a>00260         mObjectIndex = ObjectIndex(objectid_arg.getValue());
+<a name="l00261"></a>00261         cout &lt;&lt; <span class="stringliteral">&quot;Object found at index: &quot;</span> &lt;&lt; mObjectIndex &lt;&lt; endl;
+<a name="l00262"></a>00262 
+<a name="l00263"></a>00263         <span class="comment">/*  need to update the object&#39;s skipdet column value */</span>
+<a name="l00264"></a>00264         vector&lt;unsigned int&gt; SkipdetData(1, <a class="code" href="namespaceAlterDetrending.html#ab5c08bdf3b551a57d3d88daf143ff0b9a66782aaa52a00309ebd3b8f35fb45fbd">ad::skiptfa</a>);
+<a name="l00265"></a>00265         mInfile-&gt;extension(<span class="stringliteral">&quot;CATALOGUE&quot;</span>).column(<span class="stringliteral">&quot;SKIPDET&quot;</span>).write(SkipdetData, mObjectIndex+1);
+<a name="l00266"></a>00266 
+<a name="l00267"></a>00267         <span class="comment">/*  extract the flux */</span>
+<a name="l00268"></a>00268         <a class="code" href="classLightcurve.html" title="Lightcurve class which stores information about a single object.">Lightcurve</a> ChosenObject = getObject();
+<a name="l00269"></a>00269 
+<a name="l00270"></a>00270         <span class="comment">/*  update the period and epoch */</span>
+<a name="l00271"></a>00271         ChosenObject.<a class="code" href="classLightcurve.html#a6e8ac482decf1bbcc3f4eea9a4818646" title="Orbital period (days)">period</a> = SubModel.<a class="code" href="classLightcurve.html#a6e8ac482decf1bbcc3f4eea9a4818646" title="Orbital period (days)">period</a>;
+<a name="l00272"></a>00272         ChosenObject.<a class="code" href="classLightcurve.html#aeb03d82f5ff13e75bbb40af674f6597a" title="Point of mid transit (days)">epoch</a> = SubModel.<a class="code" href="classLightcurve.html#aeb03d82f5ff13e75bbb40af674f6597a" title="Point of mid transit (days)">epoch</a>;
+<a name="l00273"></a>00273 
+<a name="l00274"></a>00274         <span class="keywordflow">if</span> (asWASP)
+<a name="l00275"></a>00275             ChosenObject.<a class="code" href="classLightcurve.html#a54903f9ec0b5fc7b8080cacc332752ec" title="Treat the object as a WASP object Basically means the jd is actually wd.">asWASP</a> = <span class="keyword">true</span>;
+<a name="l00276"></a>00276         <span class="keywordflow">else</span>
+<a name="l00277"></a>00277             ChosenObject.<a class="code" href="classLightcurve.html#a54903f9ec0b5fc7b8080cacc332752ec" title="Treat the object as a WASP object Basically means the jd is actually wd.">asWASP</a> = <span class="keyword">false</span>;
+<a name="l00278"></a>00278 
+<a name="l00279"></a>00279         SubModel.<a class="code" href="classLightcurve.html#a54903f9ec0b5fc7b8080cacc332752ec" title="Treat the object as a WASP object Basically means the jd is actually wd.">asWASP</a> = <span class="keyword">false</span>;
+<a name="l00280"></a>00280 
+<a name="l00281"></a>00281         <a class="code" href="classLightcurve.html" title="Lightcurve class which stores information about a single object.">Lightcurve</a> LCRemoved = <a class="code" href="AlterTransit_8cpp.html#a3a8c7372713c9dea27e5a8e81f365acb" title="Function to remove a transit from a lightcurve.">RemoveTransit</a>(ChosenObject, SubModel);
+<a name="l00282"></a>00282         LCRemoved.<a class="code" href="classLightcurve.html#a54903f9ec0b5fc7b8080cacc332752ec" title="Treat the object as a WASP object Basically means the jd is actually wd.">asWASP</a> = ChosenObject.<a class="code" href="classLightcurve.html#a54903f9ec0b5fc7b8080cacc332752ec" title="Treat the object as a WASP object Basically means the jd is actually wd.">asWASP</a>;
+<a name="l00283"></a>00283 
+<a name="l00284"></a>00284         <span class="keywordflow">if</span> (!addModelFlag)
 <a name="l00285"></a>00285         {
-<a name="l00286"></a>00286 
-<a name="l00287"></a>00287             <span class="comment">/*  now need to iterate through the list of filenames generating </span>
-<a name="l00288"></a>00288 <span class="comment">             *  a new object every time </span>
-<a name="l00289"></a>00289 <span class="comment">             *</span>
-<a name="l00290"></a>00290 <span class="comment">             *  TODO: This will generate a lot of output if the code remains as it is </span>
-<a name="l00291"></a>00291 <span class="comment">             *  so this may need altering */</span>
+<a name="l00286"></a>00286             <span class="comment">/*  if the add model is NULL then just update the original lightcurve </span>
+<a name="l00287"></a>00287 <span class="comment">             *  with the new flux */</span>
+<a name="l00288"></a>00288             UpdateFile(LCRemoved);
+<a name="l00289"></a>00289         }
+<a name="l00290"></a>00290         <span class="keywordflow">else</span>
+<a name="l00291"></a>00291         {
 <a name="l00292"></a>00292 
-<a name="l00293"></a>00293             <span class="keywordtype">int</span> count = 0;
-<a name="l00294"></a>00294 
-<a name="l00295"></a>00295             ExtHDU &amp;FluxHDU = mInfile-&gt;extension(<span class="stringliteral">&quot;FLUX&quot;</span>);
-<a name="l00296"></a>00296             <span class="keyword">const</span> <span class="keywordtype">int</span> nFrames = FluxHDU.axis(0);
-<a name="l00297"></a>00297             <span class="keywordflow">for</span> (StringList::iterator i=AddModelFilenames.begin();
-<a name="l00298"></a>00298                     i!=AddModelFilenames.end();
-<a name="l00299"></a>00299                     ++i, ++count)
-<a name="l00300"></a>00300             {
-<a name="l00301"></a>00301                 <span class="keyword">const</span> <span class="keywordtype">int</span> InsertIndex = nObjects + count;
-<a name="l00302"></a>00302                 cout &lt;&lt; <span class="stringliteral">&quot;Using model file: &quot;</span> &lt;&lt; *i &lt;&lt; endl;
-<a name="l00303"></a>00303                 CopyObject(InsertIndex);
-<a name="l00304"></a>00304 
-<a name="l00305"></a>00305                 <a class="code" href="classLightcurve.html" title="Lightcurve class which stores information about a single object.">Lightcurve</a> AddModel = GenerateModel(*i);
-<a name="l00306"></a>00306 
-<a name="l00307"></a>00307                 AddModel.<a class="code" href="classLightcurve.html#a54903f9ec0b5fc7b8080cacc332752ec" title="Treat the object as a WASP object Basically means the jd is actually wd.">asWASP</a> = <span class="keyword">false</span>;
-<a name="l00308"></a>00308                 LCRemoved.<a class="code" href="classLightcurve.html#a6e8ac482decf1bbcc3f4eea9a4818646" title="Orbital period (days)">period</a> = AddModel.<a class="code" href="classLightcurve.html#a6e8ac482decf1bbcc3f4eea9a4818646" title="Orbital period (days)">period</a>;
-<a name="l00309"></a>00309                 LCRemoved.<a class="code" href="classLightcurve.html#aeb03d82f5ff13e75bbb40af674f6597a" title="Point of mid transit (days)">epoch</a> = AddModel.<a class="code" href="classLightcurve.html#aeb03d82f5ff13e75bbb40af674f6597a" title="Point of mid transit (days)">epoch</a>;
-<a name="l00310"></a>00310                 <a class="code" href="classLightcurve.html" title="Lightcurve class which stores information about a single object.">Lightcurve</a> SyntheticLightcurve = <a class="code" href="AlterTransit_8cpp.html#abeb36a203c65247c1c9b69009be575c7" title="Function to add a transit from a lightcurve.">AddTransit</a>(LCRemoved, AddModel);
-<a name="l00311"></a>00311                 SyntheticLightcurve.<a class="code" href="classLightcurve.html#a5ea808adfccc9ac58982d4dd8dfa4d72" title="Radius (Jupiter radii)">radius</a> = AddModel.<a class="code" href="classLightcurve.html#a5ea808adfccc9ac58982d4dd8dfa4d72" title="Radius (Jupiter radii)">radius</a>;
+<a name="l00293"></a>00293             <span class="comment">/*  now need to iterate through the list of filenames generating </span>
+<a name="l00294"></a>00294 <span class="comment">             *  a new object every time </span>
+<a name="l00295"></a>00295 <span class="comment">             *</span>
+<a name="l00296"></a>00296 <span class="comment">             *  TODO: This will generate a lot of output if the code remains as it is </span>
+<a name="l00297"></a>00297 <span class="comment">             *  so this may need altering */</span>
+<a name="l00298"></a>00298 
+<a name="l00299"></a>00299             <span class="keywordtype">int</span> count = 0;
+<a name="l00300"></a>00300 
+<a name="l00301"></a>00301             ExtHDU &amp;FluxHDU = mInfile-&gt;extension(<span class="stringliteral">&quot;FLUX&quot;</span>);
+<a name="l00302"></a>00302             <span class="keyword">const</span> <span class="keywordtype">int</span> nFrames = FluxHDU.axis(0);
+<a name="l00303"></a>00303             <span class="keywordflow">for</span> (StringList::iterator i=AddModelFilenames.begin();
+<a name="l00304"></a>00304                     i!=AddModelFilenames.end();
+<a name="l00305"></a>00305                     ++i, ++count)
+<a name="l00306"></a>00306             {
+<a name="l00307"></a>00307                 <span class="keyword">const</span> <span class="keywordtype">int</span> InsertIndex = nObjects + count;
+<a name="l00308"></a>00308                 cout &lt;&lt; <span class="stringliteral">&quot;Using model file: &quot;</span> &lt;&lt; *i &lt;&lt; endl;
+<a name="l00309"></a>00309                 CopyObject(InsertIndex);
+<a name="l00310"></a>00310 
+<a name="l00311"></a>00311                 <a class="code" href="classLightcurve.html" title="Lightcurve class which stores information about a single object.">Lightcurve</a> AddModel = GenerateModel(*i);
 <a name="l00312"></a>00312 
-<a name="l00313"></a>00313                 <span class="comment">/*  set the data to the new value */</span>
-<a name="l00314"></a>00314                 UpdateFile(SyntheticLightcurve, InsertIndex);
-<a name="l00315"></a>00315 
-<a name="l00316"></a>00316 
-<a name="l00317"></a>00317 
-<a name="l00318"></a>00318             }
-<a name="l00319"></a>00319 
-<a name="l00320"></a>00320 
+<a name="l00313"></a>00313                 AddModel.<a class="code" href="classLightcurve.html#a54903f9ec0b5fc7b8080cacc332752ec" title="Treat the object as a WASP object Basically means the jd is actually wd.">asWASP</a> = <span class="keyword">false</span>;
+<a name="l00314"></a>00314                 LCRemoved.<a class="code" href="classLightcurve.html#a6e8ac482decf1bbcc3f4eea9a4818646" title="Orbital period (days)">period</a> = AddModel.<a class="code" href="classLightcurve.html#a6e8ac482decf1bbcc3f4eea9a4818646" title="Orbital period (days)">period</a>;
+<a name="l00315"></a>00315                 LCRemoved.<a class="code" href="classLightcurve.html#aeb03d82f5ff13e75bbb40af674f6597a" title="Point of mid transit (days)">epoch</a> = AddModel.<a class="code" href="classLightcurve.html#aeb03d82f5ff13e75bbb40af674f6597a" title="Point of mid transit (days)">epoch</a>;
+<a name="l00316"></a>00316                 <a class="code" href="classLightcurve.html" title="Lightcurve class which stores information about a single object.">Lightcurve</a> SyntheticLightcurve = <a class="code" href="AlterTransit_8cpp.html#abeb36a203c65247c1c9b69009be575c7" title="Function to add a transit from a lightcurve.">AddTransit</a>(LCRemoved, AddModel);
+<a name="l00317"></a>00317                 SyntheticLightcurve.<a class="code" href="classLightcurve.html#a5ea808adfccc9ac58982d4dd8dfa4d72" title="Radius (Jupiter radii)">radius</a> = AddModel.<a class="code" href="classLightcurve.html#a5ea808adfccc9ac58982d4dd8dfa4d72" title="Radius (Jupiter radii)">radius</a>;
+<a name="l00318"></a>00318 
+<a name="l00319"></a>00319                 <span class="comment">/*  set the data to the new value */</span>
+<a name="l00320"></a>00320                 UpdateFile(SyntheticLightcurve, InsertIndex);
 <a name="l00321"></a>00321 
 <a name="l00322"></a>00322 
-<a name="l00323"></a>00323         }
-<a name="l00324"></a>00324 
+<a name="l00323"></a>00323 
+<a name="l00324"></a>00324             }
 <a name="l00325"></a>00325 
 <a name="l00326"></a>00326 
 <a name="l00327"></a>00327 
-<a name="l00328"></a>00328     }
-<a name="l00329"></a>00329 
+<a name="l00328"></a>00328 
+<a name="l00329"></a>00329         }
 <a name="l00330"></a>00330 
 <a name="l00331"></a>00331 
 <a name="l00332"></a>00332 
 <a name="l00333"></a>00333 
-<a name="l00334"></a>00334 
-<a name="l00335"></a>00335     <span class="keywordflow">return</span> 0;
+<a name="l00334"></a>00334     }
+<a name="l00335"></a>00335 
 <a name="l00336"></a>00336 
 <a name="l00337"></a>00337 
 <a name="l00338"></a>00338 
 <a name="l00339"></a>00339 
 <a name="l00340"></a>00340 
-<a name="l00341"></a>00341 
+<a name="l00341"></a>00341     <span class="keywordflow">return</span> 0;
 <a name="l00342"></a>00342 
 <a name="l00343"></a>00343 
 <a name="l00344"></a>00344 
@@ -403,59 +403,65 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00346"></a>00346 
 <a name="l00347"></a>00347 
 <a name="l00348"></a>00348 
-<a name="l00349"></a>00349     <span class="comment">//[&gt;  start by copying the file across to the output file &lt;]</span>
-<a name="l00350"></a>00350     <span class="comment">//stringstream copycmd;</span>
-<a name="l00351"></a>00351     <span class="comment">//copycmd &lt;&lt; &quot;cp &quot; &lt;&lt; filename_arg.getValue() &lt;&lt; &quot; &quot; &lt;&lt; DataFilename;</span>
+<a name="l00349"></a>00349 
+<a name="l00350"></a>00350 
+<a name="l00351"></a>00351 
 <a name="l00352"></a>00352 
-<a name="l00353"></a>00353     <span class="comment">//system(copycmd.str().c_str());</span>
+<a name="l00353"></a>00353 
 <a name="l00354"></a>00354 
-<a name="l00355"></a>00355     <span class="comment">//[&gt;  alter the filename to have a ! in front of it &lt;]</span>
-<a name="l00356"></a>00356 
-<a name="l00357"></a>00357 
+<a name="l00355"></a>00355     <span class="comment">//[&gt;  start by copying the file across to the output file &lt;]</span>
+<a name="l00356"></a>00356     <span class="comment">//stringstream copycmd;</span>
+<a name="l00357"></a>00357     <span class="comment">//copycmd &lt;&lt; &quot;cp &quot; &lt;&lt; filename_arg.getValue() &lt;&lt; &quot; &quot; &lt;&lt; DataFilename;</span>
 <a name="l00358"></a>00358 
-<a name="l00359"></a>00359     <span class="comment">//[&gt;  create the interpolated values &lt;]</span>
-<a name="l00361"></a>00361 <span class="comment"></span>
+<a name="l00359"></a>00359     <span class="comment">//system(copycmd.str().c_str());</span>
+<a name="l00360"></a>00360 
+<a name="l00361"></a>00361     <span class="comment">//[&gt;  alter the filename to have a ! in front of it &lt;]</span>
 <a name="l00362"></a>00362 
-<a name="l00365"></a>00365 
-<a name="l00366"></a>00366     <span class="comment">//Lightcurve NewLightcurve = AlterTransit(ChosenObject, SubModel, AddModel, wasptreatment_arg.getValue(), addModelFlag);</span>
-<a name="l00367"></a>00367 
-<a name="l00368"></a>00368     <span class="comment">//[&gt;  finally update the file &lt;]</span>
-<a name="l00369"></a>00369     <span class="comment">//UpdateFile(NewLightcurve);</span>
-<a name="l00370"></a>00370 
+<a name="l00363"></a>00363 
+<a name="l00364"></a>00364 
+<a name="l00365"></a>00365     <span class="comment">//[&gt;  create the interpolated values &lt;]</span>
+<a name="l00367"></a>00367 <span class="comment"></span>
+<a name="l00368"></a>00368 
 <a name="l00371"></a>00371 
-<a name="l00372"></a>00372 
-<a name="l00373"></a>00373     <span class="keywordflow">return</span> 0;
-<a name="l00374"></a>00374 }
-<a name="l00375"></a>00375 
+<a name="l00372"></a>00372     <span class="comment">//Lightcurve NewLightcurve = AlterTransit(ChosenObject, SubModel, AddModel, wasptreatment_arg.getValue(), addModelFlag);</span>
+<a name="l00373"></a>00373 
+<a name="l00374"></a>00374     <span class="comment">//[&gt;  finally update the file &lt;]</span>
+<a name="l00375"></a>00375     <span class="comment">//UpdateFile(NewLightcurve);</span>
 <a name="l00376"></a>00376 
-<a name="l00377"></a><a class="code" href="Application__Go_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97">00377</a> <span class="keywordtype">int</span> <a class="code" href="Application__Go_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97">main</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[])
-<a name="l00378"></a>00378 {
-<a name="l00379"></a>00379     <span class="keywordflow">try</span>
-<a name="l00380"></a>00380     {
-<a name="l00381"></a>00381         <a class="code" href="classApplication.html" title="Main class for the program.">Application</a> app;
-<a name="l00382"></a>00382         <span class="keywordflow">return</span> app.<a class="code" href="classApplication.html#a317a13efcc06c55837ece16f52c78f69" title="The main function, abstracted from the main function for good separation.">go</a>(argc, argv);
-<a name="l00383"></a>00383     }
-<a name="l00384"></a>00384     <span class="keywordflow">catch</span> (FitsException &amp;e)
-<a name="l00385"></a>00385     {
-<a name="l00386"></a>00386         cerr &lt;&lt; <span class="stringliteral">&quot;CCfits error: &quot;</span> &lt;&lt; e.message() &lt;&lt; endl;
-<a name="l00387"></a>00387     }
-<a name="l00388"></a>00388     <span class="keywordflow">catch</span> (<a class="code" href="classFitsioException.html" title="cfitsio specific exception">FitsioException</a> &amp;e)
-<a name="l00389"></a>00389     {
-<a name="l00390"></a>00390         cerr &lt;&lt; <span class="stringliteral">&quot;FITSIO error: &quot;</span> &lt;&lt; e.<a class="code" href="classFitsioException.html#ab3277a5c4192658e6828f2bb63875b02" title="Returns the BaseException::str variable.">what</a>() &lt;&lt; endl;
-<a name="l00391"></a>00391     }
-<a name="l00392"></a>00392     <span class="keywordflow">catch</span> (TCLAP::ArgException &amp;e)
-<a name="l00393"></a>00393     {
-<a name="l00394"></a>00394         cerr &lt;&lt; <span class="stringliteral">&quot;TCLAP error: &quot;</span> &lt;&lt; e.error() &lt;&lt; <span class="stringliteral">&quot; for arg &quot;</span> &lt;&lt; e.argId() &lt;&lt; endl;
-<a name="l00395"></a>00395     }
-<a name="l00396"></a>00396     <span class="keywordflow">catch</span> (<a class="code" href="structBaseException.html" title="Base exception.">BaseException</a> &amp;e)
-<a name="l00397"></a>00397     {
-<a name="l00398"></a>00398         cerr &lt;&lt; <span class="stringliteral">&quot;Error: &quot;</span> &lt;&lt; e.<a class="code" href="structBaseException.html#abf888af3f35094d93a165c3adfa89f17" title="Type string.">type</a> &lt;&lt; <span class="stringliteral">&quot;. &quot;</span> &lt;&lt; e.<a class="code" href="structBaseException.html#a44505abd2e88ffaf5bb90e73452151b6" title="Returns the BaseException::str variable.">what</a>() &lt;&lt; endl;
-<a name="l00399"></a>00399     }
-<a name="l00400"></a>00400     <span class="keywordflow">catch</span> (exception &amp;e)
-<a name="l00401"></a>00401     {
-<a name="l00402"></a>00402         cerr &lt;&lt; <span class="stringliteral">&quot;STD error: &quot;</span> &lt;&lt; e.what() &lt;&lt; endl;
-<a name="l00403"></a>00403     }
-<a name="l00404"></a>00404 }
+<a name="l00377"></a>00377 
+<a name="l00378"></a>00378 
+<a name="l00379"></a>00379     <span class="keywordflow">return</span> 0;
+<a name="l00380"></a>00380 }
+<a name="l00381"></a>00381 
+<a name="l00382"></a>00382 
+<a name="l00383"></a><a class="code" href="Application__Go_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97">00383</a> <span class="keywordtype">int</span> <a class="code" href="Application__Go_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97">main</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[])
+<a name="l00384"></a>00384 {
+<a name="l00385"></a>00385     <span class="keywordflow">try</span>
+<a name="l00386"></a>00386     {
+<a name="l00387"></a>00387         <a class="code" href="classApplication.html" title="Main class for the program.">Application</a> app;
+<a name="l00388"></a>00388         <span class="keywordflow">return</span> app.<a class="code" href="classApplication.html#a317a13efcc06c55837ece16f52c78f69" title="The main function, abstracted from the main function for good separation.">go</a>(argc, argv);
+<a name="l00389"></a>00389     }
+<a name="l00390"></a>00390     <span class="keywordflow">catch</span> (FitsException &amp;e)
+<a name="l00391"></a>00391     {
+<a name="l00392"></a>00392         cerr &lt;&lt; <span class="stringliteral">&quot;CCfits error: &quot;</span> &lt;&lt; e.message() &lt;&lt; endl;
+<a name="l00393"></a>00393     }
+<a name="l00394"></a>00394     <span class="keywordflow">catch</span> (<a class="code" href="classFitsioException.html" title="cfitsio specific exception">FitsioException</a> &amp;e)
+<a name="l00395"></a>00395     {
+<a name="l00396"></a>00396         cerr &lt;&lt; <span class="stringliteral">&quot;FITSIO error: &quot;</span> &lt;&lt; e.<a class="code" href="classFitsioException.html#ab3277a5c4192658e6828f2bb63875b02" title="Returns the BaseException::str variable.">what</a>() &lt;&lt; endl;
+<a name="l00397"></a>00397     }
+<a name="l00398"></a>00398     <span class="keywordflow">catch</span> (TCLAP::ArgException &amp;e)
+<a name="l00399"></a>00399     {
+<a name="l00400"></a>00400         cerr &lt;&lt; <span class="stringliteral">&quot;TCLAP error: &quot;</span> &lt;&lt; e.error() &lt;&lt; <span class="stringliteral">&quot; for arg &quot;</span> &lt;&lt; e.argId() &lt;&lt; endl;
+<a name="l00401"></a>00401     }
+<a name="l00402"></a>00402     <span class="keywordflow">catch</span> (<a class="code" href="structBaseException.html" title="Base exception.">BaseException</a> &amp;e)
+<a name="l00403"></a>00403     {
+<a name="l00404"></a>00404         cerr &lt;&lt; <span class="stringliteral">&quot;Error: &quot;</span> &lt;&lt; e.<a class="code" href="structBaseException.html#abf888af3f35094d93a165c3adfa89f17" title="Type string.">type</a> &lt;&lt; <span class="stringliteral">&quot;. &quot;</span> &lt;&lt; e.<a class="code" href="structBaseException.html#a44505abd2e88ffaf5bb90e73452151b6" title="Returns the BaseException::str variable.">what</a>() &lt;&lt; endl;
+<a name="l00405"></a>00405     }
+<a name="l00406"></a>00406     <span class="keywordflow">catch</span> (exception &amp;e)
+<a name="l00407"></a>00407     {
+<a name="l00408"></a>00408         cerr &lt;&lt; <span class="stringliteral">&quot;STD error: &quot;</span> &lt;&lt; e.what() &lt;&lt; endl;
+<a name="l00409"></a>00409     }
+<a name="l00410"></a>00410 }
 </pre></div></div>
 </div>
 <!-- window showing the filter options -->
@@ -472,7 +478,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Mon Jul 25 2011 10:35:17 for Synthetic lightcurves by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Tue Jul 26 2011 12:24:23 for Synthetic lightcurves by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>
