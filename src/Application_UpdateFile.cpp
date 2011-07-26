@@ -69,7 +69,22 @@ void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
 
     /* need to update the skipdet column */
     Column &SkipdetCol = CatalogueHDU.column("SKIPDET");
-    vector<unsigned int> FillData(1, ad::skipsysrem);
+
+    /*  need two cases:
+     *      if it's the original lightcurve then it only needs to be ignored by tfa
+     *      if it's a synthetic then it needs to be ignored by both
+     *
+     *  if clause detects this */
+    vector<unsigned int> FillData(1);
+    if (TargetIndex == mObjectIndex)
+    {
+        FillData[0] = ad::skiptfa;
+    }
+    else
+    {
+        FillData[0] = ad::skipboth;
+    }
+
     SkipdetCol.write(FillData, TargetIndex+1);
 }
 
