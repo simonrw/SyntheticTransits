@@ -68,24 +68,6 @@ void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
     }
 
     /* need to update the skipdet column */
-
-    /* first check for its existence */
-    //try
-    //{
-        //Column &SkipdetCol = CatalogueHDU.column("SKIPDET");
-    //}
-    //catch (Table::NoSuchColumn &e)
-    //{
-        //cout << "SKIPDET column does not exist, creating..." << endl;
-        //cout << "This may take a while..." << endl;
-        //CatalogueHDU.addColumn(Tbyte, "SKIPDET", 1);
-
-        //vector<unsigned int> FillData(mNObjects, ad::include);
-        //CatalogueHDU.column("SKIPDET").write(FillData, 1);
-
-    //}
-
-    /* then add the data */
     Column &SkipdetCol = CatalogueHDU.column("SKIPDET");
     vector<unsigned int> FillData(1, ad::skipsysrem);
     SkipdetCol.write(FillData, TargetIndex+1);
