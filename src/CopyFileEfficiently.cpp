@@ -127,8 +127,15 @@ void CopyFileEfficiently(const string &Filename, const int nExtra, const string 
         ColumnUnits.push_back(i->second->unit());
     }
 
+    /* Need to add the skipdet column */
+    ColumnNames.push_back("SKIPDET");
+    ColumnFormats.push_back("1B");
+    ColumnUnits.push_back("");
+
     /*  create the new hdu */
     Table *NewCatalogueHDU = pOutfile->addTable("CATALOGUE", nTotal, ColumnNames, ColumnFormats, ColumnUnits);
+
+
 
     /*  copy the data across */
     for (ColumnMap::const_iterator i=Columns.begin();
