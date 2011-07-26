@@ -260,6 +260,10 @@ int Application::go(int argc, char *argv[])
         mObjectIndex = ObjectIndex(objectid_arg.getValue());
         cout << "Object found at index: " << mObjectIndex << endl;
 
+        /*  need to update the object's skipdet column value */
+        vector<unsigned int> SkipdetData(1, ad::skiptfa);
+        mInfile->extension("CATALOGUE").column("SKIPDET").write(SkipdetData, mObjectIndex+1);
+
         /*  extract the flux */
         Lightcurve ChosenObject = getObject();
 
