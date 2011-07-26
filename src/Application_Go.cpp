@@ -20,12 +20,14 @@
 #include "GetSystemMemory.h"
 #include "CopyFileEfficiently.h"
 #include "ValidXML.h"
+#include "ObjectSkipDefs.h"
 
 
 
 using namespace std;
 using namespace CCfits;
 namespace bf = boost::filesystem;
+namespace ad = AlterDetrending;
 
 
 
