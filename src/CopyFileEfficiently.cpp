@@ -12,63 +12,9 @@ typedef map<string, Column*> ColumnMap;
 typedef vector<string> StringVector;
 
 
+/*  forward declaration */
 template <typename T>
-void CopyImageData(ExtHDU &InHDU, ExtHDU &OutHDU, fitsfile *infptr, fitsfile *outfptr, float MemLimit)
-{
-    /*  just copy the existing data across */
-    const long nFrames = InHDU.axis(0);
-    const long nObjects = InHDU.axis(1);
-    const long N = nObjects * nFrames;
-    int status = 0;
-
-    const long nElementsInMemory = long(MemLimit / sizeof(T));
-    cout << "Elements are " << sizeof(T) << " bytes" << endl;
-    const long nIterationsRequired = (N / nElementsInMemory) + 1;
-    cout << "Can load " << nElementsInMemory << " elements into memory" << endl;
-    cout << "Going to take " << nIterationsRequired << " iterations" << endl;
-
-    FITSUtil::MatchType<T> DataType;
-    //cout << "Fitsio data type: " << DataType() << endl;
-
-
-
-    //valarray<T> buffer(nElementsInMemory);
-    vector<T> buffer(nElementsInMemory);
-    for (int iter=0; iter<nIterationsRequired; ++iter)
-    {
-        long FirstElement = 1 + iter * nElementsInMemory;
-
-        if (iter != nIterationsRequired - 1)
-        {
-            cout << "Iteration " << iter + 1 << ", reading from element " << FirstElement << " to " << FirstElement + nElementsInMemory << endl;
-
-            //InHDU.read(buffer, FirstElement, nElementsInMemory);
-            fits_read_img(infptr, DataType(), FirstElement, nElementsInMemory, 0, &buffer[0], 0, &status);
-            if (status) { throw FitsioException(status); }
-
-            fits_write_img(outfptr, DataType(), FirstElement, nElementsInMemory, &buffer[0], &status);
-            if (status) { throw FitsioException(status); }
-        }
-        else
-        {
-            const long nElementsLeft = N - iter * nElementsInMemory;
-
-            /*  resize the buffer */
-            buffer.resize(nElementsLeft);
-
-            cout << "Iteration " << iter + 1 << ", reading from element " << FirstElement << " to " << FirstElement + nElementsLeft << endl;
-
-            fits_read_img(infptr, DataType(), FirstElement, nElementsLeft, 0, &buffer[0], 0, &status);
-            if (status) { throw FitsioException(status); }
-
-            //InHDU.read(buffer, FirstElement, nElementsLeft);
-            fits_write_img(outfptr, DataType(), FirstElement, nElementsLeft, &buffer[0], &status);
-            if (status) { throw FitsioException(status); }
-        }
-    }
-
-
-}
+void CopyImageData(ExtHDU &InHDU, ExtHDU &OutHDU, fitsfile *infptr, fitsfile *outfptr, float MemLimit);
 
 void CopyFileEfficiently(const string &Filename, const int nExtra, const string &OutputFilename, const float fraction)
 {
@@ -273,3 +219,60 @@ void CopyFileEfficiently(const string &Filename, const int nExtra, const string 
 
 }
 
+template <typename T>
+void CopyImageData(ExtHDU &InHDU, ExtHDU &OutHDU, fitsfile *infptr, fitsfile *outfptr, float MemLimit)
+{
+    /*  just copy the existing data across */
+    const long nFrames = InHDU.axis(0);
+    const long nObjects = InHDU.axis(1);
+    const long N = nObjects * nFrames;
+    int status = 0;
+
+    const long nElementsInMemory = long(MemLimit / sizeof(T));
+    cout << "Elements are " << sizeof(T) << " bytes" << endl;
+    const long nIterationsRequired = (N / nElementsInMemory) + 1;
+    cout << "Can load " << nElementsInMemory << " elements into memory" << endl;
+    cout << "Going to take " << nIterationsRequired << " iterations" << endl;
+
+    FITSUtil::MatchType<T> DataType;
+    //cout << "Fitsio data type: " << DataType() << endl;
+
+
+
+    //valarray<T> buffer(nElementsInMemory);
+    vector<T> buffer(nElementsInMemory);
+    for (int iter=0; iter<nIterationsRequired; ++iter)
+    {
+        long FirstElement = 1 + iter * nElementsInMemory;
+
+        if (iter != nIterationsRequired - 1)
+        {
+            cout << "Iteration " << iter + 1 << ", reading from element " << FirstElement << " to " << FirstElement + nElementsInMemory << endl;
+
+            //InHDU.read(buffer, FirstElement, nElementsInMemory);
+            fits_read_img(infptr, DataType(), FirstElement, nElementsInMemory, 0, &buffer[0], 0, &status);
+            if (status) { throw FitsioException(status); }
+
+            fits_write_img(outfptr, DataType(), FirstElement, nElementsInMemory, &buffer[0], &status);
+            if (status) { throw FitsioException(status); }
+        }
+        else
+        {
+            const long nElementsLeft = N - iter * nElementsInMemory;
+
+            /*  resize the buffer */
+            buffer.resize(nElementsLeft);
+
+            cout << "Iteration " << iter + 1 << ", reading from element " << FirstElement << " to " << FirstElement + nElementsLeft << endl;
+
+            fits_read_img(infptr, DataType(), FirstElement, nElementsLeft, 0, &buffer[0], 0, &status);
+            if (status) { throw FitsioException(status); }
+
+            //InHDU.read(buffer, FirstElement, nElementsLeft);
+            fits_write_img(outfptr, DataType(), FirstElement, nElementsLeft, &buffer[0], &status);
+            if (status) { throw FitsioException(status); }
+        }
+    }
+
+
+}
