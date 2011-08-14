@@ -144,7 +144,6 @@ Lightcurve Application::GenerateModel(const string &xmlfilename)
     const double rStar = config.getStarRadius();
 
 
-    const double p = rPlan / rStar;
     const double period = config.getPeriod();
     const double semi = config.getSemi(); 
     const double inclination = config.getInclination();
@@ -156,7 +155,7 @@ Lightcurve Application::GenerateModel(const string &xmlfilename)
 
     cout << "Planet radius: " << rPlan << " m" << endl;
     cout << "Star radius: " << rStar << " m" << endl;
-    cout << "Radius ratio: " << p << "" << endl;
+    cout << "Radius ratio: " << rPlan / rStar << "" << endl;
     cout << "Period: " << period << " seconds" << endl;
     cout << "Semi-axis: " << semi << " m " << endl;
     cout << "Inclination: " << inclination << " rad" << endl;
@@ -166,8 +165,6 @@ Lightcurve Application::GenerateModel(const string &xmlfilename)
     cout << "Transit mid point: " << midpoint << endl;
     cout << "Simulated noise: " << noise * 100. << "%" << endl;
 
-    /* set up the random number generator */
-    Normaldev_BM randGenerator(0., 1., time(NULL));
 
 
 
@@ -180,14 +177,7 @@ Lightcurve Application::GenerateModel(const string &xmlfilename)
     assert(coeffs[0] > 0.);
 
 
-    double normalisedDistance = semi / rStar;
-    cout << "Normalisation constant: " << normalisedDistance << endl;
-    double omega = calcOmega(coeffs);
-    double angFreq = 2. * M_PI / period;
-    cout << "Angular frequency: " << angFreq << " rad per sec" << endl;
 
-    /* get the cosine of the inclination */
-    double cosi = cos(inclination);
 
 
 
@@ -201,91 +191,14 @@ Lightcurve Application::GenerateModel(const string &xmlfilename)
         time.push_back(t);
     }
 
-    Lightcurve lc(time.size());
-    lc.period = period;
-    lc.epoch = midpoint;
 
     
     //ofstream outfile("TransitModel.txt");
     //outfile.precision(15);
     
-    /* parallel process this part */
-#pragma omp parallel for
-    for (unsigned int i=0; i<time.size(); ++i)
-    {
-        double t = time.at(i);
-
-        /* get the normalised device coordinates */
-        double firstTerm = square(sin(angFreq * t));
-        double secondTerm = square(cosi * cos(angFreq * t));
-
-
-
-
-        double z = normalisedDistance * sqrt(firstTerm + secondTerm);
-
-        double intpart;
-        double phase = modf(t  / period , &intpart);
-        phase = phase > 0.5 ? phase - 1.0 : phase;
-
-        double F = 0;
-
-        /* Hack to make sure the secondary eclipse is not created */
-        if ((phase > -0.25) && (phase < 0.25))
-        {
-
-
-            if (z <= 1 - p)
-            {
-                F = 0.;
-                //F = 1. - square(p);
-                double norm = 1. / (4. * z * p);
-                double integral = IntegratedI(dr, coeffs, z-p, z+p);
-                integral *= norm;
-                F = 1. - (square(p) * integral / 4. / omega);
-            }
-            else if (z > 1 + p)
-            {
-                F = 1.;
-            }
-            else
-            {
-                double startPoint = z - p;
-                double a = square(startPoint);
-                double norm = 1./(1 - a);
-
-                /* Integrate the I*(z) function from startPoint to 1 */
-                double integral = IntegratedI(dr, coeffs, startPoint, 1.);
-                integral *= norm;
-
-                double insideSqrt = square(p) - square(z - 1.);
-                double sqrtVal = sqrt(insideSqrt);
-                sqrtVal *= (z - 1.);
-
-                double insideAcos = (z - 1.) / p;
-                double firstTerm = square(p) * acos(insideAcos);
-
-                F = 1. - (integral * (firstTerm - sqrtVal) / (4. * M_PI * omega));
-            }
-
-        }
-        else
-        {
-            F = 1.;
-        }
-
-        /* add the noise */
-        F += noise * randGenerator.dev();
-
-        /* append the data to the vectors */
-        lc.jd[i] = t / secondsInDay + midpoint;
-        lc.flux[i] = F;
-
-    }
-    //outfile.close();
+    /* Now calculate the lightcurve */
+    Lightcurve OutputLightcurve = GenerateSyntheticFromParams(time, period, midpoint, coeffs, semi, rPlan, rStar, inclination, dr, noise);
     
-    lc.radius = rPlan / rJup;
-    return lc;
 
 }
 
@@ -296,7 +209,6 @@ Lightcurve Application::GenerateModel(const string &xmlfilename)
  induced into this process */
 Lightcurve GenerateModel(const std::string &xmlfilename, const Lightcurve &SourceData)
 {
-    Lightcurve a(0);
     
     /* Need to get the data's time data */
     vector<double> TimeData = SourceData.jd;
@@ -311,10 +223,57 @@ Lightcurve GenerateModel(const std::string &xmlfilename, const Lightcurve &Sourc
         
     }
     
+    /* set up the conversion constants */
+    Config::Config config;
+    config.LoadFromFile(xmlfilename);
+    
+    
+    const double rPlan = config.getPlanetRadius();
+    const double rStar = config.getStarRadius();
+    
+    
+    const double period = config.getPeriod();
+    const double semi = config.getSemi(); 
+    const double inclination = config.getInclination();
+    const double maxtime = config.getMaxTime() / 2.;            // the 2 is a fudge factor
+    const double dt = config.getDT();
+    const double dr = config.getDR();
+    const double midpoint = config.getMidpoint();
+    const double noise = config.getNoise();
+    
+    cout << "Planet radius: " << rPlan << " m" << endl;
+    cout << "Star radius: " << rStar << " m" << endl;
+    cout << "Radius ratio: " << rPlan / rStar << "" << endl;
+    cout << "Period: " << period << " seconds" << endl;
+    cout << "Semi-axis: " << semi << " m " << endl;
+    cout << "Inclination: " << inclination << " rad" << endl;
+    cout << "Max simulation time: " << maxtime << " seconds" << endl;
+    cout << "Time step: " << dt << " seconds" << endl;
+    cout << "Integral step: " << dr * rSun << " m" << endl;
+    cout << "Transit mid point: " << midpoint << endl;
+    cout << "Simulated noise: " << noise * 100. << "%" << endl;
     
     
     
     
-    return a;
+    //cout << "P: " << p << endl;
+    //cout << "P^2: " << square(p) << endl;
+    const vector<double> coeffs = config.getCoeffs();
+    
+    
+    /* c0 must be greater than 0. */
+    assert(coeffs[0] > 0.);
+    
+    
+    
+    Lightcurve OutputLightcurve = GenerateSyntheticFromParams(TimeData, period, midpoint, coeffs, semi, rPlan, rStar, inclination, dr, noise);
+    
+    
+    
+    
+    
+    
+    
+    return OutputLightcurve;
 }
 
