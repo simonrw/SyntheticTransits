@@ -125,11 +125,6 @@ namespace
 
     }
     
-    /** Function to load a config file */
-    Config::Config LoadConfigFile(const string &xmlFilename)
-    {
-    }
-
     
     
 }
