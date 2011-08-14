@@ -182,6 +182,24 @@ Lightcurve Application::GenerateModel(const string &xmlfilename)
 Lightcurve GenerateModel(const std::string &xmlfilename, const Lightcurve &SourceData)
 {
     Lightcurve a(0);
+    
+    /* Need to get the data's time data */
+    vector<double> TimeData = SourceData.jd;
+    
+    /* Need to convert this to time since epoch */
+    const double DataEpoch = SourceData.epoch;
+    for (vector<double>::iterator i=TimeData.begin();
+         i!=TimeData.end();
+         ++i)
+    {
+        *i = *i - DataEpoch;
+        
+    }
+    
+    
+    
+    
+    
     return a;
 }
 
