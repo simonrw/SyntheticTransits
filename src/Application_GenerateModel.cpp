@@ -116,6 +116,7 @@ Lightcurve Application::GenerateModel(const string &xmlfilename)
 
         double F = 0;
 
+        /* Hack to make sure the secondary eclipse is not created */
         if ((phase > -0.25) && (phase < 0.25))
         {
 
