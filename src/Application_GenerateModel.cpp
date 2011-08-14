@@ -12,6 +12,18 @@
 #include <nr/gamma.h>
 #include <nr/deviates.h>
 
+namespace
+{
+    /** Local function only to this file
+     
+     does the hard number crunching part of the code 
+     so that the other functions can just interface this one */
+    Lightcurve GenerateSyntheticFromParams(double period, double midpoint, const vector<double> &coeffs, 
+                                           double semi, double rStar)
+    {
+    }
+}
+
 
 /** Create a model from the xml config file
  *
