@@ -112,6 +112,7 @@ class Application
 
     private:
 
+    Lightcurve GenerateModel(const std::string &xmlfilename, const Lightcurve &SourceData);
     Lightcurve GenerateModel(const std::string &xmlfilename);
     int ObjectIndex(const std::string &objName);
 	std::valarray<double> getHDUData(const std::string &hduname);

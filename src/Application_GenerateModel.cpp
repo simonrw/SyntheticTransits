@@ -173,3 +173,15 @@ Lightcurve Application::GenerateModel(const string &xmlfilename)
     return lc;
 
 }
+
+/** Function to generate a lightcurve given a data set
+ 
+ The input data set is required to get the phase grid coverage from the data. This way 
+ the model only needs to be exactly generated on the data's grid and no errors will be 
+ induced into this process */
+Lightcurve GenerateModel(const std::string &xmlfilename, const Lightcurve &SourceData)
+{
+    Lightcurve a(0);
+    return a;
+}
+
