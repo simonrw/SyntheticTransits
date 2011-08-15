@@ -5,6 +5,7 @@
 #include "FuncSquare.h"
 #include "FuncIntensity.h"
 #include "FuncOmega.h"
+#include "WaspDateConverter.h"
 
 #define _USESTDVECTOR_
 #include <nr/nr3.h>
@@ -213,20 +214,6 @@ Lightcurve Application::GenerateModel(const string &xmlfilename)
 Lightcurve Application::GenerateModel(const std::string &xmlfilename, const Lightcurve &SourceData)
 {
     
-    /* Need to get the data's time data */
-    vector<double> TimeData = SourceData.jd;
-    /* The time data has to be in seconds */
-    
-    /* Need to convert this to time since epoch */
-    const double DataEpoch = SourceData.epoch;
-    for (vector<double>::iterator i=TimeData.begin();
-         i!=TimeData.end();
-         ++i)
-    {
-        *i = (*i - DataEpoch) * secondsInDay;
-        
-    }
-    
     /* set up the conversion constants */
     Config::Config config;
     config.LoadFromFile(xmlfilename);
@@ -268,6 +255,36 @@ Lightcurve Application::GenerateModel(const std::string &xmlfilename, const Ligh
     /* c0 must be greater than 0. */
     assert(coeffs[0] > 0.);
     
+
+    /* Need to get the data's time data */
+    vector<double> TimeData = SourceData.jd;
+    /* The time data has to be in seconds */
+    
+    /* Need to convert this to time since epoch */
+    const double DataEpoch = midpoint;
+    if (SourceData.asWASP)
+    {
+        /* Data already in seconds so ignore */
+        for (vector<double>::iterator i=TimeData.begin();
+             i!=TimeData.end();
+             ++i)
+        {
+            *i = *i - jd2wd(DataEpoch);
+            
+        }
+    
+    }
+    else
+    {
+        for (vector<double>::iterator i=TimeData.begin();
+             i!=TimeData.end();
+             ++i)
+        {
+            *i = (*i - DataEpoch) * secondsInDay;
+            
+        }
+    }
+
     
     
     Lightcurve OutputLightcurve = GenerateSyntheticFromParams(TimeData, period, midpoint, coeffs, semi, rPlan, rStar, inclination, dr, noise);
