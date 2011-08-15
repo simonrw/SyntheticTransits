@@ -215,6 +215,7 @@ Lightcurve Application::GenerateModel(const std::string &xmlfilename, const Ligh
     
     /* Need to get the data's time data */
     vector<double> TimeData = SourceData.jd;
+    /* The time data has to be in seconds */
     
     /* Need to convert this to time since epoch */
     const double DataEpoch = SourceData.epoch;
@@ -222,7 +223,7 @@ Lightcurve Application::GenerateModel(const std::string &xmlfilename, const Ligh
          i!=TimeData.end();
          ++i)
     {
-        *i = *i - DataEpoch;
+        *i = (*i - DataEpoch) * secondsInDay;
         
     }
     
