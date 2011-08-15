@@ -187,7 +187,7 @@ int Application::go(int argc, char *argv[])
         /* TODO: Consider putting the setup into the remove transits function itself */
 
         /*  now need to add the model to the lightcurve */
-        Lightcurve AddModel = GenerateModel(addModelFilename_arg.getValue());
+        Lightcurve AddModel = GenerateModel(addModelFilename_arg.getValue(), LCRemoved);
         AddModel.asWASP = false;
         LCRemoved.period = AddModel.period;
         LCRemoved.epoch = AddModel.epoch;
@@ -314,7 +314,7 @@ int Application::go(int argc, char *argv[])
                 cout << "Using model file: " << *i << endl;
                 CopyObject(InsertIndex);
 
-                Lightcurve AddModel = GenerateModel(*i);
+                Lightcurve AddModel = GenerateModel(*i, LCRemoved);
 
                 AddModel.asWASP = false;
                 LCRemoved.period = AddModel.period;
