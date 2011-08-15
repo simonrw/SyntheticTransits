@@ -58,7 +58,7 @@ namespace
             double z = normalisedDistance * sqrt(firstTerm + secondTerm);
             
             double intpart;
-            double phase = modf(t  / period , &intpart);
+            double phase = fabs(modf(t  / period , &intpart));
             phase = phase > 0.5 ? phase - 1.0 : phase;
             
             double F = 0;
