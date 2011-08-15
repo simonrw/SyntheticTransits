@@ -210,7 +210,7 @@ Lightcurve Application::GenerateModel(const string &xmlfilename)
  The input data set is required to get the phase grid coverage from the data. This way 
  the model only needs to be exactly generated on the data's grid and no errors will be 
  induced into this process */
-Lightcurve GenerateModel(const std::string &xmlfilename, const Lightcurve &SourceData)
+Lightcurve Application::GenerateModel(const std::string &xmlfilename, const Lightcurve &SourceData)
 {
     
     /* Need to get the data's time data */
