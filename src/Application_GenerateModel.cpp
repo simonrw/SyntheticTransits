@@ -202,7 +202,7 @@ Lightcurve Application::GenerateModel(const string &xmlfilename)
     /* Now calculate the lightcurve */
     Lightcurve OutputLightcurve = GenerateSyntheticFromParams(time, period, midpoint, coeffs, semi, rPlan, rStar, inclination, dr, noise);
     
-
+    return OutputLightcurve;
 }
 
 /** Function to generate a lightcurve given a data set
