@@ -123,8 +123,6 @@ int Application::go(int argc, char *argv[])
     /********************************************************************************* 
      * LOCATION FOR COMMON CODE TO BOTH BRANCHES
     *********************************************************************************/
-    /*  need a subtraction model whatever happens */
-    Lightcurve SubModel = GenerateModel(subModel_arg.getValue());
 
     /*  print if the object is from wasp or not */
     const bool asWASP = wasptreatment_arg.getValue();
@@ -168,6 +166,10 @@ int Application::go(int argc, char *argv[])
 
         /*  extract the flux */
         Lightcurve ChosenObject = getObject();
+        
+        /*  need a subtraction model whatever happens */
+        Lightcurve SubModel = GenerateModel(subModel_arg.getValue(), ChosenObject);
+
 
         /*  update the period and epoch */
         ChosenObject.period = SubModel.period;
@@ -266,6 +268,10 @@ int Application::go(int argc, char *argv[])
 
         /*  extract the flux */
         Lightcurve ChosenObject = getObject();
+        
+        /*  need a subtraction model whatever happens */
+        Lightcurve SubModel = GenerateModel(subModel_arg.getValue(), ChosenObject);
+
 
         /*  update the period and epoch */
         ChosenObject.period = SubModel.period;
