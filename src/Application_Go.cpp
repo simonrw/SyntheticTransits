@@ -166,6 +166,11 @@ int Application::go(int argc, char *argv[])
 
         /*  extract the flux */
         Lightcurve ChosenObject = getObject();
+
+        if (asWASP)
+            ChosenObject.asWASP = true;
+        else
+            ChosenObject.asWASP = false;
         
         /*  need a subtraction model whatever happens */
         Lightcurve SubModel = GenerateModel(subModel_arg.getValue(), ChosenObject);
@@ -175,10 +180,6 @@ int Application::go(int argc, char *argv[])
         ChosenObject.period = SubModel.period;
         ChosenObject.epoch = SubModel.epoch;
 
-        if (asWASP)
-            ChosenObject.asWASP = true;
-        else
-            ChosenObject.asWASP = false;
 
         SubModel.asWASP = false;
 
@@ -268,6 +269,11 @@ int Application::go(int argc, char *argv[])
 
         /*  extract the flux */
         Lightcurve ChosenObject = getObject();
+
+        if (asWASP)
+            ChosenObject.asWASP = true;
+        else
+            ChosenObject.asWASP = false;
         
         /*  need a subtraction model whatever happens */
         Lightcurve SubModel = GenerateModel(subModel_arg.getValue(), ChosenObject);
@@ -277,10 +283,6 @@ int Application::go(int argc, char *argv[])
         ChosenObject.period = SubModel.period;
         ChosenObject.epoch = SubModel.epoch;
 
-        if (asWASP)
-            ChosenObject.asWASP = true;
-        else
-            ChosenObject.asWASP = false;
 
         SubModel.asWASP = false;
 
