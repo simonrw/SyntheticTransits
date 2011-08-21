@@ -80,6 +80,32 @@ void CopyFileEfficiently(const string &Filename, const int nExtra, const string 
 
     /*  create the new hdu */
     Table *NewCatalogueHDU = pOutfile->addTable("CATALOGUE", nTotal, ColumnNames, ColumnFormats, ColumnUnits);
+    
+    /* Create a new hdu for the false parameters 
+     
+     Re-use the previous variables  */
+    ColumnNames.resize(0);
+    ColumnFormats.resize(0);
+    ColumnUnits.resize(0);
+    
+    ColumnNames.push_back("RPLANET");
+    ColumnNames.push_back("RSTAR");
+    ColumnNames.push_back("INCLINATION");
+    ColumnNames.push_back("PERIOD");
+    ColumnNames.push_back("EPOCH");
+    
+    for (int i=0; i<5; ++i)
+        ColumnFormats.push_back("1D");
+    
+    ColumnUnits.push_back("RJ");
+    ColumnUnits.push_back("RSun");
+    ColumnUnits.push_back("Degrees");
+    ColumnUnits.push_back("Days");
+    ColumnUnits.push_back("JD");
+    
+    pOutfile->addTable("SYNTHETICS", nTotal, ColumnNames, ColumnFormats, ColumnUnits);
+    
+    
 
 
 
