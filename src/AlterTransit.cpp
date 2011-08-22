@@ -1,6 +1,8 @@
 #include "AlterTransit.h"
 #include "SortedIndex.h"
+#include "CopyParameters.h"
 #include <vector>
+
 
 using namespace std;
 
@@ -29,6 +31,10 @@ Lightcurve RemoveTransit(Lightcurve &data, Lightcurve &model)
     
     /*  set up the output values initially as a copy of the input data */
     Lightcurve output = data;
+
+    /* Update the physical parameters */
+    CopyParameters(model, output);
+
     
     Linear_interp interpolator(SortedPhaseOnly, SortedModelOnly);
 
@@ -121,6 +127,9 @@ Lightcurve AddTransit(Lightcurve &data, Lightcurve &model)
     
     /*  set up the output values initially as a copy of the input data */
     Lightcurve output = data;
+
+    /* Update the physical parameters */
+    CopyParameters(model, output);
     
     Linear_interp interpolator(SortedPhaseOnly, SortedModelOnly);
 
