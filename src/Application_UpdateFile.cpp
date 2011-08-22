@@ -15,6 +15,7 @@ void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
     const string FluxHDUName = "FLUX";
     ExtHDU &fluxHDU = mInfile->extension(FluxHDUName);
     ExtHDU &CatalogueHDU = mInfile->extension("CATALOGUE");
+    ExtHDU &SyntheticHDU = mInfile->extension("SYNTHETICS");
     const long nFrames = fluxHDU.axis(0);
     
     /*  have to create a valarray for writing */
@@ -47,10 +48,23 @@ void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
     if (status) throw FitsioException(status);
 
     /*  now update the catalgogue flux_mean parameter */
-    vector<double> FluxMeanData(1);
-    FluxMeanData[0] = MeanFlux;
+    vector<double> ColumnBuffer(1);
+    ColumnBuffer[0] = MeanFlux;
 
-    CatalogueHDU.column("FLUX_MEAN").write(FluxMeanData, TargetIndex+1);
+    CatalogueHDU.column("FLUX_MEAN").write(ColumnBuffer, TargetIndex+1);
+    
+    /* Update the synthetics columns */
+    ColumnBuffer[0] = lc.radius;
+    SyntheticHDU.column("RPLANET").write(ColumnBuffer, TargetIndex+1);
+    ColumnBuffer[0] = lc.rstar;
+    SyntheticHDU.column("RSTAR").write(ColumnBuffer, TargetIndex+1);
+    ColumnBuffer[0] = lc.inclination;
+    SyntheticHDU.column("INCLINATION").write(ColumnBuffer, TargetIndex+1);
+    ColumnBuffer[0] = lc.period;
+    SyntheticHDU.column("PERIOD").write(ColumnBuffer, TargetIndex+1);
+    ColumnBuffer[0] = lc.epoch;
+    SyntheticHDU.column("EPOCH").write(ColumnBuffer, TargetIndex+1);
+
 
     /*  set the object name to be its radius plus it's original identifier */
     char ObjID[26];
