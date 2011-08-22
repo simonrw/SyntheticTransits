@@ -39,6 +39,11 @@ Lightcurve &Lightcurve::operator=(const Lightcurve &obj)
     /*  orbital information */
     period = obj.period;
     epoch = obj.epoch;
+    radius = obj.radius;
+    rstar = obj.rstar;
+    inclination = obj.inclination;
+    obj_id = obj.obj_id;
+
     
     asWASP = obj.asWASP;
     
