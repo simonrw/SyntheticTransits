@@ -60,7 +60,7 @@ void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
     SyntheticHDU.column("RPLANET").write(ColumnBuffer, TargetIndex+1);
     ColumnBuffer[0] = lc.rstar / rSun;
     SyntheticHDU.column("RSTAR").write(ColumnBuffer, TargetIndex+1);
-    ColumnBuffer[0] = lc.inclination;
+    ColumnBuffer[0] = lc.inclination * degreesInRadian;
     SyntheticHDU.column("INCLINATION").write(ColumnBuffer, TargetIndex+1);
     ColumnBuffer[0] = lc.period / secondsInDay;
     SyntheticHDU.column("PERIOD").write(ColumnBuffer, TargetIndex+1);
