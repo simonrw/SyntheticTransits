@@ -26,6 +26,15 @@ public:
 
     /** Radius (Jupiter radii) */
     double radius;
+    
+    /** Stellar radius (Solar radii) */
+    double rstar;
+    
+    /** Orbital separation (AU) */
+    double sep;
+    
+    /** Inclination (degreees) */
+    double inclination;
 
 
 	/**	Point of mid transit (days) */
