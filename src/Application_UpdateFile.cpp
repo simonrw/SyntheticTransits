@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "Exceptions.h"
 #include "ObjectSkipDefs.h"
+#include "constants.h"
 
 using namespace std;
 using namespace CCfits;
@@ -54,13 +55,13 @@ void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
     CatalogueHDU.column("FLUX_MEAN").write(ColumnBuffer, TargetIndex+1);
     
     /* Update the synthetics columns */
-    ColumnBuffer[0] = lc.radius;
+    ColumnBuffer[0] = lc.radius / rJup;
     SyntheticHDU.column("RPLANET").write(ColumnBuffer, TargetIndex+1);
-    ColumnBuffer[0] = lc.rstar;
+    ColumnBuffer[0] = lc.rstar / rSun;
     SyntheticHDU.column("RSTAR").write(ColumnBuffer, TargetIndex+1);
     ColumnBuffer[0] = lc.inclination;
     SyntheticHDU.column("INCLINATION").write(ColumnBuffer, TargetIndex+1);
-    ColumnBuffer[0] = lc.period;
+    ColumnBuffer[0] = lc.period / secondsInDay;
     SyntheticHDU.column("PERIOD").write(ColumnBuffer, TargetIndex+1);
     ColumnBuffer[0] = lc.epoch;
     SyntheticHDU.column("EPOCH").write(ColumnBuffer, TargetIndex+1);
