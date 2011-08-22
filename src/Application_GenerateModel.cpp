@@ -6,6 +6,7 @@
 #include "FuncIntensity.h"
 #include "FuncOmega.h"
 #include "WaspDateConverter.h"
+#include "CopyParameters.h"
 
 #define _USESTDVECTOR_
 #include <nr/nr3.h>
@@ -204,11 +205,7 @@ Lightcurve Application::GenerateModel(const string &xmlfilename)
     Lightcurve OutputLightcurve = GenerateSyntheticFromParams(time, period, midpoint, coeffs, semi, rPlan, rStar, inclination, dr, noise);
     
     /* Update the lightcurve's parameters */
-    OutputLightcurve.period = period;
-    OutputLightcurve.radius = rPlan;
-    OutputLightcurve.rstar = rStar;
-    OutputLightcurve.sep = semi;
-    OutputLightcurve.inclination = inclination;
+    CopyParameters(OutputLightcurve, period, midpoint, rPlan, rStar, inclination);
     
     return OutputLightcurve;
 }
@@ -297,11 +294,7 @@ Lightcurve Application::GenerateModel(const std::string &xmlfilename, const Ligh
     Lightcurve OutputLightcurve = GenerateSyntheticFromParams(TimeData, period, midpoint, coeffs, semi, rPlan, rStar, inclination, dr, noise);
     
     /* Update the lightcurve's parameters */
-    OutputLightcurve.period = period;
-    OutputLightcurve.radius = rPlan;
-    OutputLightcurve.rstar = rStar;
-    OutputLightcurve.sep = semi;
-    OutputLightcurve.inclination = inclination;
+    CopyParameters(OutputLightcurve, period, midpoint, rPlan, rStar, inclination);
 
     
     
