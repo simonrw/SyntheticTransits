@@ -7,3 +7,4 @@ WASP12Noisy.dat
 debug/*.fits
 models
 modellist.txt
+Candidates.db
