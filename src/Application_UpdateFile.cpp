@@ -1,4 +1,5 @@
 #include "Application.h"
+#include <sstream>
 #include "Exceptions.h"
 #include "ObjectSkipDefs.h"
 #include "constants.h"
@@ -68,10 +69,10 @@ void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
 
 
     /*  set the object name to be its radius plus it's original identifier */
-    char ObjID[26];
-    sprintf(ObjID, "R=%.3lf", lc.radius);
+    //char ObjID[26];
+    //sprintf(ObjID, "R=%.3lf", lc.radius);
     vector<string> IDData;
-    IDData.push_back(string(ObjID));
+    IDData.push_back(lc.obj_id);
 
     try
     {
