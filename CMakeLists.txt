@@ -39,7 +39,12 @@ aux_source_directory(
     SRCS
     )
 
-add_executable(${TARGET} ${SRCS})
+aux_source_directory(
+    ${${TARGET}_SOURCE_DIR}/include
+    HDRS
+    )
+
+add_executable(${TARGET} ${SRCS} ${HDRS})
 
 target_link_libraries(
    ${TARGET}
