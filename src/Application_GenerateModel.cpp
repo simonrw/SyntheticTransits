@@ -203,6 +203,13 @@ Lightcurve Application::GenerateModel(const string &xmlfilename)
     /* Now calculate the lightcurve */
     Lightcurve OutputLightcurve = GenerateSyntheticFromParams(time, period, midpoint, coeffs, semi, rPlan, rStar, inclination, dr, noise);
     
+    /* Update the lightcurve's parameters */
+    OutputLightcurve.period = period;
+    OutputLightcurve.radius = rPlan;
+    OutputLightcurve.rstar = rStar;
+    OutputLightcurve.sep = semi;
+    OutputLightcurve.inclination = inclination;
+    
     return OutputLightcurve;
 }
 
@@ -289,7 +296,13 @@ Lightcurve Application::GenerateModel(const std::string &xmlfilename, const Ligh
     
     Lightcurve OutputLightcurve = GenerateSyntheticFromParams(TimeData, period, midpoint, coeffs, semi, rPlan, rStar, inclination, dr, noise);
     
-    
+    /* Update the lightcurve's parameters */
+    OutputLightcurve.period = period;
+    OutputLightcurve.radius = rPlan;
+    OutputLightcurve.rstar = rStar;
+    OutputLightcurve.sep = semi;
+    OutputLightcurve.inclination = inclination;
+
     
     
     
