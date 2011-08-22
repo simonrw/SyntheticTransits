@@ -68,9 +68,7 @@ void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
     SyntheticHDU.column("EPOCH").write(ColumnBuffer, TargetIndex+1);
 
 
-    /*  set the object name to be its radius plus it's original identifier */
-    //char ObjID[26];
-    //sprintf(ObjID, "R=%.3lf", lc.radius);
+    /* Set the object's identifier to the original object's identifier */
     vector<string> IDData;
     IDData.push_back(lc.obj_id);
 
