@@ -23,6 +23,7 @@
 #include "CopyFileEfficiently.h"
 #include "ValidXML.h"
 #include "ObjectSkipDefs.h"
+#include "CopyParameters.h"
 
 
 
@@ -342,10 +343,12 @@ int Application::go(int argc, char *argv[])
                 Lightcurve AddModel = GenerateModel(*i, LCRemoved);
 
                 AddModel.asWASP = false;
-                LCRemoved.period = AddModel.period;
-                LCRemoved.epoch = AddModel.epoch;
+                //LCRemoved.period = AddModel.period;
+                //LCRemoved.epoch = AddModel.epoch;
+                CopyParameters(AddModel, LCRemoved);
                 Lightcurve SyntheticLightcurve = AddTransit(LCRemoved, AddModel);
-                SyntheticLightcurve.radius = AddModel.radius;
+                CopyParameters(LCRemoved, SyntheticLightcurve);
+                //SyntheticLightcurve.radius = AddModel.radius;
 
                 /*  set the data to the new value */
                 UpdateFile(SyntheticLightcurve, InsertIndex);
