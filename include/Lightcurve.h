@@ -4,6 +4,8 @@
 #define _H_LIGHTCURVE_H_
 
 #include <vector>
+#include <string>
+
 
 /** Lightcurve class which stores information about a single object
  *
@@ -15,6 +17,9 @@ class Lightcurve
     size_t npts;
 
 public:
+
+    /** Original wasp id */
+    std::string obj_id;
 
 
 	/**	Orbital period (days)*/

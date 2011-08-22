@@ -6,7 +6,7 @@ using namespace std;
 
 Lightcurve::Lightcurve(size_t n)
 : npts(n), period(0), epoch(0), radius(0), rstar(0),
-inclination(0), sep(0)
+inclination(0), sep(0), obj_id("")
 {
     this->jd = vector<double>(n);
     this->flux = vector<double>(n);
