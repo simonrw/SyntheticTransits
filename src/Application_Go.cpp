@@ -144,6 +144,10 @@ int Application::go(int argc, char *argv[])
     /********************************************************************************* 
      * LOCATION FOR COMMON CODE TO BOTH BRANCHES
     *********************************************************************************/
+    
+    string ObjectName = ObjectFromXML(subModel_arg.getValue());
+    cout << "Object name: " << ObjectName << endl;
+
 
     /*  print if the object is from wasp or not */
     const bool asWASP = wasptreatment_arg.getValue();
@@ -182,8 +186,7 @@ int Application::go(int argc, char *argv[])
         fptr = mInfile->fitsPointer();
 
         /*  get the desired index */
-        mObjectIndex = ObjectIndex(ObjectFromXML(subModel_arg.getValue()));
-        cout << "Object found at index: " << mObjectIndex << endl;
+        mObjectIndex = ObjectIndex(ObjectName);
 
         /*  extract the flux */
         Lightcurve ChosenObject = getObject();
@@ -281,8 +284,7 @@ int Application::go(int argc, char *argv[])
         fptr = mInfile->fitsPointer();
 
         /*  get the desired index */
-        mObjectIndex = ObjectIndex(ObjectFromXML(subModel_arg.getValue()));
-        cout << "Object found at index: " << mObjectIndex << endl;
+        mObjectIndex = ObjectIndex(ObjectName);
 
         /*  need to update the object's skipdet column value */
         vector<unsigned int> SkipdetData(1, ad::skiptfa);
