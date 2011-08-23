@@ -126,8 +126,11 @@ void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
         /*  didn't work, probably working on NGTS prototype data so ignore */
     }
 
+
     /* Update the synthetics columns */
     ExtHDU &SyntheticHDU = mInfile->extension("SYNTHETICS");
+    ColumnBuffer[0] = mObjectIndex;
+    SyntheticHDU.column("ORIGID").write(ColumnBuffer, TargetIndex+1);
     ColumnBuffer[0] = lc.radius / rJup;
     SyntheticHDU.column("RPLANET").write(ColumnBuffer, TargetIndex+1);
     ColumnBuffer[0] = lc.rstar / rSun;
