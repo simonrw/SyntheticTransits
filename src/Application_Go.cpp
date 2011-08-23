@@ -5,6 +5,8 @@
 #include <tclap/CmdLine.h>
 #include <sstream>
 #include <fstream>
+#include <pugixml.hpp>
+
 //#include <glog/logging.h>
 
 /*  boost includes */
@@ -53,27 +55,44 @@ typedef list<string> StringList;
  * Close the file */
 
 
+namespace 
+{
+    /** Function to get the number of objects in a fits file
+     *
+     * Static funciton as it's only required in the Application::go() method */
+    int getNObjects(const string &filename)
+    {
+        int nObjects = -1;
+        /*  assume the number of objects is just the number of entries in the
+         *  catalogue hdu */
+        auto_ptr<FITS> pInfile(new FITS(filename, Read));
+        
+        ExtHDU &CatalogueHDU = pInfile->extension("CATALOGUE");
+        nObjects = CatalogueHDU.rows();
+        
+        return nObjects;
+    }
+    
+    /** Function to get the object name from an xml file */
+    string ObjectFromXML(const string &xmlfilename)
+    {
+        using namespace pugi;
+        xml_document doc;
+        xml_parse_result result = doc.load_file(xmlfilename.c_str());
+        
+        /* Move down the tree until the info -> star -> obj_id -> value is retrieved */
+        string ObjectName = doc.child("info").child("star").child("obj_id").attribute("value").value();
+        return ObjectName;
+        
+    }
 
     
 }
 
 
 
-/** Function to get the number of objects in a fits file
- *
- * Static funciton as it's only required in the Application::go() method */
-int getNObjects(const string &filename)
-{
-    int nObjects = -1;
-    /*  assume the number of objects is just the number of entries in the
-     *  catalogue hdu */
-    auto_ptr<FITS> pInfile(new FITS(filename, Read));
 
-    ExtHDU &CatalogueHDU = pInfile->extension("CATALOGUE");
-    nObjects = CatalogueHDU.rows();
 
-    return nObjects;
-}
 
 
 
