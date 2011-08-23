@@ -182,7 +182,7 @@ int Application::go(int argc, char *argv[])
         fptr = mInfile->fitsPointer();
 
         /*  get the desired index */
-        mObjectIndex = ObjectIndex(objectid_arg.getValue());
+        mObjectIndex = ObjectIndex(ObjectFromXML(subModel_arg.getValue()));
         cout << "Object found at index: " << mObjectIndex << endl;
 
         /*  extract the flux */
@@ -281,7 +281,7 @@ int Application::go(int argc, char *argv[])
         fptr = mInfile->fitsPointer();
 
         /*  get the desired index */
-        mObjectIndex = ObjectIndex(objectid_arg.getValue());
+        mObjectIndex = ObjectIndex(ObjectFromXML(subModel_arg.getValue()));
         cout << "Object found at index: " << mObjectIndex << endl;
 
         /*  need to update the object's skipdet column value */
