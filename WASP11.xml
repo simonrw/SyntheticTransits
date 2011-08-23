@@ -15,6 +15,7 @@ The details here are for WASP-11b
     </planet>
     <star id="0">
         <radius val="0.74"  units="rsun"/>
+        <obj_id val="1SWASP J030928.54+304024.7" units="none"/>
     </star>
 	<orbit>
 		<period val="3.722469" units="days" />
