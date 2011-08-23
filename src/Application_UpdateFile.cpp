@@ -3,6 +3,7 @@
 #include "Exceptions.h"
 #include "ObjectSkipDefs.h"
 #include "constants.h"
+#include <stdexcept>
 
 using namespace std;
 using namespace CCfits;
@@ -10,6 +11,57 @@ using namespace CCfits;
 namespace ad = AlterDetrending;
 
 
+
+namespace
+{
+    int NCHARS = 26;
+
+    vector<string> &split(const string &s, char delim, vector<string> &elems) {
+        stringstream ss(s);
+        string item;
+        while(getline(ss, item, delim)) {
+            elems.push_back(item);
+        }
+        return elems;
+    }
+
+
+    vector<string> split(const string &s, char delim) {
+        vector<string> elems;
+        return split(s, delim, elems);
+    }
+
+
+    /** Function to change the wasp id to something unique */
+    string ChangeName(const string &obj_id)
+    {
+        /* Split the string at the character J to get the coordinates */
+        vector<string> IDParts = split(obj_id, 'J');
+
+        /* Check that 2 parts are returned */
+        if (IDParts.size() != 2)
+        {
+            throw runtime_error("Invalid WASP id passed");
+        }
+
+        const string &Coords = IDParts[1];
+
+
+        stringstream ss;
+        ss << "1SYNTH J" << Coords;
+
+        string NewName = ss.str();
+
+        /* Check that there are no remaining characters */
+        if ((NCHARS - NewName.size()) < 0)
+        {
+            throw runtime_error("Invalid name constructed - will not fit into column");
+        }
+
+
+        return NewName;
+    }
+}
 
 void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
 {
