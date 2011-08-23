@@ -81,7 +81,7 @@ namespace
         xml_parse_result result = doc.load_file(xmlfilename.c_str());
         
         /* Move down the tree until the info -> star -> obj_id -> value is retrieved */
-        string ObjectName = doc.child("info").child("star").child("obj_id").attribute("value").value();
+        string ObjectName = doc.child("info").child("star").child("obj_id").attribute("val").value();
         return ObjectName;
         
     }
