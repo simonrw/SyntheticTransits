@@ -88,15 +88,19 @@ void CopyFileEfficiently(const string &Filename, const int nExtra, const string 
     ColumnFormats.resize(0);
     ColumnUnits.resize(0);
     
+    ColumnNames.push_back("ORIGID");
     ColumnNames.push_back("RPLANET");
     ColumnNames.push_back("RSTAR");
     ColumnNames.push_back("INCLINATION");
     ColumnNames.push_back("PERIOD");
     ColumnNames.push_back("EPOCH");
+
+    ColumnFormats.push_back("1J");
     
     for (int i=0; i<5; ++i)
         ColumnFormats.push_back("1D");
     
+    ColumnUnits.push_back("");
     ColumnUnits.push_back("RJ");
     ColumnUnits.push_back("RSun");
     ColumnUnits.push_back("Degrees");
