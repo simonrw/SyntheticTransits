@@ -113,7 +113,9 @@ void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
     //sprintf(ObjID, "%s", lc.obj_id.c_str());
     //sprintf(ObjID, "%s", lc.obj_id.c_str());
     vector<string> IDData;
-    IDData.push_back(lc.obj_id);
+
+    /* Use the new name */
+    IDData.push_back(ChangeName(lc.obj_id));
 
     try
     {
