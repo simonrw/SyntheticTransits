@@ -17,7 +17,6 @@ void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
     const string FluxHDUName = "FLUX";
     ExtHDU &fluxHDU = mInfile->extension(FluxHDUName);
     ExtHDU &CatalogueHDU = mInfile->extension("CATALOGUE");
-    ExtHDU &SyntheticHDU = mInfile->extension("SYNTHETICS");
     const long nFrames = fluxHDU.axis(0);
     
     /*  have to create a valarray for writing */
@@ -55,20 +54,12 @@ void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
 
     CatalogueHDU.column("FLUX_MEAN").write(ColumnBuffer, TargetIndex+1);
     
-    /* Update the synthetics columns */
-    ColumnBuffer[0] = lc.radius / rJup;
-    SyntheticHDU.column("RPLANET").write(ColumnBuffer, TargetIndex+1);
-    ColumnBuffer[0] = lc.rstar / rSun;
-    SyntheticHDU.column("RSTAR").write(ColumnBuffer, TargetIndex+1);
-    ColumnBuffer[0] = lc.inclination * degreesInRadian;
-    SyntheticHDU.column("INCLINATION").write(ColumnBuffer, TargetIndex+1);
-    ColumnBuffer[0] = lc.period / secondsInDay;
-    SyntheticHDU.column("PERIOD").write(ColumnBuffer, TargetIndex+1);
-    ColumnBuffer[0] = lc.epoch;
-    SyntheticHDU.column("EPOCH").write(ColumnBuffer, TargetIndex+1);
 
 
     /* Set the object's identifier to the original object's identifier */
+    //char ObjID[26];
+    //sprintf(ObjID, "%s", lc.obj_id.c_str());
+    //sprintf(ObjID, "%s", lc.obj_id.c_str());
     vector<string> IDData;
     IDData.push_back(lc.obj_id);
 
@@ -80,6 +71,19 @@ void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
     {
         /*  didn't work, probably working on NGTS prototype data so ignore */
     }
+
+    /* Update the synthetics columns */
+    ExtHDU &SyntheticHDU = mInfile->extension("SYNTHETICS");
+    ColumnBuffer[0] = lc.radius / rJup;
+    SyntheticHDU.column("RPLANET").write(ColumnBuffer, TargetIndex+1);
+    ColumnBuffer[0] = lc.rstar / rSun;
+    SyntheticHDU.column("RSTAR").write(ColumnBuffer, TargetIndex+1);
+    ColumnBuffer[0] = lc.inclination * degreesInRadian;
+    SyntheticHDU.column("INCLINATION").write(ColumnBuffer, TargetIndex+1);
+    ColumnBuffer[0] = lc.period / secondsInDay;
+    SyntheticHDU.column("PERIOD").write(ColumnBuffer, TargetIndex+1);
+    ColumnBuffer[0] = lc.epoch;
+    SyntheticHDU.column("EPOCH").write(ColumnBuffer, TargetIndex+1);
 
     /* need to update the skipdet column */
     Column &SkipdetCol = CatalogueHDU.column("SKIPDET");
