@@ -115,7 +115,14 @@ void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
     vector<string> IDData;
 
     /* Use the new name */
-    IDData.push_back(ChangeName(lc.obj_id));
+    try
+    {
+        IDData.push_back(ChangeName(lc.obj_id));
+    }
+    catch (runtime_error &e)
+    {
+        /* Probably using ngts file */
+    }
 
     try
     {
