@@ -176,6 +176,10 @@ void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
     DoubleBuffer[0] = (lc.radius / lc.rstar) * (lc.radius / lc.rstar);
     CatalogueHDU.column("FAKE_DEPTH").write(DoubleBuffer, TargetIndex+1);
 
+    /* and the width */
+    DoubleBuffer[0] = WidthFromParams(lc);
+    CatalogueHDU.column("FAKE_WIDTH").write(DoubleBuffer, TargetIndex+1);
+
 
 
     /* Update the synthetics columns */

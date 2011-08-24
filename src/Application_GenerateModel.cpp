@@ -205,7 +205,7 @@ Lightcurve Application::GenerateModel(const string &xmlfilename)
     Lightcurve OutputLightcurve = GenerateSyntheticFromParams(time, period, midpoint, coeffs, semi, rPlan, rStar, inclination, dr, noise);
     
     /* Update the lightcurve's parameters */
-    CopyParameters(OutputLightcurve, period, midpoint, rPlan, rStar, inclination);
+    CopyParameters(OutputLightcurve, period, midpoint, rPlan, rStar, inclination, semi);
     
     return OutputLightcurve;
 }
@@ -294,7 +294,7 @@ Lightcurve Application::GenerateModel(const std::string &xmlfilename, const Ligh
     Lightcurve OutputLightcurve = GenerateSyntheticFromParams(TimeData, period, midpoint, coeffs, semi, rPlan, rStar, inclination, dr, noise);
     
     /* Update the lightcurve's parameters */
-    CopyParameters(OutputLightcurve, period, midpoint, rPlan, rStar, inclination);
+    CopyParameters(OutputLightcurve, period, midpoint, rPlan, rStar, inclination, semi);
 
     
     
