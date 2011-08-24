@@ -135,19 +135,19 @@ void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
 
 
     /* Update the synthetics columns */
-    ExtHDU &SyntheticHDU = mInfile->extension("SYNTHETICS");
-    ColumnBuffer[0] = mObjectIndex;
-    SyntheticHDU.column("ORIGID").write(ColumnBuffer, TargetIndex+1);
-    ColumnBuffer[0] = lc.radius / rJup;
-    SyntheticHDU.column("RPLANET").write(ColumnBuffer, TargetIndex+1);
-    ColumnBuffer[0] = lc.rstar / rSun;
-    SyntheticHDU.column("RSTAR").write(ColumnBuffer, TargetIndex+1);
-    ColumnBuffer[0] = lc.inclination * degreesInRadian;
-    SyntheticHDU.column("INCLINATION").write(ColumnBuffer, TargetIndex+1);
-    ColumnBuffer[0] = lc.period / secondsInDay;
-    SyntheticHDU.column("PERIOD").write(ColumnBuffer, TargetIndex+1);
-    ColumnBuffer[0] = lc.epoch;
-    SyntheticHDU.column("EPOCH").write(ColumnBuffer, TargetIndex+1);
+//    ExtHDU &SyntheticHDU = mInfile->extension("SYNTHETICS");
+//    ColumnBuffer[0] = mObjectIndex;
+//    SyntheticHDU.column("ORIGID").write(ColumnBuffer, TargetIndex+1);
+//    ColumnBuffer[0] = lc.radius / rJup;
+//    SyntheticHDU.column("RPLANET").write(ColumnBuffer, TargetIndex+1);
+//    ColumnBuffer[0] = lc.rstar / rSun;
+//    SyntheticHDU.column("RSTAR").write(ColumnBuffer, TargetIndex+1);
+//    ColumnBuffer[0] = lc.inclination * degreesInRadian;
+//    SyntheticHDU.column("INCLINATION").write(ColumnBuffer, TargetIndex+1);
+//    ColumnBuffer[0] = lc.period / secondsInDay;
+//    SyntheticHDU.column("PERIOD").write(ColumnBuffer, TargetIndex+1);
+//    ColumnBuffer[0] = lc.epoch;
+//    SyntheticHDU.column("EPOCH").write(ColumnBuffer, TargetIndex+1);
 
     /* need to update the skipdet column */
     Column &SkipdetCol = CatalogueHDU.column("SKIPDET");
