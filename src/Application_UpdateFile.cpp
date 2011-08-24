@@ -3,6 +3,7 @@
 #include "Exceptions.h"
 #include "ObjectSkipDefs.h"
 #include "constants.h"
+#include "WaspDateConverter.h"
 #include <stdexcept>
 
 using namespace std;
@@ -61,6 +62,29 @@ namespace
 
         return NewName;
     }
+
+    double WidthFromParams(const Lightcurve &lc)
+    {
+        /* Returns the width of the full transit based on some lc parameters
+         *
+         * \frac{P}{\pi} \asin{\sqrt{(\frac{R_P + R_S}{a})^2 - \cos^2 i}}
+         */
+        const double Norm = lc.period / M_PI;
+        if (lc.sep == 0)
+        {
+            /* Something hasn't updated the separation */
+            return 0;
+        }
+
+        double FirstTerm = (lc.radius + lc.rstar) / lc.sep;
+
+        /* Square it */
+        FirstTerm *= FirstTerm;
+
+        const double InsideSqrt = FirstTerm - cos(lc.inclination);
+        return Norm * asin(sqrt(InsideSqrt));
+
+    }
 }
 
 void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
@@ -101,10 +125,11 @@ void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
     if (status) throw FitsioException(status);
 
     /*  now update the catalgogue flux_mean parameter */
-    vector<double> ColumnBuffer(1);
-    ColumnBuffer[0] = MeanFlux;
+    vector<double> DoubleBuffer(1);
+    vector<double> IntBuffer(1);
+    DoubleBuffer[0] = MeanFlux;
 
-    CatalogueHDU.column("FLUX_MEAN").write(ColumnBuffer, TargetIndex+1);
+    CatalogueHDU.column("FLUX_MEAN").write(DoubleBuffer, TargetIndex+1);
     
 
 
@@ -133,21 +158,40 @@ void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
         /*  didn't work, probably working on NGTS prototype data so ignore */
     }
 
+    /* Now update the catalogue fake- columns */
+    DoubleBuffer[0] = lc.radius;
+    CatalogueHDU.column("FAKE_RP").write(DoubleBuffer, TargetIndex+1);
+    DoubleBuffer[0] = lc.rstar;
+    CatalogueHDU.column("FAKE_RS").write(DoubleBuffer, TargetIndex+1);
+    DoubleBuffer[0] = lc.period;
+    CatalogueHDU.column("FAKE_PERIOD").write(DoubleBuffer, TargetIndex+1);
+    DoubleBuffer[0] = lc.sep;
+    CatalogueHDU.column("FAKE_A").write(DoubleBuffer, TargetIndex+1);
+    DoubleBuffer[0] = lc.inclination * degreesInRadian;
+    CatalogueHDU.column("FAKE_I").write(DoubleBuffer, TargetIndex+1);
+    IntBuffer[0] = jd2wd(lc.epoch);
+    CatalogueHDU.column("FAKE_EPOCH").write(DoubleBuffer, TargetIndex+1);
+
+    /* Calculate the depth */
+    DoubleBuffer[0] = (lc.radius / lc.rstar) * (lc.radius / lc.rstar);
+    CatalogueHDU.column("FAKE_DEPTH").write(DoubleBuffer, TargetIndex+1);
+
+
 
     /* Update the synthetics columns */
 //    ExtHDU &SyntheticHDU = mInfile->extension("SYNTHETICS");
-//    ColumnBuffer[0] = mObjectIndex;
-//    SyntheticHDU.column("ORIGID").write(ColumnBuffer, TargetIndex+1);
-//    ColumnBuffer[0] = lc.radius / rJup;
-//    SyntheticHDU.column("RPLANET").write(ColumnBuffer, TargetIndex+1);
-//    ColumnBuffer[0] = lc.rstar / rSun;
-//    SyntheticHDU.column("RSTAR").write(ColumnBuffer, TargetIndex+1);
-//    ColumnBuffer[0] = lc.inclination * degreesInRadian;
-//    SyntheticHDU.column("INCLINATION").write(ColumnBuffer, TargetIndex+1);
-//    ColumnBuffer[0] = lc.period / secondsInDay;
-//    SyntheticHDU.column("PERIOD").write(ColumnBuffer, TargetIndex+1);
-//    ColumnBuffer[0] = lc.epoch;
-//    SyntheticHDU.column("EPOCH").write(ColumnBuffer, TargetIndex+1);
+//    DoubleBuffer[0] = mObjectIndex;
+//    SyntheticHDU.column("ORIGID").write(DoubleBuffer, TargetIndex+1);
+//    DoubleBuffer[0] = lc.radius / rJup;
+//    SyntheticHDU.column("RPLANET").write(DoubleBuffer, TargetIndex+1);
+//    DoubleBuffer[0] = lc.rstar / rSun;
+//    SyntheticHDU.column("RSTAR").write(DoubleBuffer, TargetIndex+1);
+//    DoubleBuffer[0] = lc.inclination * degreesInRadian;
+//    SyntheticHDU.column("INCLINATION").write(DoubleBuffer, TargetIndex+1);
+//    DoubleBuffer[0] = lc.period / secondsInDay;
+//    SyntheticHDU.column("PERIOD").write(DoubleBuffer, TargetIndex+1);
+//    DoubleBuffer[0] = lc.epoch;
+//    SyntheticHDU.column("EPOCH").write(DoubleBuffer, TargetIndex+1);
 
     /* need to update the skipdet column */
     Column &SkipdetCol = CatalogueHDU.column("SKIPDET");
