@@ -82,6 +82,21 @@ void CopyFileEfficiently(const string &Filename, const int nExtra, const string 
     ColumnFormats.push_back("1I");
     ColumnUnits.push_back("");
 
+    /* Also add the fake transits columns
+     *
+     * need:
+     *  rplanet
+     *  rstar
+     *  -> depth
+     *  separation
+     *  inclination
+     *  period (sec)
+     *  -> width (sec)
+     *  -> epoch (sec)
+     *
+     * */
+
+
     /*  create the new hdu */
     Table *NewCatalogueHDU = pOutfile->addTable("CATALOGUE", nTotal, ColumnNames, ColumnFormats, ColumnUnits);
     
