@@ -45,6 +45,10 @@ void CopyFileEfficiently(const string &Filename, const int nExtra, const string 
      *  which is handy */
     auto_ptr<FITS> pOutfile(new FITS(OutputFilename.c_str(), *(pInfile.get())));
 
+    /* Set the transinj keyword to true */
+    pOutfile.pHDU().addKey("TRANSINJ", true, "Contains false transits");
+
+
     /*  need to get the dimensions of the data set */
     ExtHDU &CatalogueHDU = pInfile->extension("CATALOGUE");
     ExtHDU &ImagelistHDU = pInfile->extension("IMAGELIST");
