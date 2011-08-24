@@ -96,6 +96,38 @@ void CopyFileEfficiently(const string &Filename, const int nExtra, const string 
      *
      * */
 
+    /* Start with the already defined ones */
+    ColumnNames.push_back("FAKE_PERIOD");
+    ColumnNames.push_back("FAKE_WIDTH");
+    ColumnNames.push_back("FAKE_DEPTH");
+    ColumnNames.push_back("FAKE_EPOCH");
+
+    ColumnFormats.push_back("1D");
+    ColumnFormats.push_back("1D");
+    ColumnFormats.push_back("1D");
+    ColumnFormats.push_back("1J");
+
+    ColumnUnits.push_back("sec");
+    ColumnUnits.push_back("sec");
+    ColumnUnits.push_back("");
+    ColumnUnits.push_back("sec");
+
+    /* And now the extra ones */
+    ColumnNames.push_back("FAKE_RP");
+    ColumnNames.push_back("FAKE_RS");
+    ColumnNames.push_back("FAKE_A");
+    ColumnNames.push_back("FAKE_I");
+
+    ColumnFormats.push_back("1D");
+    ColumnFormats.push_back("1D");
+    ColumnFormats.push_back("1D");
+    ColumnFormats.push_back("1D");
+
+    ColumnUnits.push_back("m");
+    ColumnUnits.push_back("m");
+    ColumnUnits.push_back("m");
+    ColumnUnits.push_back("deg");
+
 
     /*  create the new hdu */
     Table *NewCatalogueHDU = pOutfile->addTable("CATALOGUE", nTotal, ColumnNames, ColumnFormats, ColumnUnits);
