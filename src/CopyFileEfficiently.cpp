@@ -46,7 +46,7 @@ void CopyFileEfficiently(const string &Filename, const int nExtra, const string 
     auto_ptr<FITS> pOutfile(new FITS(OutputFilename.c_str(), *(pInfile.get())));
 
     /* Set the transinj keyword to true */
-    pOutfile.pHDU().addKey("TRANSINJ", true, "Contains false transits");
+    pOutfile->pHDU().addKey("TRANSINJ", true, "Contains false transits");
 
 
     /*  need to get the dimensions of the data set */
