@@ -53,7 +53,7 @@ namespace
         string NewName = ss.str();
 
         /* Check that there are no remaining characters */
-        if ((NCHARS - NewName.size()) < 0)
+        if ((NCHARS - (int)NewName.size()) < 0)
         {
             throw runtime_error("Invalid name constructed - will not fit into column");
         }
