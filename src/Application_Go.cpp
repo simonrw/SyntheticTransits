@@ -24,6 +24,7 @@
 #include "ValidXML.h"
 #include "ObjectSkipDefs.h"
 #include "CopyParameters.h"
+#include "timer.h"
 
 
 
@@ -116,7 +117,12 @@ int Application::go(int argc, char *argv[])
 
 
     cmd.parse(argc, argv);
-
+    
+    /* Start a timer */
+    Timer timer;
+    timer.start("all");
+    timer.start("config");
+    
     /*  get the system memory */
     long SystemMemory = getTotalSystemMemory();
 
@@ -163,6 +169,7 @@ int Application::go(int argc, char *argv[])
 
     /*  string for storing the filename */
     string DataFilename = output_arg.getValue();
+    timer.stop("config");
 
     /*  if the addmodel argument is not NULL and the replace argument is true
      *  then the user must specify a single model file for replacement */
@@ -179,7 +186,11 @@ int Application::go(int argc, char *argv[])
 
         /*  now copy the file across */
         /*  exclamation mark ensures the file is overwritten if it exists */
+        timer.start("filecopy");
         CopyFileEfficiently(filename_arg.getValue(), nExtra, "!" + DataFilename, MemFraction);
+        timer.stop("filecopy");
+        
+        timer.start("update");
 
         /*  now subtract the original model including the setup */
         /*  open the fits file */
@@ -278,9 +289,12 @@ int Application::go(int argc, char *argv[])
 
         /*  now copy the file across */
         /*  exclamation mark ensures the file is overwritten if it exists */
+        timer.start("filecopy");
         CopyFileEfficiently(filename_arg.getValue(), nExtra, "!" + DataFilename, MemFraction);
+        timer.stop("filecopy");
 
         /*  open the fits file */
+        timer.start("update");
         mInfile = auto_ptr<FITS>(new FITS(DataFilename, Write));
         fptr = mInfile->fitsPointer();
 
@@ -318,6 +332,7 @@ int Application::go(int argc, char *argv[])
             /*  if the add model is NULL then just update the original lightcurve 
              *  with the new flux */
             UpdateFile(LCRemoved);
+            timer.stop("update");
         }
         else
         {
@@ -368,6 +383,8 @@ int Application::go(int argc, char *argv[])
     }
 
 
+    timer.stop("update");
+    timer.stop("all");
 
 
 
