@@ -170,7 +170,7 @@ void Application::UpdateFile(const Lightcurve &lc, const int TargetIndex)
     DoubleBuffer[0] = lc.inclination * degreesInRadian;
     CatalogueHDU.column("FAKE_I").write(DoubleBuffer, TargetIndex+1);
     IntBuffer[0] = jd2wd(lc.epoch);
-    CatalogueHDU.column("FAKE_EPOCH").write(DoubleBuffer, TargetIndex+1);
+    CatalogueHDU.column("FAKE_EPOCH").write(IntBuffer, TargetIndex+1);
 
     /* Calculate the depth */
     DoubleBuffer[0] = (lc.radius / lc.rstar) * (lc.radius / lc.rstar);
