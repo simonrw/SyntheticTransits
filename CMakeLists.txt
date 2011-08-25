@@ -39,10 +39,28 @@ aux_source_directory(
     SRCS
     )
 
-aux_source_directory(
-    ${${TARGET}_SOURCE_DIR}/include
-    HDRS
-    )
+set(HDRS
+    ${${TARGET}_SOURCE_DIR}/include/AlterTransit.h
+    ${${TARGET}_SOURCE_DIR}/include/Application.h
+    ${${TARGET}_SOURCE_DIR}/include/CopyFileEfficiently.h
+    ${${TARGET}_SOURCE_DIR}/include/CopyParameters.h
+    ${${TARGET}_SOURCE_DIR}/include/Exceptions.h
+    ${${TARGET}_SOURCE_DIR}/include/FuncIntensity.h
+    ${${TARGET}_SOURCE_DIR}/include/FuncOmega.h
+    ${${TARGET}_SOURCE_DIR}/include/FuncSquare.h
+    ${${TARGET}_SOURCE_DIR}/include/GetSystemMemory.h
+    ${${TARGET}_SOURCE_DIR}/include/Lightcurve.h
+    ${${TARGET}_SOURCE_DIR}/include/ObjectSkipDefs.h
+    ${${TARGET}_SOURCE_DIR}/include/SortedIndex.h
+    ${${TARGET}_SOURCE_DIR}/include/ToStringList.h
+    ${${TARGET}_SOURCE_DIR}/include/ValidXML.h
+    ${${TARGET}_SOURCE_DIR}/include/WaspDateConverter.h
+    ${${TARGET}_SOURCE_DIR}/include/XMLParserPugi.h
+    ${${TARGET}_SOURCE_DIR}/include/config.h.in
+    ${${TARGET}_SOURCE_DIR}/include/constants.h
+    ${${TARGET}_SOURCE_DIR}/include/timer.h
+)
+
 
 add_executable(${TARGET} ${SRCS} ${HDRS})
 
