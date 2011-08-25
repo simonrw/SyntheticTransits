@@ -1,0 +1,3 @@
+[submodule "rgwtimer"]
+	path = rgwtimer
+	url = phrfbf@callahan.astro.warwick.ac.uk:gitrepos/rgwtimer.git
