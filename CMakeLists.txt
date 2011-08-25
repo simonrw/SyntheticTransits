@@ -9,7 +9,7 @@ project(${TARGET})
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} $ENV{HOME}/cmake_packages)
 
 find_package(CCfits REQUIRED)
-find_package(UnitTest++ REQUIRED)
+#find_package(UnitTest++ REQUIRED)
 #find_package(fitsio REQUIRED)
 #find_package(Qt4 COMPONENTS QtCore REQUIRED)
 find_package(Boost 1.3 COMPONENTS filesystem system REQUIRED)
@@ -26,7 +26,7 @@ include_directories(
     ${PUGIXML_INCLUDE_DIR}
    ${TCLAP_INCLUDE_DIR}
    ${Boost_INCLUDE_DIR}
-   ${UNITTESTPP_INCLUDE_DIR}
+   #${UNITTESTPP_INCLUDE_DIR}
    ${NR3_INCLUDE_DIR}
    #${GLOG_INCLUDE_DIR}
 #    ${FITSIO_INCLUDE_DIR}
@@ -48,7 +48,7 @@ add_executable(${TARGET} ${SRCS} ${HDRS})
 
 target_link_libraries(
    ${TARGET}
-   ${UNITTESTPP_LIBRARIES}
+   #${UNITTESTPP_LIBRARIES}
    ${CCFITS_LIBRARIES}
    ${PUGIXML_LIBRARIES}
    ${Boost_LIBRARIES}
