@@ -10,10 +10,6 @@ using namespace std;
 
 Lightcurve RemoveTransit(Lightcurve &data, Lightcurve &model)
 {
-    /*  set up an output file for debugging */
-    //ofstream debugoutfile("debug.dat");
-    //debugoutfile.precision(15);
-
     /*  get the phase values */
     /*  the model SHOULD NOT contain nans */
     vector<double> modelPhase = model.phase();
@@ -61,7 +57,6 @@ Lightcurve RemoveTransit(Lightcurve &data, Lightcurve &model)
     /*  now interpolate onto the data's phase grid */
     vector<double> dataPhase = data.phase();
     /*  create the output array */
-    //vector<double> LCWithFluxRemoved(data.size());
     for (size_t i=0; i<dataPhase.size(); ++i)
     {
         double InterpolatedModelValue = interpolator.interp(dataPhase[i]);
@@ -94,7 +89,6 @@ Lightcurve RemoveTransit(Lightcurve &data, Lightcurve &model)
     }
     
 
-    //debugoutfile.close();
     
         
     
@@ -106,10 +100,6 @@ Lightcurve RemoveTransit(Lightcurve &data, Lightcurve &model)
 
 Lightcurve AddTransit(Lightcurve &data, Lightcurve &model)
 {
-    /*  set up an output file for debugging */
-    //ofstream debugoutfile("debug.dat");
-    //debugoutfile.precision(15);
-
     /*  get the phase values */
     /*  the model SHOULD NOT contain nans */
     vector<double> modelPhase = model.phase();
@@ -155,8 +145,8 @@ Lightcurve AddTransit(Lightcurve &data, Lightcurve &model)
 
     /*  now interpolate onto the data's phase grid */
     vector<double> dataPhase = data.phase();
+    
     /*  create the output array */
-    //vector<double> LCWithFluxRemoved(data.size());
     for (size_t i=0; i<dataPhase.size(); ++i)
     {
         double InterpolatedModelValue = interpolator.interp(dataPhase[i]);
@@ -189,7 +179,6 @@ Lightcurve AddTransit(Lightcurve &data, Lightcurve &model)
     }
     
 
-    //debugoutfile.close();
     
         
     
@@ -217,8 +206,6 @@ Lightcurve AlterTransit(Lightcurve &data, Lightcurve &subModel, Lightcurve &addM
     
     Lightcurve LCRemoved = RemoveTransit(data, subModel);
 
-    //ofstream debugfile("Debug.dat");
-    //debugfile.precision(15);
     if (addModelFlag)
     {
 
@@ -236,11 +223,6 @@ Lightcurve AlterTransit(Lightcurve &data, Lightcurve &subModel, Lightcurve &addM
     else
     {
         /*  do not add the model, just return the LCRemoved object */
-        //for (size_t i=0; i<data.size(); ++i)
-        //{
-            //debugfile << data.jd[i] << " " << data.flux[i] << " " << LCRemoved.flux[i] << " " << endl;
-        //}
-        //debugfile.close();
         return LCRemoved;
     }
 
